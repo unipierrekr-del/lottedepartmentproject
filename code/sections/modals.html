@@ -1,0 +1,248 @@
+<!-- ═══════════════════════════════════════════════════════════
+   modals.html — 모달 & 관리자 패널
+   ---------------------------------------------------------------
+   포함 요소:
+   - Toast 알림 (#toast)
+   - 방문 예약 모달 (#vm)
+   - 디지털 패스 모달 (#dp)
+   - 상담 신청 모달 (#cm)
+   - 관리자 패널 (#ap) — 초기 비밀번호: 0000
+   - 상세 드로어 (#dd)
+═══════════════════════════════════════════════════════════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════ VISIT BOOKING MODAL ════════════ -->
+<div id="vm">
+  <div class="vm-box">
+    <div class="vm-hd">
+      <div>
+        <div class="vm-hd-k">Offline Bridge · VIP Pass Issuance</div>
+        <div class="vm-hd-t">방문 예약 &amp; 디지털 패스 발급</div>
+      </div>
+      <button class="vm-x" onclick="closeVM()">✕</button>
+    </div>
+    <div class="vm-form-view" id="vm-form">
+      <div class="vm-st">방문 정보</div>
+      <div class="vm-fg">
+        <div class="vm-f full"><div class="vm-lb">방문 날짜 *</div><input type="date" class="vm-in" id="vm-date"></div>
+        <div class="vm-f"><div class="vm-lb">방문 시간</div>
+          <select class="vm-sl" id="vm-time">
+            <option>10:30 AM</option><option>11:30 AM</option><option>1:00 PM</option>
+            <option>2:30 PM</option><option>4:00 PM</option><option>5:30 PM</option>
+          </select>
+        </div>
+        <div class="vm-f"><div class="vm-lb">방문 인원</div>
+          <select class="vm-sl" id="vm-ppl">
+            <option>1명</option><option>2명</option><option>3명</option><option>4명 이상</option>
+          </select>
+        </div>
+      </div>
+      <div class="vm-st" style="margin-top:4px">선택 패키지</div>
+      <div class="vm-pkg-sel" id="vm-pkg-sel"></div>
+      <div class="vm-st" style="margin-top:16px">담당자 정보</div>
+      <div class="vm-fg">
+        <div class="vm-f"><div class="vm-lb">회사명 *</div><input type="text" class="vm-in" id="vm-company" placeholder="예: (주)삼성전자"></div>
+        <div class="vm-f"><div class="vm-lb">담당자 *</div><input type="text" class="vm-in" id="vm-name" placeholder="이름 직함"></div>
+        <div class="vm-f"><div class="vm-lb">연락처 *</div><input type="tel" class="vm-in" id="vm-phone" placeholder="010-0000-0000"></div>
+        <div class="vm-f"><div class="vm-lb">이메일</div><input type="email" class="vm-in" id="vm-email" placeholder="email@company.com"></div>
+      </div>
+    </div>
+    <div class="vm-issued-view" id="vm-issued">
+      <div class="vm-is-icon">✓</div>
+      <div class="vm-is-t">VIP 디지털 패스가 발급되었습니다</div>
+      <p class="vm-is-d">선택하신 상품이 위치한 매장을 최적 동선으로 안내하는 워크스루 패스가 준비되었습니다.</p>
+      <div class="vm-is-no" id="vm-pass-no">DT-B2B-000000</div>
+      <button class="vm-is-open" onclick="closeVM();openDP()">패스 열기 — 워크스루 시작 →</button>
+    </div>
+    <div class="vm-ft" id="vm-ft">
+      <button class="vm-can" onclick="closeVM()">취소</button>
+      <button class="vm-sub" onclick="submitVisit()">예약 완료 &amp; 패스 발급받기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ DIGITAL PASS / WALK-THROUGH ════════════ -->
+<div id="dp">
+  <div class="dp-tb">
+    <div class="dp-tb-l">
+      <button class="dp-bk" onclick="closeDP()">나가기</button>
+      <div class="dp-tb-sep"></div>
+      <div class="dp-tb-tt">동탄점 B2B VIP 워크스루</div>
+      <div class="dp-tb-badge">VIP PASS</div>
+    </div>
+    <div class="dp-tb-r">
+      <span class="dp-tb-ti" id="dp-visit-info"></span>
+      <div class="dp-prog-pill" id="dp-prog-pill">0 / 0 완료</div>
+    </div>
+  </div>
+  <div class="dp-layout">
+    <div class="dp-sb">
+      <div class="dp-pass-card">
+        <div class="dp-pc-hd">
+          <div class="dp-pc-logo">L</div>
+          <div><div class="dp-pc-br">Lotte Dongtan</div><div class="dp-pc-sub">B2B VIP Digital Pass</div></div>
+        </div>
+        <div class="dp-qr-area"><svg id="dp-qr-svg" width="110" height="110" xmlns="http://www.w3.org/2000/svg"></svg></div>
+        <div class="dp-pc-dv"></div>
+        <div class="dp-pc-rows">
+          <div class="dp-pc-row"><span class="dp-pc-lbl">방문자</span><span class="dp-pc-val hi" id="dpc-name">—</span></div>
+          <div class="dp-pc-row"><span class="dp-pc-lbl">소속</span><span class="dp-pc-val" id="dpc-company">—</span></div>
+          <div class="dp-pc-row"><span class="dp-pc-lbl">패키지</span><span class="dp-pc-val" id="dpc-pkg">—</span></div>
+          <div class="dp-pc-row"><span class="dp-pc-lbl">방문 일시</span><span class="dp-pc-val" id="dpc-date">—</span></div>
+        </div>
+        <div class="dp-pass-no" id="dpc-no">DT-B2B-000000</div>
+      </div>
+      <div class="dp-prg-box">
+        <div class="dp-prg-lbl">워크스루 진행률</div>
+        <div class="dp-prg-track"><div class="dp-prg-fill" id="dp-prg-fill" style="width:0%"></div></div>
+        <div class="dp-prg-dots" id="dp-prg-dots"></div>
+        <div class="dp-prg-st">
+          <div><div class="dp-prg-n" id="dp-prg-n">0</div><div class="dp-prg-nl">매장 완료</div></div>
+          <div class="dp-prg-hint" id="dp-prg-hint">다음: —</div>
+        </div>
+      </div>
+    </div>
+    <div class="dp-main" id="dp-main">
+      <div class="dp-msec">
+        <div class="dp-msec-hd">
+          <div class="dp-msec-tt">동탄점 층별 동선 가이드</div>
+          <div class="dp-msec-badge" id="dp-map-badge">총 0개 매장</div>
+        </div>
+        <div class="dp-map">
+          <svg id="dp-map-svg" viewBox="0 0 580 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:380px;display:block"></svg>
+        </div>
+      </div>
+      <div class="dp-msec" style="padding-bottom:8px">
+        <div class="dp-msec-hd"><div class="dp-msec-tt">체크리스트</div></div>
+        <div class="dp-wl" id="dp-walk-list"></div>
+      </div>
+      <div class="dp-done-sec" id="dp-done-sec">
+        <div class="dp-done-ic">✓</div>
+        <div class="dp-done-t">워크스루 완료!</div>
+        <p class="dp-done-d">선택하신 모든 상품을 확인하셨습니다.<br>1층 VIP 컨시어지 데스크에서 최종 상담 및 주문을 진행해 주세요.</p>
+        <button class="dp-done-btn" onclick="closeDP();openCM()">컨시어지 상담 바로 신청하기 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ CONSULT MODAL ════════════ -->
+<div id="cm">
+  <div class="cm-box">
+    <div class="cm-hd">
+      <div><div class="cm-hdk">Concierge Consultation</div><div class="cm-hdt">컨시어지 상담 신청</div></div>
+      <button class="cm-hx" onclick="closeCM()">✕</button>
+    </div>
+    <div class="cm-bd">
+      <div class="cm-cs" id="cm-cs" style="display:none">
+        <div class="cm-cst">선택하신 큐레이션 내용</div>
+        <div class="cm-csi" id="cm-csi"></div>
+      </div>
+      <div class="cm-st">담당자 정보</div>
+      <div class="cm-fg">
+        <div class="cm-f"><label class="cm-lb">회사명 *</label><input type="text" class="cm-in" id="cm-co" placeholder="(주)삼성전자"></div>
+        <div class="cm-f"><label class="cm-lb">부서명</label><input type="text" class="cm-in" id="cm-dept" placeholder="총무팀"></div>
+        <div class="cm-f"><label class="cm-lb">담당자 성함 *</label><input type="text" class="cm-in" id="cm-nm" placeholder="김지은 대리"></div>
+        <div class="cm-f"><label class="cm-lb">연락처 *</label><input type="tel" class="cm-in" id="cm-ph" placeholder="010-0000-0000"></div>
+        <div class="cm-f"><label class="cm-lb">이메일</label><input type="email" class="cm-in" id="cm-em" placeholder="email@company.com"></div>
+        <div class="cm-f"><label class="cm-lb">희망 상담 일시</label><input type="text" class="cm-in" id="cm-dt" placeholder="예: 6월 15일 오후 2시"></div>
+        <div class="cm-f full"><label class="cm-lb">추가 요청 사항</label><textarea class="cm-in cm-ta" id="cm-mo" placeholder="기타 요청 사항을 입력해 주세요"></textarea></div>
+      </div>
+      <p style="font-size:10px;color:#bbb">* 필수 입력. 입력 정보는 상담 목적으로만 사용됩니다.</p>
+    </div>
+    <div class="cm-ft">
+      <button class="cm-can" onclick="closeCM()">취소</button>
+      <button class="cm-sub" onclick="submitCM()">상담 신청 완료하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ ADMIN PANEL ════════════ -->
+<div id="ap">
+  <div class="ap-ls" id="ap-ls">
+    <div class="ap-lg-logo">L</div>
+    <div class="ap-lg-t">관리자 로그인</div>
+    <div class="ap-lg-s">롯데백화점 동탄점 · B2B 어드민</div>
+    <div class="ap-lg-card">
+      <input type="password" class="ap-lg-in" id="ap-pw" placeholder="● ● ● ●" maxlength="10" onkeydown="if(event.key==='Enter')apLogin()">
+      <div class="ap-lg-err" id="ap-err">비밀번호가 올바르지 않습니다</div>
+      <button class="ap-lg-btn" onclick="apLogin()">로그인</button>
+      <div class="ap-lg-hint">초기 비밀번호: 0000</div>
+    </div>
+  </div>
+  <div class="ap-sh" id="ap-sh">
+    <div class="ap-top">
+      <div class="ap-top-l">
+        <div class="ap-logo">LOTTE DONGTAN</div>
+        <div class="ap-env">B2B Admin</div>
+      </div>
+      <div class="ap-top-r">
+        <span style="font-size:11px;color:#444" id="ap-clk"></span>
+        <button class="ap-out" onclick="apOut()">로그아웃</button>
+        <button class="ap-out" onclick="closeAdmin()">닫기 ✕</button>
+      </div>
+    </div>
+    <div class="ap-body">
+      <div class="ap-side">
+        <div class="ap-sst">메인</div>
+        <button class="ap-ni active" onclick="apPage('pg-dash',this)"><span class="ap-ni-ico">▦</span> 대시보드</button>
+        <div class="ap-sst">상담 관리</div>
+        <button class="ap-ni" onclick="apPage('pg-list',this)"><span class="ap-ni-ico">≡</span> 상담 신청<span class="ap-ni-bdg" id="ap-badge">0</span></button>
+        <button class="ap-ni" onclick="exportCSV()"><span class="ap-ni-ico">↓</span> CSV 내보내기</button>
+      </div>
+      <div class="ap-cont">
+        <!-- 대시보드 -->
+        <div class="ap-pg active" id="pg-dash">
+          <div class="ap-sg" id="ap-sg"></div>
+          <div class="ap-tcard">
+            <div class="ap-thd">
+              <div class="ap-thtl">최근 상담 신청</div>
+              <button class="ap-ab pri" onclick="apPage('pg-list',null)">전체 보기</button>
+            </div>
+            <div class="tbl-w">
+              <table class="atbl">
+                <thead><tr><th>#</th><th>시각</th><th>회사</th><th>담당자</th><th>유형</th><th>금액</th><th>상태</th></tr></thead>
+                <tbody id="ap-dash-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- 리스트 -->
+        <div class="ap-pg" id="pg-list">
+          <div class="ap-tcard">
+            <div class="ap-thd">
+              <div class="ap-thtl">상담 신청 리스트 <span style="font-size:11px;color:#aaa;font-weight:400" id="ap-cnt"></span></div>
+              <button class="ap-ab" onclick="exportCSV()">CSV</button>
+            </div>
+            <div class="ap-sb-bar">
+              <input type="text" class="ap-si" id="ap-search" placeholder="회사명, 담당자 검색..." oninput="renderApTable()">
+              <select class="ap-sf" id="ap-ft" onchange="renderApTable()">
+                <option value="">전체 유형</option>
+                <option value="B2B">B2B</option><option value="B2E">B2E</option><option value="UNIFORM">단체복</option>
+              </select>
+              <select class="ap-sf" id="ap-fs" onchange="renderApTable()">
+                <option value="">전체 상태</option>
+                <option value="신규">신규</option><option value="검토중">검토중</option>
+                <option value="확정">확정</option><option value="완료">완료</option>
+              </select>
+            </div>
+            <div class="tbl-w">
+              <table class="atbl">
+                <thead><tr><th>#</th><th>시각</th><th>회사</th><th>담당자</th><th>연락처</th><th>유형</th><th>수량</th><th>금액</th><th>상태</th><th></th></tr></thead>
+                <tbody id="ap-list-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Detail Drawer -->
+<div class="dd" id="dd">
+  <div class="dd-hd">
+    <div class="dd-t" id="dd-t">상세</div>
+    <button class="dd-x" onclick="closeDD()">✕</button>
+  </div>
+  <div class="dd-bd" id="dd-bd"></div>
+</div>

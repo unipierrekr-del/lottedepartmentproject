@@ -1,0 +1,145 @@
+<!-- ═══════════════════════════════════════════════════════════
+   result.html — 추천 결과 & 패키지 비교 섹션
+   ---------------------------------------------------------------
+   - 추천 결과 카드 (JS로 동적 생성)
+   - 가상 패키징 프리뷰 (색상/리본 선택)
+   - 품의서 & 견적서 생성 버튼
+   - 3가지 패키지 비교 테이블
+═══════════════════════════════════════════════════════════════ -->
+<!-- RESULT -->
+<section id="result-section">
+  <div class="res-wrap" style="max-width:1200px;margin:0 auto">
+
+    <!-- 상단 바 -->
+    <div class="res-top-bar">
+      <div class="res-top-bar-left">
+        <button class="res-back-btn" onclick="wizRestart()">&#8592; 견적 수정</button>
+        <div class="res-client-tag" id="res-client-tag">기업 맞춤 큐레이션</div>
+      </div>
+      <button class="res-save-btn" onclick="saveResult()">저장</button>
+    </div>
+
+    <!-- 인트로 -->
+    <div class="res-intro">
+      <div class="res-intro-kicker" id="res-kicker">B2B · Curated · 롯데백화점 동탄점</div>
+      <h2 class="res-intro-title" id="res-title">맞춤 선물 패키지 3종 &#8212; Standard / Premium / Signature</h2>
+      <p class="res-intro-desc" id="res-story">롯데백화점 동탄점 입점 브랜드(조 말론, 샤넬, 딥티크, 몽블랑 등)에서 엄선한 큐레이션. 대량 할인 자동 적용.</p>
+    </div>
+
+    <!-- 3가지 패키지 카드 -->
+    <div class="pkg-grid" id="pkg-grid">
+      <!-- genResult()가 renderPkgCard()로 채움 -->
+    </div>
+
+    <!-- 큐레이터 코멘트 -->
+    <div class="curator-comment">
+      <div class="curator-comment-label">큐레이터 코멘트</div>
+      <p class="curator-comment-text" id="curator-text">"PREMIUM 패키지는 수신자의 업무 환경과 생활 패턴을 분석하여, 받는 즉시 만족과 두고두고 사용하는 가치의 균형을 최우선으로 설계했습니다."</p>
+      <div class="curator-name">&#8212; 롯데백화점 동탄점 선물 큐레이터 팀</div>
+    </div>
+
+    <!-- 가상 패키징 프리뷰 -->
+    <div class="pkg-preview-section">
+      <div class="pkg-preview-header">
+        <div>
+          <div class="pkg-preview-kicker">Packaging Preview</div>
+          <div class="pkg-preview-title">가상 패키징 프리뷰</div>
+        </div>
+        <div style="font-size:11px;color:#aaa">선택한 옵션이 실시간으로 반영됩니다</div>
+      </div>
+      <div class="pkg-preview-body">
+        <div class="pkg-preview-controls">
+          <div class="ppc-group">
+            <span class="ppc-label">회사 로고</span>
+            <label class="logo-upload-btn">
+              <input type="file" accept="image/*" onchange="handleLogoUpload(this)">
+              <span id="logo-upload-text">&#8593; 로고 업로드</span>
+            </label>
+          </div>
+          <div class="ppc-group">
+            <span class="ppc-label">박스 컬러</span>
+            <div class="color-swatches">
+              <div class="color-swatch active" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #ddd" onclick="selectColor(this,'#FFFFFF')" title="화이트"></div>
+              <div class="color-swatch" style="background:#1a1a1a" onclick="selectColor(this,'#1a1a1a')" title="블랙"></div>
+              <div class="color-swatch" style="background:#C4AA8F" onclick="selectColor(this,'#C4AA8F')" title="골드"></div>
+              <div class="color-swatch" style="background:#2B4EAE" onclick="selectColor(this,'#2B4EAE')" title="네이비"></div>
+              <div class="color-swatch" style="background:#8B4513" onclick="selectColor(this,'#8B4513')" title="브라운"></div>
+            </div>
+          </div>
+          <div class="ppc-group">
+            <span class="ppc-label">리본</span>
+            <div class="ribbon-btns">
+              <button class="ribbon-btn active" onclick="selectRibbon(this,'새틴')">새틴</button>
+              <button class="ribbon-btn" onclick="selectRibbon(this,'트위드')">트위드</button>
+              <button class="ribbon-btn" onclick="selectRibbon(this,'없음')">없음</button>
+            </div>
+          </div>
+        </div>
+        <div class="pkg-preview-shots">
+          <div class="preview-shot">
+            <canvas class="preview-shot-canvas" id="canvas-front" width="400" height="300"></canvas>
+            <div class="preview-shot-label">정면</div>
+          </div>
+          <div class="preview-shot">
+            <canvas class="preview-shot-canvas" id="canvas-open" width="400" height="300"></canvas>
+            <div class="preview-shot-label">오픈</div>
+          </div>
+          <div class="preview-shot">
+            <canvas class="preview-shot-canvas" id="canvas-hand" width="400" height="300"></canvas>
+            <div class="preview-shot-label">핸드오버</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 품의서 & 견적서 -->
+    <div class="report-section">
+      <div class="report-header">
+        <div>
+          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-bottom:3px">Internal Document</div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.04em">품의서 &amp; 견적서 생성</div>
+        </div>
+        <div style="font-size:11px;color:#aaa">내부 보고용 자료를 자동으로 생성합니다</div>
+      </div>
+      <div class="report-body">
+        <div class="report-input-row">
+          <input class="report-input" id="rpt-company" placeholder="회사명 (예: 삼성전자)">
+          <input class="report-input" id="rpt-dept"    placeholder="부서명 (예: 총무팀)">
+          <input class="report-input" id="rpt-name"    placeholder="담당자명 (예: 김지은 대리)">
+          <input class="report-input" id="rpt-date"    placeholder="품의 예정일 (예: 2025.06.15)">
+        </div>
+        <div class="report-checklist">
+          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>표지 (회사명 / 부서 / 품의일 / 담당자)</div>
+          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>선정 배경 및 큐레이터 코멘트</div>
+          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>3가지 패키지 비교 견적표 (Standard / Premium / Signature)</div>
+          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>예상 납기 일정 및 세금계산서 발행 안내</div>
+        </div>
+        <div class="report-btns">
+          <button class="btn btn-d btn-s" onclick="generateReport()">PDF 품의서 다운로드</button>
+          <button class="btn btn-o btn-s" onclick="generateCSVReport()">Excel 견적서 다운로드</button>
+          <button class="btn btn-o btn-s" onclick="showToast('결재 시스템 연동은 별도 문의 바랍니다.')">결재 시스템 연동</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 액션 -->
+    <div class="res-bottom-actions">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-o btn-s" onclick="wizRestart()">처음부터 다시하기</button>
+        <button class="btn btn-o btn-s" onclick="toggleCompare()" id="btn-cmp">비교 보기 (0/3)</button>
+      </div>
+      <button class="btn btn-d" onclick="openCM()">컨시어지 상담 신청하기</button>
+    </div>
+
+  </div>
+</section>
+
+<section id="compare-section">
+  <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+    <div style="margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e8e8e8">
+      <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em">선물 컬렉션 비교</h3>
+      <p style="font-size:12px;color:#888;margin-top:6px">저장된 컬렉션을 한눈에 비교하세요 (최대 3개)</p>
+    </div>
+    <div class="cmp-grid" id="cmp-grid"></div>
+  </div>
+</section>

@@ -1,0 +1,426 @@
+<!-- ═══════════════════════════════════════════════════════════
+   guide.html — 서비스 안내 탭 섹션
+   ---------------------------------------------------------------
+   탭 구성:
+   - TAB 1: 기업 선물 큐레이션
+   - TAB 2: 3가지 패키지 제안
+   - TAB 3: 품의서 자동 생성
+   - TAB 4: 투명한 비용 정산
+   - TAB 5: 단체복 제작
+   - 하단 체험 신청 CTA
+   - 배경 이미지: images/guide-bg.jpg (매우 흐리게 표시)
+═══════════════════════════════════════════════════════════════ -->
+     서비스 안내 섹션 — 카카오 기프트비즈 스타일
+     ══════════════════════════════════════════════════════ -->
+<section id="guide">
+
+  <!-- 탭 네비 -->
+  <div class="guide-tab-nav">
+    <button class="gtab active" onclick="switchGuideTab(this,'g1')">01 · 기업 선물 큐레이션</button>
+    <button class="gtab" onclick="switchGuideTab(this,'g2')">02 · 3가지 패키지 제안</button>
+    <button class="gtab" onclick="switchGuideTab(this,'g3')">03 · 품의서 자동 생성</button>
+    <button class="gtab" onclick="switchGuideTab(this,'g4')">04 · 투명한 비용 정산</button>
+    <button class="gtab" onclick="switchGuideTab(this,'g5')">05 · 단체복 제작</button>
+  </div>
+
+  <!-- ── TAB 1: 기업 선물 큐레이션 ── -->
+  <div class="guide-section active" id="g1">
+    <div class="guide-banner">
+      <div class="gb-text">
+        <div class="gb-step"><span>01</span> 이런 분께 추천드립니다</div>
+        <h2 class="gb-title">거래처·임직원에게<br>브랜드 가치를 담아<br>선물하고 싶을 때</h2>
+        <p class="gb-desc">
+          AI 자동 추천이 아닙니다. <strong>선물 전문 큐레이터</strong>가 기업 규모·업종·수신자 특성을 직접 분석하여 엄선한 기프트 리스트만 제공합니다.<br><br>
+          B2B 거래처 선물과 B2E 임직원 선물을 명확히 구분하여, 목적에 딱 맞는 선물을 제안합니다. 카카오톡 선물하기처럼 간편하게, 롯데백화점 품질로 전달됩니다.
+        </p>
+      </div>
+      <div class="gb-visual">
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span class="mock-card-title">기업 맞춤 선물 큐레이션</span>
+            <span class="mock-badge blue">B2B</span>
+          </div>
+          <div class="mock-chip-row" style="margin-bottom:16px">
+            <span class="mock-chip sel">명절 선물</span>
+            <span class="mock-chip sel">VIP 감사</span>
+            <span class="mock-chip">웰컴 키트</span>
+            <span class="mock-chip">창립기념일</span>
+          </div>
+          <div class="mock-pkg-row">
+            <div class="mock-pkg-col">
+              <div class="mock-pkg-tier">Standard</div>
+              <div class="mock-pkg-price">₩85,000</div>
+            </div>
+            <div class="mock-pkg-col featured">
+              <div class="mock-pkg-tier">Premium ★</div>
+              <div class="mock-pkg-price">₩118,000</div>
+            </div>
+            <div class="mock-pkg-col">
+              <div class="mock-pkg-tier">Signature</div>
+              <div class="mock-pkg-price">₩185,000</div>
+            </div>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">수량</span>
+            <span class="mock-row-val">100개</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">대량 할인</span>
+            <span class="mock-row-val highlight">— ₩590,000 (7%)</span>
+          </div>
+          <div class="mock-row" style="border-bottom:none">
+            <span class="mock-row-label" style="font-weight:700;color:#111">총 예상 금액</span>
+            <span class="mock-row-val" style="font-size:14px">₩7,810,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-features">
+      <div class="guide-features-title">주요 기능</div>
+      <div class="guide-feat-grid">
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 01</div>
+          <div class="gfc-title">B2B / B2E 목적별 분리 큐레이션</div>
+          <div class="gfc-desc">거래처 선물(B2B)과 임직원 선물(B2E)은 목적이 다릅니다. 각 목적에 최적화된 별도 질문 흐름과 상품 라인업으로 가장 적합한 선물을 추천합니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 02</div>
+          <div class="gfc-title">수량 기반 실시간 총액 계산</div>
+          <div class="gfc-desc">단가 선택 즉시 수량 × 단가 × 대량 할인율이 자동 계산됩니다. 30개부터 최대 12% 할인이 적용되며 예상 총액이 실시간으로 확인됩니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 03</div>
+          <div class="gfc-title">김영란법 컴플라이언스 가이드</div>
+          <div class="gfc-desc">청탁금지법 5만원 기준에 맞는 선물 라인업을 별도 구분하여 제공합니다. 공공기관·학교·언론 대상 선물 시 법적 리스크 없이 진행할 수 있습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 2: 3가지 패키지 제안 ── -->
+  <div class="guide-section" id="g2">
+    <div class="guide-banner reverse">
+      <div class="gb-text">
+        <div class="gb-step"><span>02</span> 이런 분께 추천드립니다</div>
+        <h2 class="gb-title">한 번에 비교하고<br>내부 결재까지<br>빠르게 끝내고 싶을 때</h2>
+        <p class="gb-desc">
+          큐레이션 완료 즉시 <strong>Standard / Premium / Signature 3가지 패키지</strong>를 비교 견적으로 받아볼 수 있습니다.<br><br>
+          각 패키지는 단가·구성 아이템·대량 할인 금액·총액이 명시되어 있어, 담당자가 별도 계산 없이 바로 내부 보고에 활용할 수 있습니다.
+        </p>
+      </div>
+      <div class="gb-visual">
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span class="mock-card-title">패키지 비교 견적</span>
+            <span class="mock-badge">100개 기준</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="border:1px solid #e8e8e8;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;margin-bottom:3px">STANDARD</div>
+                <div style="font-size:13px;font-weight:700;color:#111">₩66,300/인 · 총 ₩6,630,000</div>
+              </div>
+              <div style="font-size:10px;color:#888;border:1px solid #e8e8e8;padding:3px 8px">선택</div>
+            </div>
+            <div style="border:2px solid #111;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;background:#111">
+              <div>
+                <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px">PREMIUM ★ AI 추천</div>
+                <div style="font-size:13px;font-weight:700;color:#fff">₩92,540/인 · 총 ₩9,254,000</div>
+                <div style="font-size:10px;color:#7effa0;margin-top:2px">— ₩685,600 할인 (7%)</div>
+              </div>
+              <div style="font-size:10px;color:#111;background:#fff;padding:3px 8px;font-weight:700">선택됨</div>
+            </div>
+            <div style="border:1px solid #e8e8e8;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;margin-bottom:3px">SIGNATURE</div>
+                <div style="font-size:13px;font-weight:700;color:#111">₩145,000/인 · 총 ₩14,500,000</div>
+              </div>
+              <div style="font-size:10px;color:#888;border:1px solid #e8e8e8;padding:3px 8px">선택</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-features">
+      <div class="guide-features-title">주요 기능</div>
+      <div class="guide-feat-grid">
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 01</div>
+          <div class="gfc-title">AI 추천 패키지 자동 선정</div>
+          <div class="gfc-desc">선택한 수신자 특성·목적·예산을 바탕으로 3가지 티어 중 가장 적합한 패키지를 자동 추천합니다. 큐레이터 코멘트와 함께 선정 이유를 확인할 수 있습니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 02</div>
+          <div class="gfc-title">가상 패키징 프리뷰</div>
+          <div class="gfc-desc">박스 컬러 5종·리본 타입 3종·회사 로고 업로드를 선택하면 정면·오픈·핸드오버 3가지 앵글의 패키징 시안이 실시간으로 렌더링됩니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 03</div>
+          <div class="gfc-title">최대 3건 동시 비교 저장</div>
+          <div class="gfc-desc">다른 조건으로 큐레이션한 결과를 최대 3개까지 저장하고 나란히 비교할 수 있습니다. 팀원과 공유하거나 결재 상신 전 최종 검토에 활용하세요.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: 품의서 자동 생성 ── -->
+  <div class="guide-section" id="g3">
+    <div class="guide-banner">
+      <div class="gb-text">
+        <div class="gb-step"><span>03</span> 이런 분께 추천드립니다</div>
+        <h2 class="gb-title">선물 결재까지<br>한 번에 끝내고<br>싶을 때</h2>
+        <p class="gb-desc">
+          큐레이션 결과에서 바로 <strong>PDF 품의서</strong>와 <strong>Excel 견적서</strong>를 생성할 수 있습니다.<br><br>
+          회사명·부서·담당자·품의일만 입력하면 표지·선정 배경·3가지 패키지 비교표·납기 일정이 자동으로 작성된 정식 문서가 완성됩니다. 별도 작업 없이 바로 결재 상신이 가능합니다.
+        </p>
+      </div>
+      <div class="gb-visual">
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span class="mock-card-title">기업 선물 구매 품의서</span>
+            <span class="mock-badge">Auto Generated</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+            <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:#444">
+              <div style="width:16px;height:16px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 10 10" width="8" height="8"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+              </div>
+              표지 (회사명 / 부서 / 품의일)
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:#444">
+              <div style="width:16px;height:16px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 10 10" width="8" height="8"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+              </div>
+              큐레이터 선정 배경 및 코멘트
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:#444">
+              <div style="width:16px;height:16px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 10 10" width="8" height="8"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+              </div>
+              Standard / Premium / Signature 비교 견적표
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:#444">
+              <div style="width:16px;height:16px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 10 10" width="8" height="8"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+              </div>
+              예상 납기 일정 (D+1 ~ D+14)
+            </div>
+          </div>
+          <div class="mock-timeline">
+            <div class="mock-tl-step done">
+              <div class="mock-tl-dot done">✓</div>
+              <div class="mock-tl-line"></div>
+              <div class="mock-tl-label">큐레이션</div>
+            </div>
+            <div class="mock-tl-step done">
+              <div class="mock-tl-dot done">✓</div>
+              <div class="mock-tl-line"></div>
+              <div class="mock-tl-label">패키지선택</div>
+            </div>
+            <div class="mock-tl-step active">
+              <div class="mock-tl-dot active"></div>
+              <div class="mock-tl-line"></div>
+              <div class="mock-tl-label" style="color:#111;font-weight:700">품의서 생성</div>
+            </div>
+            <div class="mock-tl-step">
+              <div class="mock-tl-dot"></div>
+              <div class="mock-tl-label">결재 상신</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-features">
+      <div class="guide-features-title">주요 기능</div>
+      <div class="guide-feat-grid">
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 01</div>
+          <div class="gfc-title">원클릭 PDF 품의서 다운로드</div>
+          <div class="gfc-desc">회사명·부서·담당자·품의 예정일만 입력하면 정식 품의서가 즉시 생성됩니다. 새 창에서 바로 인쇄하거나 PDF로 저장할 수 있습니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 02</div>
+          <div class="gfc-title">Excel 견적서 CSV 다운로드</div>
+          <div class="gfc-desc">3가지 패키지의 단가·수량·소계·할인금액·할인율·최종금액·구성 아이템이 정리된 Excel 파일을 즉시 다운로드할 수 있습니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 03</div>
+          <div class="gfc-title">관리자 대시보드 자동 기록</div>
+          <div class="gfc-desc">모든 큐레이션 데이터는 관리자 대시보드에 자동 저장됩니다. 비밀번호 로그인 후 전체 상담 이력·총액 통계를 확인하고 CSV로 내보낼 수 있습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 4: 투명한 비용 정산 ── -->
+  <div class="guide-section" id="g4">
+    <div class="guide-banner reverse">
+      <div class="gb-text">
+        <div class="gb-step"><span>04</span> 이런 분께 추천드립니다</div>
+        <h2 class="gb-title">예산 낭비 없이<br>투명하게<br>정산하고 싶을 때</h2>
+        <p class="gb-desc">
+          단가 선택 즉시 <strong>소계·대량 할인 금액·최종 총액</strong>이 자동 계산됩니다. 수량이 늘어날수록 할인율도 높아지는 구조로, 예산을 최대한 효율적으로 사용할 수 있습니다.<br><br>
+          세금계산서 발행은 기본 제공되며, 계약 완료 후 즉시 발행됩니다. 법인카드 결제도 완벽 지원합니다.
+        </p>
+      </div>
+      <div class="gb-visual">
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span class="mock-card-title">비용 정산 내역</span>
+            <span class="mock-badge green">세금계산서 발행</span>
+          </div>
+          <div class="mock-stat-grid">
+            <div class="mock-stat">
+              <div class="mock-stat-label">수량</div>
+              <div class="mock-stat-val">100<span style="font-size:11px;color:#aaa">개</span></div>
+            </div>
+            <div class="mock-stat">
+              <div class="mock-stat-label">할인율</div>
+              <div class="mock-stat-val" style="color:#2a7a4f">7<span style="font-size:11px">%</span></div>
+            </div>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">단가 (1인당)</span>
+            <span class="mock-row-val">₩99,500</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">소계</span>
+            <span class="mock-row-val">₩9,950,000</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">대량 할인</span>
+            <span class="mock-row-val highlight">— ₩696,500</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">VAT (별도)</span>
+            <span class="mock-row-val">₩925,350</span>
+          </div>
+          <div class="mock-row" style="border-bottom:none;padding-top:10px;border-top:2px solid #111;margin-top:4px">
+            <span class="mock-row-label" style="font-weight:700;color:#111">최종 청구 금액</span>
+            <span class="mock-row-val" style="font-size:15px">₩10,178,850</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-features">
+      <div class="guide-features-title">대량 할인 구조</div>
+      <div class="guide-feat-grid">
+        <div class="guide-feat-card">
+          <div class="gfc-num">30개 이상</div>
+          <div class="gfc-title">3% 대량 할인</div>
+          <div class="gfc-desc">소규모 팀 또는 VIP 소수 대상 선물부터 대량 할인이 시작됩니다. 단순 구매보다 훨씬 합리적인 예산 집행이 가능합니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">100개 이상</div>
+          <div class="gfc-title">7% 대량 할인</div>
+          <div class="gfc-desc">중규모 명절 선물·전사 기념일 선물에 최적. 세금계산서 발행, 전담 매니저 배정, 커스텀 패키징이 기본 포함됩니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">500개 이상</div>
+          <div class="gfc-title">12% 대량 할인</div>
+          <div class="gfc-desc">대규모 협력사·임직원 전체 선물 시 최대 12%의 할인이 적용됩니다. 별도 계약 협의 및 맞춤 견적이 제공됩니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 5: 단체복 제작 ── -->
+  <div class="guide-section" id="g5">
+    <div class="guide-banner">
+      <div class="gb-text">
+        <div class="gb-step"><span>05</span> 이런 분께 추천드립니다</div>
+        <h2 class="gb-title">기업 작업복부터<br>동호회 단체티까지<br>한 번에 해결하고 싶을 때</h2>
+        <p class="gb-desc">
+          단체복도 선물 큐레이션과 동일한 <strong>단계별 위저드 방식</strong>으로 진행됩니다. 유형·사양·수량을 선택하면 실시간 총액 계산과 추천 브랜드 리스트가 자동으로 제시됩니다.<br><br>
+          나이키·노스페이스·K2 등 실제 브랜드 기반 추천과 함께 최소 10벌부터 긴급 제작(3~5일)까지 가능합니다.
+        </p>
+      </div>
+      <div class="gb-visual">
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span class="mock-card-title">단체복 제작 견적</span>
+            <span class="mock-badge">스포츠 동호회</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">유형</span>
+            <span class="mock-row-val">반팔 티셔츠 + 자수</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">브랜드</span>
+            <span class="mock-row-val">Nike / adidas / K2</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">수량</span>
+            <span class="mock-row-val">50벌</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">단가</span>
+            <span class="mock-row-val">₩28,000 / 1벌</span>
+          </div>
+          <div class="mock-row">
+            <span class="mock-row-label">대량 할인 (5%)</span>
+            <span class="mock-row-val highlight">— ₩70,000</span>
+          </div>
+          <div class="mock-progress">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#888">
+              <span>총 제작비</span>
+              <span style="font-weight:700;color:#111">₩1,330,000</span>
+            </div>
+            <div class="mock-progress-bar">
+              <div class="mock-progress-fill" id="uni-mock-bar" style="width:67%"></div>
+            </div>
+          </div>
+          <div style="border-top:1px solid #e8e8e8;padding-top:10px;margin-top:4px">
+            <div style="font-size:9px;color:#aaa;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase">추천 브랜드</div>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span style="font-size:10px;padding:3px 8px;border:1px solid #e8e8e8;color:#666">Nike</span>
+              <span style="font-size:10px;padding:3px 8px;border:1px solid #e8e8e8;color:#666">The North Face</span>
+              <span style="font-size:10px;padding:3px 8px;border:1px solid #e8e8e8;color:#666">K2</span>
+              <span style="font-size:10px;padding:3px 8px;border:1px solid #111;color:#111;font-weight:700">adidas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-features">
+      <div class="guide-features-title">주요 기능</div>
+      <div class="guide-feat-grid">
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 01</div>
+          <div class="gfc-title">6가지 유형별 브랜드 자동 추천</div>
+          <div class="gfc-desc">기업 작업복·스포츠 동호회·러닝·행사 스태프·캐주얼 소모임·학교 동문회 — 6가지 유형에 맞춰 실제 브랜드(Nike, The North Face, K2, Jeep 등)를 자동으로 추천합니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 02</div>
+          <div class="gfc-title">수량별 실시간 단가 계산</div>
+          <div class="gfc-desc">10벌부터 300벌 이상까지 수량에 따라 단가(₩18,000~)와 대량 할인율이 실시간으로 계산됩니다. 견적 확정 전 다양한 수량을 비교해볼 수 있습니다.</div>
+        </div>
+        <div class="guide-feat-card">
+          <div class="gfc-num">Feature 03</div>
+          <div class="gfc-title">삼성 임직원 10% 추가 할인</div>
+          <div class="gfc-desc">기흥·화성 캠퍼스 동호회 사번 확인 시 대량 할인에 추가로 10% 할인이 적용됩니다. 기업 로고 각인·개인 이름 인쇄·세금계산서 발행도 기본 지원합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 체험 신청 공통 CTA -->
+  <div class="guide-cta-box">
+    <div>
+      <div class="gcta-title">지금 바로 체험해 보세요</div>
+      <div class="gcta-desc">기업 이메일을 남겨주시면 전담 컨시어지가 24시간 내 연락드립니다</div>
+    </div>
+    <div class="gcta-form">
+      <input class="gcta-input" id="guide-email" placeholder="기업 이메일을 입력해 주세요">
+      <select class="gcta-input" id="guide-topic" style="width:160px;cursor:pointer">
+        <option value="">관심 서비스 선택</option>
+        <option>B2B 거래처 선물</option>
+        <option>B2E 임직원 선물</option>
+        <option>단체복 제작</option>
+        <option>대량 정기 발주</option>
+      </select>
+      <button class="gcta-btn" onclick="submitGuideContact()">상담 신청하기</button>
+    </div>
+  </div>
+
+</section>
