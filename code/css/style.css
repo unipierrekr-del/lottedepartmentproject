@@ -77,8 +77,8 @@ nav{
   padding:80px 40px;
   background-image:
     linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 50%, rgba(255,255,255,0.55) 100%),
-    /* [이미지] hero-bg.jpg — 히어로 배경 이미지 (백화점/쇼핑 분위기, 가로형 1920×1080) */
-    url('images/hero-bg.jpg');
+    /* [이미지] images/image2 — 히어로 배경 이미지 */
+    url('images/image2');
   background-size:cover;
   background-position:center right;
   background-attachment:fixed;
