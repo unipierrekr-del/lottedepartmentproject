@@ -28,6 +28,7 @@ jobs:
         run: |
           mkdir -p _site
           cp code/lotte _site/index.html
+          cp -r images _site/images
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
