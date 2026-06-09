@@ -941,7 +941,8 @@ function closeDP() { var dp=document.getElementById('dp'); if(dp) dp.classList.r
 /* ══════════════════════════════════════════════════
    컨시어지 상담 모달
    ══════════════════════════════════════════════════ */
-function openCM() {
+function openCM(type) {
+  window._cmType = type || 'consult'; // 'consult' or 'order'
   var cs  = document.getElementById('cm-cs');
   var csi = document.getElementById('cm-csi');
   if (wState.bizType && cs && csi) {
@@ -961,6 +962,16 @@ function openCM() {
   if (visitData.name)    { var e=document.getElementById('cm-nm'); if(e) e.value=visitData.name; }
   if (visitData.phone)   { var e=document.getElementById('cm-ph'); if(e) e.value=visitData.phone; }
   var cm = document.getElementById('cm'); if(cm) cm.classList.add('open');
+  // 모달 제목 & 버튼 텍스트 변경
+  var hdt = cm ? cm.querySelector('.cm-hdt') : null;
+  var submitBtn = document.getElementById('cm-submit-btn');
+  if (window._cmType === 'order') {
+    if (hdt) hdt.textContent = '온라인 주문 신청';
+    if (submitBtn) submitBtn.textContent = '주문 신청하기';
+  } else {
+    if (hdt) hdt.textContent = '컨시어지 상담 신청';
+    if (submitBtn) submitBtn.textContent = '상담 신청하기';
+  }
 }
 function closeCM() { var cm=document.getElementById('cm'); if(cm) cm.classList.remove('open'); }
 function submitCM() {
@@ -982,13 +993,14 @@ function submitCM() {
     target:wState.b2b_target||wState.b2e_target||'',
     qty:q||0, unitPrice:p||0, total:tot, discountRate:Math.round(d*100)+'%',
     category:(wState.b2b_cat||wState.b2e_mood||[]).join(', '),
-    status:'신규', adminMemo:''
+    status: window._cmType==='order' ? '주문접수' : '신규', adminMemo:''
   };
   CRM.push(rec);
   localStorage.setItem('lotteCrm', JSON.stringify(CRM));
   closeCM();
   ['cm-co','cm-dept','cm-nm','cm-ph','cm-em','cm-dt','cm-mo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
-  showToast('상담 신청이 완료됐습니다. 24시간 내 연락드립니다.');
+  var msg = window._cmType==='order' ? '주문 신청이 완료됐습니다. 24시간 내 확인 후 연락드립니다.' : '상담 신청이 완료됐습니다. 24시간 내 연락드립니다.';
+  showToast(msg);
 }
 
 /* ══════════════════════════════════════════════════
