@@ -44,7 +44,6 @@
           <div class="tc-desc">사내 임직원 대상의 격려·보상·기념 선물. 실용성과 취향을 고려한 개인화 큐레이션을 제공합니다.</div>
         </div>
       </div>
-      <div class="wnav wnav-c"><button class="wbtn-next" onclick="wStep1()">Continue</button></div>
     </div>
 
     <!-- B2B 1: 목적 -->
@@ -61,7 +60,7 @@
         <div class="chip" onclick="tChip(this,'b2b_purpose','협력사 관계 강화')">협력사 관계 강화</div>
         <div class="chip" onclick="tChip(this,'b2b_purpose','계약 체결 기념')">계약 체결 기념</div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-0',0)">Back</button><button class="wbtn-next" onclick="gp('wp-b2b-2',2)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-0',0)">Back</button></div>
     </div>
 
     <!-- B2B 2: 대상·수량 -->
@@ -82,8 +81,9 @@
         <span class="qty-label">총 수량</span>
         <input type="number" class="qty-input" id="gift-qty" min="1" value="50" oninput="calcTotal()">
         <span class="qty-unit">개</span>
+        <button class="wbtn-next qty-next-btn" onclick="gp('wp-b2b-3',3)">다음 단계 →</button>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-1',1)">Back</button><button class="wbtn-next" onclick="gp('wp-b2b-3',3)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-1',1)">Back</button></div>
     </div>
 
     <!-- B2B 3: 예산 -->
@@ -103,7 +103,7 @@
         <div class="tp-row"><span class="tp-label">대량 할인</span><span class="tp-val tp-discount" id="tp-disc">-</span></div>
         <div class="tp-row"><span class="tp-label" style="font-weight:700;color:#fff">총 예상 금액</span><span class="tp-total" id="tp-total">-</span></div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-2',2)">Back</button><button class="wbtn-next" onclick="gp('wp-b2b-4',4)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-2',2)">Back</button></div>
     </div>
 
     <!-- B2B 4: 가치·카테고리 -->
@@ -126,7 +126,7 @@
         <div class="chip" onclick="tChip(this,'b2b_cat','건강·웰니스')">건강 · 웰니스</div>
         <div class="chip" onclick="tChip(this,'b2b_cat','IT·사무용품')">IT · 사무용품</div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-3',3)">Back</button><button class="wbtn-next" onclick="gp('wp-b2b-5',5)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-3',3)">Back</button></div>
     </div>
 
     <!-- B2B 5: 커스텀·컴플라이언스 -->
@@ -148,7 +148,7 @@
         <div class="chip" onclick="tChip(this,'b2b_comp','알레르기 고려')">알레르기 고려</div>
         <div class="chip" onclick="tChip(this,'b2b_comp','세금계산서 필요')">세금계산서 필요</div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-4',4)">Back</button><button class="wbtn-next" onclick="showSum('b2b')">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-4',4)">Back</button></div>
     </div>
 
     <!-- B2E 1 -->
@@ -165,7 +165,7 @@
         <div class="chip" onclick="tChip(this,'b2e_purpose','프로젝트 완료')">프로젝트 완료</div>
         <div class="chip" onclick="tChip(this,'b2e_purpose','임직원 격려')">임직원 격려</div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-0',0)">Back</button><button class="wbtn-next" onclick="gp('wp-b2e-2',2)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-0',0)">Back</button></div>
     </div>
 
     <!-- B2E 2 -->
@@ -185,8 +185,9 @@
         <span class="qty-label">총 인원</span>
         <input type="number" class="qty-input" id="b2e-qty" min="1" value="30" oninput="calcTotal()">
         <span class="qty-unit">명</span>
+        <button class="wbtn-next qty-next-btn" onclick="gp('wp-b2e-3',3)">다음 단계 →</button>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-1',1)">Back</button><button class="wbtn-next" onclick="gp('wp-b2e-3',3)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-1',1)">Back</button></div>
     </div>
 
     <!-- B2E 3 -->
@@ -206,7 +207,7 @@
         <div class="tp-row"><span class="tp-label">대량 할인</span><span class="tp-val tp-discount" id="tp2-disc">-</span></div>
         <div class="tp-row"><span class="tp-label" style="font-weight:700;color:#fff">총 예상 금액</span><span class="tp-total" id="tp2-total">-</span></div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-2',2)">Back</button><button class="wbtn-next" onclick="gp('wp-b2e-4',4)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-2',2)">Back</button></div>
     </div>
 
     <!-- B2E 4 -->
@@ -222,7 +223,7 @@
         <div class="chip" onclick="tChip(this,'b2e_mood','데스크테리어')">데스크테리어</div>
         <div class="chip" onclick="tChip(this,'b2e_mood','전통·한국적')">전통 · 한국적</div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-3',3)">Back</button><button class="wbtn-next" onclick="gp('wp-b2e-5',5)">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-3',3)">Back</button></div>
     </div>
 
     <!-- B2E 5 -->
@@ -239,7 +240,7 @@
         <div class="chip" onclick="tChip(this,'b2e_extra','알레르기 고려')">알레르기 고려</div>
         <div class="chip" onclick="tChip(this,'b2e_extra','세금계산서')">세금계산서 필요</div>
       </div>
-      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-4',4)">Back</button><button class="wbtn-next" onclick="showSum('b2e')">Continue</button></div>
+      <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-4',4)">Back</button></div>
     </div>
 
     <!-- SUMMARY -->

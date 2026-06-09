@@ -110,10 +110,23 @@ function gp(id, dot) {
   if (w) w.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
+// 패널별 자동 다음 단계 매핑
+var PANEL_AUTO_NEXT = {
+  'wp-b2b-1': function(){ gp('wp-b2b-2',2); },
+  'wp-b2b-3': function(){ gp('wp-b2b-4',4); },
+  'wp-b2b-4': function(){ gp('wp-b2b-5',5); },
+  'wp-b2b-5': function(){ showSum('b2b'); },
+  'wp-b2e-1': function(){ gp('wp-b2e-2',2); },
+  'wp-b2e-3': function(){ gp('wp-b2e-4',4); },
+  'wp-b2e-4': function(){ gp('wp-b2e-5',5); },
+  'wp-b2e-5': function(){ showSum('b2e'); }
+};
+
 function selectBiz(el, type) {
   document.querySelectorAll('#wizard .type-card, #wizard .tc').forEach(function(c){ c.classList.remove('sel'); });
   el.classList.add('sel');
   wState.bizType = type;
+  setTimeout(wStep1, 250);
 }
 
 function wStep1() {
@@ -126,6 +139,12 @@ function tChip(el, cat, val) {
   if (!wState[cat]) wState[cat] = [];
   var a = wState[cat], i = a.indexOf(val);
   if (i === -1) a.push(val); else a.splice(i,1);
+  // 복수 선택 가능: 500ms 후 자동 다음 단계 (재클릭 시 타이머 리셋)
+  var panel = el.closest('.wpanel');
+  if (panel && PANEL_AUTO_NEXT[panel.id]) {
+    clearTimeout(window._chipTimer);
+    window._chipTimer = setTimeout(PANEL_AUTO_NEXT[panel.id], 500);
+  }
 }
 function sChip(el, cat, val) {
   var panel = el.closest('.wpanel');
@@ -141,6 +160,11 @@ function sBud(el, price, label) {
   wState.unitPrice = parseInt(price);
   wState.unitLabel = label || price;
   calcTot();
+  // 예산 선택 즉시 다음 단계
+  var panel = el.closest('.wpanel');
+  if (panel && PANEL_AUTO_NEXT[panel.id]) {
+    setTimeout(PANEL_AUTO_NEXT[panel.id], 300);
+  }
 }
 
 function calcTot() {
