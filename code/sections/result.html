@@ -61,9 +61,7 @@
           <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>예상 납기 일정 및 세금계산서 발행 안내</div>
         </div>
         <div class="report-btns">
-          <button class="btn btn-d btn-s" onclick="generateReport()">PDF 품의서 다운로드</button>
-          <button class="btn btn-o btn-s" onclick="generateCSVReport()">Excel 견적서 다운로드</button>
-          <button class="btn btn-o btn-s" onclick="showToast('결재 시스템 연동은 별도 문의 바랍니다.')">결재 시스템 연동</button>
+          <button class="btn btn-d btn-s" onclick="addToCompare()">비교 목록에 추가하기</button>
         </div>
       </div>
     </div>
@@ -74,7 +72,6 @@
         <button class="btn btn-o btn-s" onclick="wizRestart()">처음부터 다시하기</button>
         <button class="btn btn-o btn-s" onclick="toggleCompare()" id="btn-cmp">비교 보기 (0/3)</button>
       </div>
-      <button class="btn btn-d" onclick="openCM()">컨시어지 상담 신청하기</button>
     </div>
 
   </div>
@@ -87,5 +84,11 @@
       <p style="font-size:12px;color:#888;margin-top:6px">저장된 컬렉션을 한눈에 비교하세요 (최대 3개)</p>
     </div>
     <div class="cmp-grid" id="cmp-grid"></div>
+
+    <!-- 비교 후 액션 -->
+    <div id="cmp-actions" style="display:none;margin-top:40px;padding-top:32px;border-top:1px solid #e8e8e8;display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-d" onclick="openCM()" style="padding:14px 32px;font-size:13px;letter-spacing:0.06em">컨시어지 상담 신청하기</button>
+      <button class="btn btn-o" onclick="showToast('온라인 주문 기능은 준비 중입니다.')" style="padding:14px 32px;font-size:13px;letter-spacing:0.06em">온라인 주문하기</button>
+    </div>
   </div>
 </section>

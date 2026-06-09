@@ -469,17 +469,6 @@ function genResult() {
   };
   setTxt('curator-text', comments[key] || comments.default);
 
-  /* CRM 저장 */
-  CRM.push({
-    id:Date.now(), time:new Date().toLocaleString('ko-KR'),
-    company:'', dept:'', contactName:'', phone:'', email:'', datetime:'', memo:'',
-    bizType:wState.bizType||'B2B', purpose:purpose, target:target,
-    qty:q, unitPrice:p, total:tot, discountRate:Math.round(d*100)+'%',
-    category:(wState.b2b_cat||wState.b2e_mood||[]).join(', '),
-    status:'신규', adminMemo:''
-  });
-  localStorage.setItem('lotteCrm', JSON.stringify(CRM));
-
   window._curResult = { p:p, q:q, total:tot, disc:da };
 
   /* 결과 섹션 표시 */
@@ -511,19 +500,26 @@ function updateCmpBtn() {
   var b = document.getElementById('btn-cmp');
   if (b) b.textContent = '비교 보기 ('+savedResults.length+'/3)';
 }
-function saveResult() {
-  if (!window._curResult) return;
+function addToCompare() {
+  if (!window._curResult) { showToast('먼저 큐레이션 결과를 생성해 주세요'); return; }
   if (savedResults.length >= 3) { showToast('최대 3개까지 저장 가능합니다'); return; }
   savedResults.push({ pkgs: window._genPkgs||[], total:window._curResult.total, ts:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) });
   updateCmpBtn(); renderCmpGrid();
-  showToast('결과가 저장됐습니다 ('+savedResults.length+'/3)');
+  showToast('비교 목록에 추가됐습니다 ('+savedResults.length+'/3)');
+  if (savedResults.length === 1) showToast('설문을 다시 진행해 다른 조건도 비교해보세요!');
 }
+function saveResult() { addToCompare(); }
 function toggleCompare() {
   var s = document.getElementById('compare-section');
-  if (!savedResults.length) { showToast('먼저 결과를 저장해 주세요'); return; }
+  if (!savedResults.length) { showToast('비교 목록에 먼저 결과를 추가해 주세요'); return; }
   if (!s) return;
   s.classList.toggle('visible');
-  if (s.classList.contains('visible')) { renderCmpGrid(); s.scrollIntoView({behavior:'smooth'}); }
+  if (s.classList.contains('visible')) {
+    renderCmpGrid();
+    s.scrollIntoView({behavior:'smooth'});
+    var ca = document.getElementById('cmp-actions');
+    if (ca) ca.style.display = 'flex';
+  }
 }
 function renderCmpGrid() {
   var el = document.getElementById('cmp-grid'); if (!el) return;
