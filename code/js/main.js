@@ -1050,7 +1050,64 @@ function submitCM() {
 }
 
 /* ══════════════════════════════════════════════════
-   관리자 어드민
+   비교 섹션 CTA — 기존 데이터로 즉시 처리
+   ══════════════════════════════════════════════════ */
+function cmpQuickConsult() {
+  var p = wState.unitPrice, q = wState.qty;
+  var d = p && q ? getDisc(q) : 0;
+  var tot = p && q ? Math.round(p * q * (1 - d)) : 0;
+  var co = (document.getElementById('cm-co')||{}).value ||
+           (document.getElementById('rpt-company')||{}).value || '';
+  var nm = (document.getElementById('cm-nm')||{}).value ||
+           (document.getElementById('rpt-name')||{}).value || '';
+  var ph = (document.getElementById('cm-ph')||{}).value || '';
+  if (!co || !nm) {
+    // 데이터 없으면 상담 모달 오픈
+    window._cmType = 'consult';
+    openCM();
+    return;
+  }
+  var rec = {
+    id: Date.now(), time: new Date().toLocaleString('ko-KR'),
+    company: co,
+    dept: (document.getElementById('cm-dept')||{}).value || (document.getElementById('rpt-dept')||{}).value || '',
+    contactName: nm, phone: ph,
+    email: (document.getElementById('cm-em')||{}).value || '',
+    selectedPackage: window._selectedPkgName || '',
+    bizType: wState.bizType || 'B2B',
+    purpose: (wState.b2b_purpose || wState.b2e_purpose || []).join(', '),
+    target: wState.b2b_target || wState.b2e_target || '',
+    qty: q || 0, unitPrice: p || 0, total: tot,
+    discountRate: Math.round(d * 100) + '%',
+    category: (wState.b2b_cat || wState.b2e_mood || []).join(', '),
+    status: '신규', adminMemo: ''
+  };
+  CRM.push(rec);
+  localStorage.setItem('lotteCrm', JSON.stringify(CRM));
+  showToast('상담 신청이 완료됐습니다. 24시간 내 연락드립니다.');
+}
+
+function cmpQuickOrder() {
+  var p = wState.unitPrice, q = wState.qty;
+  var d = p && q ? getDisc(q) : 0;
+  var co = (document.getElementById('cm-co')||{}).value ||
+           (document.getElementById('rpt-company')||{}).value || '';
+  var orderData = {
+    packageName: window._selectedPkgName || '맞춤 선물 패키지',
+    bizType: wState.bizType || 'B2B',
+    purpose: (wState.b2b_purpose || wState.b2e_purpose || []).join(', '),
+    qty: q || 0,
+    unitPrice: p || 0,
+    discountRate: Math.round(d * 100),
+    company: co,
+    dept: (document.getElementById('cm-dept')||{}).value || (document.getElementById('rpt-dept')||{}).value || '',
+    name: (document.getElementById('cm-nm')||{}).value || (document.getElementById('rpt-name')||{}).value || '',
+    phone: (document.getElementById('cm-ph')||{}).value || '',
+    email: (document.getElementById('cm-em')||{}).value || ''
+  };
+  localStorage.setItem('lotteOrderData', JSON.stringify(orderData));
+  window.location.href = 'order.html';
+}
    ══════════════════════════════════════════════════ */
 function openAdmin() {
   document.getElementById('ap').classList.add('open');

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주문서 작성 — 롯데백화점 동탄점 B2B</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f4f4f4; color: #222; font-size: 14px; }
+
+    /* 상단 헤더 */
+    .order-header { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .order-header-logo { font-size: 15px; font-weight: 800; letter-spacing: .06em; }
+    .order-header-step { font-size: 12px; color: #888; }
+
+    /* 레이아웃 */
+    .order-layout { max-width: 1100px; margin: 0 auto; padding: 32px 16px 80px; display: flex; gap: 24px; align-items: flex-start; }
+    .order-left { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+    .order-right { width: 320px; flex-shrink: 0; position: sticky; top: 72px; display: flex; flex-direction: column; gap: 16px; }
+
+    /* 카드 공통 */
+    .o-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; }
+    .o-card-hd { padding: 18px 20px 14px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; }
+    .o-card-hd-num { width: 22px; height: 22px; border-radius: 50%; background: #111; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .o-card-hd-t { font-size: 14px; font-weight: 700; }
+    .o-card-bd { padding: 20px; }
+
+    /* 주문 상품 */
+    .prod-row { display: flex; gap: 16px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f4f4f4; }
+    .prod-row:last-child { border-bottom: none; }
+    .prod-img { width: 64px; height: 64px; border-radius: 4px; background: #f0f0f0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .prod-info { flex: 1; }
+    .prod-brand { font-size: 10px; color: #888; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+    .prod-name { font-size: 13px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+    .prod-opt { font-size: 11px; color: #aaa; margin-bottom: 8px; }
+    .prod-price-row { display: flex; align-items: center; gap: 10px; }
+    .prod-qty { font-size: 12px; color: #888; }
+    .prod-price { font-size: 14px; font-weight: 700; margin-left: auto; }
+
+    /* 폼 필드 */
+    .o-form-row { display: flex; gap: 12px; margin-bottom: 14px; }
+    .o-form-row:last-child { margin-bottom: 0; }
+    .o-field { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .o-field.full { flex: 0 0 100%; }
+    .o-label { font-size: 11px; font-weight: 700; color: #555; }
+    .o-label .req { color: #c00; margin-left: 2px; }
+    .o-input { border: 1px solid #ddd; border-radius: 3px; padding: 9px 12px; font-size: 13px; width: 100%; outline: none; transition: border-color .15s; }
+    .o-input:focus { border-color: #111; }
+    .o-select { border: 1px solid #ddd; border-radius: 3px; padding: 9px 12px; font-size: 13px; width: 100%; background: #fff; outline: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+
+    /* 배송 옵션 */
+    .deliver-opts { display: flex; flex-direction: column; gap: 8px; }
+    .deliver-opt { display: flex; align-items: flex-start; gap: 10px; border: 1px solid #e8e8e8; border-radius: 4px; padding: 12px 14px; cursor: pointer; transition: border-color .15s; }
+    .deliver-opt.selected { border-color: #111; }
+    .deliver-opt input[type=radio] { accent-color: #111; margin-top: 2px; flex-shrink: 0; }
+    .deliver-opt-info { display: flex; flex-direction: column; gap: 2px; }
+    .deliver-opt-name { font-size: 13px; font-weight: 600; }
+    .deliver-opt-desc { font-size: 11px; color: #888; }
+    .deliver-opt-price { font-size: 13px; font-weight: 700; margin-left: auto; }
+
+    /* 결제 수단 */
+    .pay-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pay-opt { border: 1px solid #e8e8e8; border-radius: 4px; padding: 12px 14px; cursor: pointer; transition: border-color .15s; display: flex; align-items: center; gap: 8px; }
+    .pay-opt.selected { border-color: #111; background: #f9f9f9; }
+    .pay-opt input[type=radio] { accent-color: #111; }
+    .pay-opt-icon { font-size: 18px; }
+    .pay-opt-name { font-size: 12px; font-weight: 600; }
+
+    /* 우측 결제 정보 */
+    .price-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; font-size: 13px; border-bottom: 1px solid #f4f4f4; }
+    .price-row:last-of-type { border-bottom: none; }
+    .price-row .label { color: #666; }
+    .price-row .value { font-weight: 600; }
+    .price-row.total { padding-top: 14px; margin-top: 4px; border-top: 2px solid #111; font-size: 15px; }
+    .price-row.total .label { font-weight: 700; color: #111; }
+    .price-row.total .value { font-size: 18px; font-weight: 800; color: #111; }
+    .price-row.discount .value { color: #c00; }
+
+    /* 결제 버튼 */
+    .btn-pay { width: 100%; background: #111; color: #fff; border: none; border-radius: 4px; padding: 16px; font-size: 15px; font-weight: 700; letter-spacing: .04em; cursor: pointer; margin-top: 16px; transition: background .15s; }
+    .btn-pay:hover { background: #333; }
+
+    /* 약관 */
+    .agree-box { font-size: 11px; color: #888; text-align: center; line-height: 1.6; margin-top: 12px; }
+    .agree-box a { color: #555; text-decoration: underline; }
+
+    /* 알림 배너 */
+    .info-banner { background: #f0f4ff; border: 1px solid #c5d4ff; border-radius: 4px; padding: 12px 16px; font-size: 12px; color: #3355cc; display: flex; gap: 8px; align-items: flex-start; }
+    .info-banner-icon { flex-shrink: 0; font-weight: 700; }
+
+    /* 완료 오버레이 */
+    .order-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 999; align-items: center; justify-content: center; }
+    .order-overlay.show { display: flex; }
+    .order-complete-box { background: #fff; border-radius: 8px; padding: 48px 40px; max-width: 440px; width: 90%; text-align: center; }
+    .order-complete-icon { width: 56px; height: 56px; border-radius: 50%; background: #111; color: #fff; font-size: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .order-complete-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .order-complete-desc { font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 24px; }
+    .order-complete-no { font-size: 12px; background: #f4f4f4; border-radius: 4px; padding: 10px 16px; margin-bottom: 28px; letter-spacing: .04em; }
+    .order-complete-btns { display: flex; gap: 10px; justify-content: center; }
+    .btn-o-outline { border: 1px solid #ddd; background: #fff; border-radius: 4px; padding: 11px 22px; font-size: 13px; cursor: pointer; }
+    .btn-o-dark { border: none; background: #111; color: #fff; border-radius: 4px; padding: 11px 22px; font-size: 13px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .order-layout { flex-direction: column; }
+      .order-right { width: 100%; position: static; }
+      .pay-opts { grid-template-columns: 1fr; }
+      .o-form-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="order-header">
+  <div class="order-header-logo">LOTTE DONGTAN · B2B</div>
+  <div class="order-header-step">주문서 작성</div>
+</header>
+
+<div class="order-layout">
+
+  <!-- 좌측 -->
+  <div class="order-left">
+
+    <div class="info-banner">
+      <div class="info-banner-icon">ℹ</div>
+      <div>큐레이션 결과에서 선택하신 패키지가 자동으로 반영되었습니다. 주문자 정보를 확인 후 결제를 진행해 주세요.</div>
+    </div>
+
+    <!-- 주문 상품 -->
+    <div class="o-card">
+      <div class="o-card-hd">
+        <div class="o-card-hd-num">1</div>
+        <div class="o-card-hd-t">주문 상품</div>
+      </div>
+      <div class="o-card-bd" id="order-products">
+        <div class="prod-row">
+          <div class="prod-img">🎁</div>
+          <div class="prod-info">
+            <div class="prod-brand">LOTTE DONGTAN B2B</div>
+            <div class="prod-name" id="op-name">로딩 중...</div>
+            <div class="prod-opt" id="op-opt"></div>
+            <div class="prod-price-row">
+              <span class="prod-qty" id="op-qty"></span>
+              <span class="prod-price" id="op-price"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 주문자 정보 -->
+    <div class="o-card">
+      <div class="o-card-hd">
+        <div class="o-card-hd-num">2</div>
+        <div class="o-card-hd-t">주문자 정보</div>
+      </div>
+      <div class="o-card-bd">
+        <div class="o-form-row">
+          <div class="o-field">
+            <label class="o-label">회사명 <span class="req">*</span></label>
+            <input class="o-input" id="o-company" placeholder="(주)삼성전자">
+          </div>
+          <div class="o-field">
+            <label class="o-label">부서명</label>
+            <input class="o-input" id="o-dept" placeholder="총무팀">
+          </div>
+        </div>
+        <div class="o-form-row">
+          <div class="o-field">
+            <label class="o-label">담당자 성함 <span class="req">*</span></label>
+            <input class="o-input" id="o-name" placeholder="홍길동 대리">
+          </div>
+          <div class="o-field">
+            <label class="o-label">연락처 <span class="req">*</span></label>
+            <input class="o-input" id="o-phone" placeholder="010-0000-0000" type="tel">
+          </div>
+        </div>
+        <div class="o-form-row">
+          <div class="o-field">
+            <label class="o-label">이메일</label>
+            <input class="o-input" id="o-email" placeholder="email@company.com" type="email">
+          </div>
+          <div class="o-field">
+            <label class="o-label">세금계산서 사업자번호</label>
+            <input class="o-input" id="o-bizno" placeholder="000-00-00000">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 배송지 정보 -->
+    <div class="o-card">
+      <div class="o-card-hd">
+        <div class="o-card-hd-num">3</div>
+        <div class="o-card-hd-t">배송지 정보</div>
+      </div>
+      <div class="o-card-bd">
+        <div class="o-form-row">
+          <div class="o-field">
+            <label class="o-label">수령인 <span class="req">*</span></label>
+            <input class="o-input" id="o-recv" placeholder="수령인 성함">
+          </div>
+          <div class="o-field">
+            <label class="o-label">수령인 연락처 <span class="req">*</span></label>
+            <input class="o-input" id="o-recv-phone" placeholder="010-0000-0000" type="tel">
+          </div>
+        </div>
+        <div class="o-form-row">
+          <div class="o-field full">
+            <label class="o-label">주소 <span class="req">*</span></label>
+            <input class="o-input" id="o-addr" placeholder="배송지 주소를 입력해 주세요" style="margin-bottom:6px">
+            <input class="o-input" id="o-addr2" placeholder="상세 주소">
+          </div>
+        </div>
+        <div class="o-form-row">
+          <div class="o-field">
+            <label class="o-label">배송 메모</label>
+            <select class="o-select" id="o-memo">
+              <option value="">선택해 주세요</option>
+              <option>부재시 문 앞에 놓아주세요</option>
+              <option>부재시 경비실에 맡겨주세요</option>
+              <option>배송 전 연락 주세요</option>
+              <option>직접 입력</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 배송 옵션 -->
+        <div style="margin-top:16px">
+          <div class="o-label" style="margin-bottom:10px">배송 방법</div>
+          <div class="deliver-opts">
+            <label class="deliver-opt selected" onclick="selectOpt(this)">
+              <input type="radio" name="delivery" value="standard" checked>
+              <div class="deliver-opt-info">
+                <div class="deliver-opt-name">일반 배송</div>
+                <div class="deliver-opt-desc">주문 후 3–5 영업일 내 발송</div>
+              </div>
+              <div class="deliver-opt-price">무료</div>
+            </label>
+            <label class="deliver-opt" onclick="selectOpt(this)">
+              <input type="radio" name="delivery" value="quick">
+              <div class="deliver-opt-info">
+                <div class="deliver-opt-name">퀵 배송 (수도권)</div>
+                <div class="deliver-opt-desc">당일 또는 익일 배송 · 수도권 한정</div>
+              </div>
+              <div class="deliver-opt-price">₩50,000</div>
+            </label>
+            <label class="deliver-opt" onclick="selectOpt(this)">
+              <input type="radio" name="delivery" value="pickup">
+              <div class="deliver-opt-info">
+                <div class="deliver-opt-name">매장 직접 수령</div>
+                <div class="deliver-opt-desc">롯데백화점 동탄점 1층 VIP 컨시어지 데스크</div>
+              </div>
+              <div class="deliver-opt-price">무료</div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 결제 수단 -->
+    <div class="o-card">
+      <div class="o-card-hd">
+        <div class="o-card-hd-num">4</div>
+        <div class="o-card-hd-t">결제 수단</div>
+      </div>
+      <div class="o-card-bd">
+        <div class="pay-opts">
+          <label class="pay-opt selected" onclick="selectPay(this)">
+            <input type="radio" name="paymethod" checked>
+            <div class="pay-opt-icon">💳</div>
+            <div class="pay-opt-name">신용카드</div>
+          </label>
+          <label class="pay-opt" onclick="selectPay(this)">
+            <input type="radio" name="paymethod">
+            <div class="pay-opt-icon">🏦</div>
+            <div class="pay-opt-name">계좌이체</div>
+          </label>
+          <label class="pay-opt" onclick="selectPay(this)">
+            <input type="radio" name="paymethod">
+            <div class="pay-opt-icon">📄</div>
+            <div class="pay-opt-name">세금계산서 후불</div>
+          </label>
+          <label class="pay-opt" onclick="selectPay(this)">
+            <input type="radio" name="paymethod">
+            <div class="pay-opt-icon">🏢</div>
+            <div class="pay-opt-name">기업 구매카드</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 우측 결제 정보 -->
+  <div class="order-right">
+    <div class="o-card">
+      <div class="o-card-hd">
+        <div class="o-card-hd-t">결제 정보</div>
+      </div>
+      <div class="o-card-bd">
+        <div class="price-row"><span class="label">상품 금액</span><span class="value" id="pr-subtotal">—</span></div>
+        <div class="price-row discount"><span class="label">대량 할인</span><span class="value" id="pr-discount">—</span></div>
+        <div class="price-row"><span class="label">배송비</span><span class="value">무료</span></div>
+        <div class="price-row total"><span class="label">최종 결제금액</span><span class="value" id="pr-total">—</span></div>
+        <button class="btn-pay" onclick="submitOrder()">결제하기</button>
+        <p class="agree-box">주문 내용을 확인하였으며 <a href="#">이용약관</a> 및<br><a href="#">개인정보 처리방침</a>에 동의합니다.</p>
+      </div>
+    </div>
+
+    <div class="o-card">
+      <div class="o-card-bd" style="font-size:11px;color:#888;line-height:1.8">
+        <div style="font-weight:700;color:#555;margin-bottom:6px">주문 안내</div>
+        <div>· 세금계산서는 주문 완료 후 영업일 기준 2일 내 발행됩니다.</div>
+        <div>· 대량 주문(100개 이상)은 전담 MD가 별도 연락드립니다.</div>
+        <div>· 주문 취소는 발송 전일 오후 3시까지 가능합니다.</div>
+        <div>· 문의: 031-000-0000 (B2B 전용 직통)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 완료 오버레이 -->
+<div class="order-overlay" id="order-overlay">
+  <div class="order-complete-box">
+    <div class="order-complete-icon">✓</div>
+    <div class="order-complete-title">주문이 완료됐습니다!</div>
+    <div class="order-complete-desc">담당 MD가 확인 후 24시간 내 연락드립니다.<br>세금계산서 및 납기 일정은 별도 안내됩니다.</div>
+    <div class="order-complete-no" id="order-no">주문번호: LDT-B2B-000000</div>
+    <div class="order-complete-btns">
+      <button class="btn-o-outline" onclick="goBack()">메인으로</button>
+      <button class="btn-o-dark" onclick="window.print()">주문서 인쇄</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function fmt(n){ return '₩'+(Math.round(n)||0).toLocaleString(); }
+
+  // localStorage에서 주문 데이터 읽기
+  var d = {};
+  try { d = JSON.parse(localStorage.getItem('lotteOrderData')||'{}'); } catch(e){}
+
+  // 상품 정보 채우기
+  var pkgName = d.packageName || '맞춤 선물 패키지 (PREMIUM)';
+  var qty = d.qty || 0;
+  var unitPrice = d.unitPrice || 0;
+  var discRate = d.discountRate || 0;
+  var subtotal = unitPrice * qty;
+  var discAmt = Math.round(subtotal * discRate / 100);
+  var total = subtotal - discAmt;
+
+  document.getElementById('op-name').textContent = pkgName;
+  document.getElementById('op-opt').textContent = d.purpose ? '목적: ' + d.purpose : '롯데백화점 동탄점 B2B 큐레이션';
+  document.getElementById('op-qty').textContent = qty ? qty + (d.bizType === 'B2E' ? '명' : '개') : '';
+  document.getElementById('op-price').textContent = total ? fmt(total) : '상담 후 확정';
+  document.getElementById('pr-subtotal').textContent = subtotal ? fmt(subtotal) : '—';
+  document.getElementById('pr-discount').textContent = discAmt ? '-' + fmt(discAmt) + ' (' + discRate + '%)' : '—';
+  document.getElementById('pr-total').textContent = total ? fmt(total) : '—';
+
+  // 주문자 정보 자동 채우기
+  if (d.company) document.getElementById('o-company').value = d.company;
+  if (d.dept)    document.getElementById('o-dept').value    = d.dept;
+  if (d.name)    document.getElementById('o-name').value    = d.name;
+  if (d.phone)   document.getElementById('o-phone').value   = d.phone;
+  if (d.email)   document.getElementById('o-email').value   = d.email;
+})();
+
+function selectOpt(el) {
+  document.querySelectorAll('.deliver-opt').forEach(function(e){ e.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+function selectPay(el) {
+  document.querySelectorAll('.pay-opt').forEach(function(e){ e.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function submitOrder() {
+  var co = document.getElementById('o-company').value.trim();
+  var nm = document.getElementById('o-name').value.trim();
+  var ph = document.getElementById('o-phone').value.trim();
+  var recv = document.getElementById('o-recv').value.trim();
+  var addr = document.getElementById('o-addr').value.trim();
+  if (!co || !nm || !ph || !recv || !addr) {
+    alert('필수 항목(회사명, 담당자, 연락처, 수령인, 주소)을 입력해 주세요.');
+    return;
+  }
+  var no = 'LDT-B2B-' + Date.now().toString().slice(-6);
+  document.getElementById('order-no').textContent = '주문번호: ' + no;
+
+  // CRM에 주문 저장
+  try {
+    var d = JSON.parse(localStorage.getItem('lotteOrderData')||'{}');
+    var crm = JSON.parse(localStorage.getItem('lotteCrm')||'[]');
+    crm.push({
+      id: Date.now(), time: new Date().toLocaleString('ko-KR'),
+      company: co, dept: document.getElementById('o-dept').value,
+      contactName: nm, phone: ph,
+      email: document.getElementById('o-email').value,
+      selectedPackage: d.packageName || '',
+      bizType: d.bizType || 'B2B', purpose: d.purpose || '',
+      qty: d.qty || 0, unitPrice: d.unitPrice || 0,
+      total: (d.unitPrice||0)*(d.qty||0)*(1-(d.discountRate||0)/100),
+      discountRate: (d.discountRate||0) + '%',
+      status: '주문접수', adminMemo: '', orderNo: no
+    });
+    localStorage.setItem('lotteCrm', JSON.stringify(crm));
+  } catch(e){}
+
+  document.getElementById('order-overlay').classList.add('show');
+}
+
+function goBack() {
+  window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>
