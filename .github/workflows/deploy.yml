@@ -30,6 +30,9 @@ jobs:
       - name: Copy images
         run: cp -r images _site/images
 
+      - name: Copy login page
+        run: cp code/login _site/login
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
