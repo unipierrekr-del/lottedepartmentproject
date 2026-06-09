@@ -402,7 +402,9 @@ function selectPackage(i) {
     card.classList.remove('selected');
     if (j === i) card.classList.add('selected');
   }
-  showToast(['STANDARD','PREMIUM','SIGNATURE'][i]+' 패키지가 선택되었습니다');
+  // 선택한 패키지 정보를 모달에 전달 후 상담 신청 모달 열기
+  window._selectedPkgName = ['STANDARD','PREMIUM','SIGNATURE'][i];
+  openCM();
 }
 
 /* ══════════════════════════════════════════════════
@@ -949,6 +951,7 @@ function openCM() {
   if (wState.bizType && cs && csi) {
     var p=wState.unitPrice, q=wState.qty, tot=p&&q?fmt(p*q*(1-getDisc(q))):'';
     csi.innerHTML = [
+      {l:'선택 패키지', v:window._selectedPkgName||''},
       {l:'유형', v:wState.bizType},
       {l:'목적', v:(wState.b2b_purpose||wState.b2e_purpose||[]).join(', ')},
       {l:'수량', v:q?(q+(wState.bizType==='B2B'?'개':'명')):''},
@@ -978,6 +981,7 @@ function submitCM() {
     email:  (document.getElementById('cm-em')||{}).value||'',
     datetime:(document.getElementById('cm-dt')||{}).value||'',
     memo:   (document.getElementById('cm-mo')||{}).value||'',
+    selectedPackage:window._selectedPkgName||'',
     bizType:wState.bizType||'B2B', purpose:(wState.b2b_purpose||wState.b2e_purpose||[]).join(', '),
     target:wState.b2b_target||wState.b2e_target||'',
     qty:q||0, unitPrice:p||0, total:tot, discountRate:Math.round(d*100)+'%',
@@ -1060,6 +1064,7 @@ function renderApDash() {
       '<td><strong>'+esc(d.company||'—')+'</strong></td>'+
       '<td>'+esc(d.contactName||'—')+'</td>'+
       '<td><span class="tp '+(d.bizType==='B2B'?'b2b':d.bizType==='UNIFORM'?'uni':'b2e')+'">'+esc(d.bizType)+'</span></td>'+
+      '<td>'+(d.selectedPackage||'—')+'</td>'+
       '<td>'+(d.total?fmt(d.total):'—')+'</td>'+
       '<td><span class="sp '+(d.status==='신규'?'new':d.status==='검토중'?'rev':d.status==='확정'?'con':'com')+'">'+esc(d.status)+'</span></td>'+
     '</tr>';
@@ -1084,6 +1089,7 @@ function renderApTable() {
       '<td>'+esc(d.contactName||'—')+'</td>'+
       '<td>'+esc(d.phone||'—')+'</td>'+
       '<td><span class="tp '+(d.bizType==='B2B'?'b2b':d.bizType==='UNIFORM'?'uni':'b2e')+'">'+esc(d.bizType)+'</span></td>'+
+      '<td>'+(d.selectedPackage||'—')+'</td>'+
       '<td>'+(d.qty||'—')+'</td>'+
       '<td>'+(d.total?fmt(d.total):'—')+'</td>'+
       '<td><span class="sp '+(d.status==='신규'?'new':d.status==='검토중'?'rev':d.status==='확정'?'con':'com')+'">'+esc(d.status)+'</span></td>'+
