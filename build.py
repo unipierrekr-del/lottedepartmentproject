@@ -25,7 +25,6 @@ sections = [
     'sections/intro.html',
     'sections/wizard.html',
     'sections/result.html',
-    'sections/uniform.html',
     'sections/clients.html',
     'sections/b2b.html',
     'sections/cta.html',
