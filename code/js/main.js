@@ -146,7 +146,7 @@ function tChip(el, cat, val) {
 }
 function sChip(el, cat, val) {
   var panel = el.closest('.wpanel');
-  panel.querySelectorAll('.chip').forEach(function(c){
+  panel.querySelectorAll('.chip, .bud-card').forEach(function(c){
     if ((c.getAttribute('onclick')||'').indexOf("'"+cat+"'") !== -1) c.classList.remove('sel');
   });
   el.classList.add('sel');

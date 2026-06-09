@@ -413,6 +413,7 @@ section{border-bottom:1px solid var(--gray-mid)}
 
 /* BUDGET CARDS */
 .bud-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e8e8e8}
+.bud-grid-2col{grid-template-columns:repeat(2,1fr)}
 .bud-card{
   background:#fff;padding:24px 20px;cursor:pointer;
   transition:background .2s;border-bottom:2px solid transparent;
