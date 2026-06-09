@@ -1108,7 +1108,7 @@ function cmpQuickOrder() {
   localStorage.setItem('lotteOrderData', JSON.stringify(orderData));
   window.location.href = 'order.html';
 }
-   ══════════════════════════════════════════════════ */
+
 function openAdmin() {
   document.getElementById('ap').classList.add('open');
   var ls=document.getElementById('ap-ls'), sh=document.getElementById('ap-sh');
