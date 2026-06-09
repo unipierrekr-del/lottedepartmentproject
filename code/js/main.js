@@ -110,12 +110,10 @@ function gp(id, dot) {
   if (w) w.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// 패널별 자동 다음 단계 매핑
+// 패널별 자동 다음 단계 매핑 (복수 섹션 패널은 제외)
 var PANEL_AUTO_NEXT = {
   'wp-b2b-1': function(){ gp('wp-b2b-2',2); },
   'wp-b2b-3': function(){ gp('wp-b2b-4',4); },
-  'wp-b2b-4': function(){ gp('wp-b2b-5',5); },
-  'wp-b2b-5': function(){ showSum('b2b'); },
   'wp-b2e-1': function(){ gp('wp-b2e-2',2); },
   'wp-b2e-3': function(){ gp('wp-b2e-4',4); },
   'wp-b2e-4': function(){ gp('wp-b2e-5',5); },
@@ -494,6 +492,24 @@ function genResult() {
   setTxt('curator-text', comments[key] || comments.default);
 
   window._curResult = { p:p, q:q, total:tot, disc:da };
+
+  /* 품의서 필드 자동 동기화 (상담 신청 폼에서 입력한 값 복사) */
+  function syncRpt(rptId, srcId) {
+    var rpt = $(rptId), src = $(srcId);
+    if (rpt && src && src.value && !rpt.value) rpt.value = src.value;
+  }
+  syncRpt('rpt-company', 'cm-co');
+  syncRpt('rpt-dept',    'cm-dept');
+  syncRpt('rpt-name',    'cm-nm');
+  // 상담 신청 폼 oninput → 품의서 자동 반영 (한 번만 바인딩)
+  if (!window._rptSynced) {
+    window._rptSynced = true;
+    [['cm-co','rpt-company'],['cm-dept','rpt-dept'],['cm-nm','rpt-name']].forEach(function(pair){
+      var src = $(pair[0]), rpt = $(pair[1]);
+      if (src && rpt) src.addEventListener('input', function(){ if (!rpt._userEdited) rpt.value = src.value; });
+      if (rpt) rpt.addEventListener('input', function(){ rpt._userEdited = true; });
+    });
+  }
 
   /* 결과 섹션 표시 */
   var rs = $('result-section');
@@ -1021,6 +1037,12 @@ function submitCM() {
   };
   CRM.push(rec);
   localStorage.setItem('lotteCrm', JSON.stringify(CRM));
+  // 품의서 필드에 값 자동 복사 (사용자가 직접 수정하지 않은 경우에만)
+  var rptMap = [['cm-co','rpt-company'],['cm-dept','rpt-dept'],['cm-nm','rpt-name']];
+  rptMap.forEach(function(pair){
+    var src=document.getElementById(pair[0]), rpt=document.getElementById(pair[1]);
+    if (src && rpt && src.value && !rpt._userEdited) rpt.value = src.value;
+  });
   closeCM();
   ['cm-co','cm-dept','cm-nm','cm-ph','cm-em','cm-dt','cm-mo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
   var msg = window._cmType==='order' ? '주문 신청이 완료됐습니다. 24시간 내 확인 후 연락드립니다.' : '상담 신청이 완료됐습니다. 24시간 내 연락드립니다.';
