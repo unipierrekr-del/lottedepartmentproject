@@ -38,60 +38,6 @@
       <div class="curator-name">&#8212; 롯데백화점 동탄점 선물 큐레이터 팀</div>
     </div>
 
-    <!-- 가상 패키징 프리뷰 -->
-    <div class="pkg-preview-section">
-      <div class="pkg-preview-header">
-        <div>
-          <div class="pkg-preview-kicker">Packaging Preview</div>
-          <div class="pkg-preview-title">가상 패키징 프리뷰</div>
-        </div>
-        <div style="font-size:11px;color:#aaa">선택한 옵션이 실시간으로 반영됩니다</div>
-      </div>
-      <div class="pkg-preview-body">
-        <div class="pkg-preview-controls">
-          <div class="ppc-group">
-            <span class="ppc-label">회사 로고</span>
-            <label class="logo-upload-btn">
-              <input type="file" accept="image/*" onchange="handleLogoUpload(this)">
-              <span id="logo-upload-text">&#8593; 로고 업로드</span>
-            </label>
-          </div>
-          <div class="ppc-group">
-            <span class="ppc-label">박스 컬러</span>
-            <div class="color-swatches">
-              <div class="color-swatch active" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #ddd" onclick="selectColor(this,'#FFFFFF')" title="화이트"></div>
-              <div class="color-swatch" style="background:#1a1a1a" onclick="selectColor(this,'#1a1a1a')" title="블랙"></div>
-              <div class="color-swatch" style="background:#C4AA8F" onclick="selectColor(this,'#C4AA8F')" title="골드"></div>
-              <div class="color-swatch" style="background:#2B4EAE" onclick="selectColor(this,'#2B4EAE')" title="네이비"></div>
-              <div class="color-swatch" style="background:#8B4513" onclick="selectColor(this,'#8B4513')" title="브라운"></div>
-            </div>
-          </div>
-          <div class="ppc-group">
-            <span class="ppc-label">리본</span>
-            <div class="ribbon-btns">
-              <button class="ribbon-btn active" onclick="selectRibbon(this,'새틴')">새틴</button>
-              <button class="ribbon-btn" onclick="selectRibbon(this,'트위드')">트위드</button>
-              <button class="ribbon-btn" onclick="selectRibbon(this,'없음')">없음</button>
-            </div>
-          </div>
-        </div>
-        <div class="pkg-preview-shots">
-          <div class="preview-shot">
-            <canvas class="preview-shot-canvas" id="canvas-front" width="400" height="300"></canvas>
-            <div class="preview-shot-label">정면</div>
-          </div>
-          <div class="preview-shot">
-            <canvas class="preview-shot-canvas" id="canvas-open" width="400" height="300"></canvas>
-            <div class="preview-shot-label">오픈</div>
-          </div>
-          <div class="preview-shot">
-            <canvas class="preview-shot-canvas" id="canvas-hand" width="400" height="300"></canvas>
-            <div class="preview-shot-label">핸드오버</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- 품의서 & 견적서 -->
     <div class="report-section">
       <div class="report-header">
