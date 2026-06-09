@@ -75,13 +75,36 @@ nav{
   display:flex;align-items:center;
   border-bottom:1px solid #e8e8e8;
   padding:80px 40px;
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 50%, rgba(255,255,255,0.55) 100%),
-    /* [이미지] images/image2 — 히어로 배경 이미지 */
-    url('images/image2');
-  background-size:cover;
-  background-position:center right;
-  background-attachment:fixed;
+  position:relative;
+  overflow:hidden;
+}
+/* 영상 배경 컨테이너 */
+#hero .video-wrapper{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+#hero .video-wrapper::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 50%, rgba(255,255,255,0.4) 100%);
+  z-index:1;
+}
+#hero .video-wrapper iframe{
+  position:absolute;
+  top:50%;left:50%;
+  width:100vw;height:56.25vw;
+  min-height:100vh;min-width:177.77vh;
+  transform:translate(-50%,-50%);
+  border:0;
+}
+/* 텍스트가 영상 위에 표시되도록 */
+#hero .hero-inner{position:relative;z-index:2;}
+@media(max-width:768px){
+  #hero .video-wrapper{height:100%;}
 }
 .hero-inner{max-width:1200px;margin:0 auto;width:100%}
 .hero-kicker{
