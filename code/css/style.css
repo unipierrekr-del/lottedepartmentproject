@@ -152,6 +152,7 @@ img{display:block;max-width:100%}
   min-height:600px;overflow:hidden;background:var(--black);
 }
 .phero-video{position:absolute;inset:0;pointer-events:none;}
+.phero-video-cover{position:absolute;inset:0;z-index:1;background:transparent;pointer-events:none;}
 .phero-video iframe{
   position:absolute;top:50%;left:50%;
   width:100vw;height:56.25vw;
