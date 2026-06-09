@@ -33,6 +33,9 @@ jobs:
       - name: Copy login page
         run: cp code/login _site/login.html
 
+      - name: Copy contact page
+        run: cp code/contact.html _site/contact.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
