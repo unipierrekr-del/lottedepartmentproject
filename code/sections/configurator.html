@@ -1,0 +1,119 @@
+<!-- ═══════════════════════════════════════════════════════════
+   configurator.html — 포르쉐 모델선택기 스타일 "나만의 선물 구성하기"
+═══════════════════════════════════════════════════════════════ -->
+<section id="configurator" class="pconf">
+  <div class="pconf-wrap">
+
+    <!-- 상단 헤더 -->
+    <div class="pconf-hd">
+      <div class="pconf-hd-left">
+        <h2 class="pconf-title">나만의 선물 구성하기</h2>
+        <p class="pconf-sub">목적과 예산에 맞는 프리미엄 기프트 패키지를 설계하세요</p>
+      </div>
+      <button class="pconf-saved-btn" onclick="scrollToWizard()">
+        이미 추천받으셨나요? <span>결과 불러오기 →</span>
+      </button>
+    </div>
+
+    <!-- 카드 그리드 (포르쉐 모델 카드 스타일) -->
+    <div class="pconf-grid">
+
+      <!-- B2B 거래처 선물 -->
+      <div class="pconf-card" onclick="startConfig('B2B')">
+        <div class="pconf-card-img pconf-img-b2b">
+          <div class="pconf-img-content">
+            <div class="pconf-img-items">
+              <div class="pconf-img-box pconf-img-box-1">조 말론<br>코롱</div>
+              <div class="pconf-img-box pconf-img-box-2">샤넬<br>향수</div>
+              <div class="pconf-img-box pconf-img-box-3">몽블랑<br>볼펜</div>
+            </div>
+          </div>
+        </div>
+        <div class="pconf-card-body">
+          <div class="pconf-card-badge">B2B · 거래처</div>
+          <h3 class="pconf-card-name">거래처 선물</h3>
+          <p class="pconf-card-desc">협력사·고객사·VIP에게 전달하는 비즈니스 기프팅. 브랜드 이미지와 격조를 동시에 전달합니다.</p>
+          <div class="pconf-card-specs">
+            <div class="pconf-spec"><span class="pconf-spec-l">수량</span><span class="pconf-spec-v">10개 이상</span></div>
+            <div class="pconf-spec"><span class="pconf-spec-l">예산</span><span class="pconf-spec-v">3만~15만원/인</span></div>
+            <div class="pconf-spec"><span class="pconf-spec-l">납기</span><span class="pconf-spec-v">주문 후 3–5일</span></div>
+          </div>
+          <button class="pconf-card-btn">거래처 선물 구성하기</button>
+        </div>
+      </div>
+
+      <!-- B2E 임직원 선물 -->
+      <div class="pconf-card" onclick="startConfig('B2E')">
+        <div class="pconf-card-img pconf-img-b2e">
+          <div class="pconf-img-content">
+            <div class="pconf-img-items">
+              <div class="pconf-img-box pconf-img-box-4">정관장<br>홍삼진</div>
+              <div class="pconf-img-box pconf-img-box-5">비오템<br>스킨케어</div>
+              <div class="pconf-img-box pconf-img-box-6">딥티크<br>캔들</div>
+            </div>
+          </div>
+        </div>
+        <div class="pconf-card-body">
+          <div class="pconf-card-badge">B2E · 임직원</div>
+          <h3 class="pconf-card-name">임직원 선물</h3>
+          <p class="pconf-card-desc">사내 임직원 대상의 격려·보상·기념 선물. 실용성과 취향을 고려한 개인화 큐레이션을 제공합니다.</p>
+          <div class="pconf-card-specs">
+            <div class="pconf-spec"><span class="pconf-spec-l">인원</span><span class="pconf-spec-v">10명 이상</span></div>
+            <div class="pconf-spec"><span class="pconf-spec-l">예산</span><span class="pconf-spec-v">2만~10만원/인</span></div>
+            <div class="pconf-spec"><span class="pconf-spec-l">배송</span><span class="pconf-spec-v">개별 배송 가능</span></div>
+          </div>
+          <button class="pconf-card-btn">임직원 선물 구성하기</button>
+        </div>
+      </div>
+
+      <!-- VIP 프리미엄 패키지 -->
+      <div class="pconf-card pconf-card-vip" onclick="startConfig('VIP')">
+        <div class="pconf-card-img pconf-img-vip">
+          <div class="pconf-img-content">
+            <div class="pconf-img-items">
+              <div class="pconf-img-box pconf-img-box-7">샤넬<br>No.5</div>
+              <div class="pconf-img-box pconf-img-box-8">에르메스<br>향수</div>
+              <div class="pconf-img-box pconf-img-box-9">몽블랑<br>만년필</div>
+            </div>
+          </div>
+        </div>
+        <div class="pconf-card-body">
+          <div class="pconf-card-badge pconf-badge-vip">VIP · 프리미엄</div>
+          <h3 class="pconf-card-name">VIP 프리미엄</h3>
+          <p class="pconf-card-desc">최고급 브랜드와 전담 컨시어지 서비스. 중요한 파트너에게 결코 잊지 못할 선물 경험을 선사합니다.</p>
+          <div class="pconf-card-specs">
+            <div class="pconf-spec"><span class="pconf-spec-l">예산</span><span class="pconf-spec-v">15만원 이상/인</span></div>
+            <div class="pconf-spec"><span class="pconf-spec-l">서비스</span><span class="pconf-spec-v">전담 컨시어지</span></div>
+            <div class="pconf-spec"><span class="pconf-spec-l">포장</span><span class="pconf-spec-v">프리미엄 패키징</span></div>
+          </div>
+          <button class="pconf-card-btn pconf-btn-vip">VIP 패키지 구성하기</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 하단 통계 바 -->
+    <div class="pconf-stats">
+      <div class="pconf-stat"><span class="pconf-stat-n">500<sup>+</sup></span><span class="pconf-stat-l">기업 고객사</span></div>
+      <div class="pconf-stat-div"></div>
+      <div class="pconf-stat"><span class="pconf-stat-n">98<sup>%</sup></span><span class="pconf-stat-l">정시 배송률</span></div>
+      <div class="pconf-stat-div"></div>
+      <div class="pconf-stat"><span class="pconf-stat-n">12K</span><span class="pconf-stat-l">월간 배송 건수</span></div>
+      <div class="pconf-stat-div"></div>
+      <div class="pconf-stat"><span class="pconf-stat-n">4.9</span><span class="pconf-stat-l">고객 만족도</span></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function startConfig(type){
+  if(type==='VIP') type='B2B';
+  if(typeof wState!=='undefined') wState.bizType=type;
+  scrollToWizard();
+  setTimeout(function(){
+    var card=document.querySelector('#wizard .type-card[onclick*="\''+type+'\'"]');
+    if(card) card.click();
+  },600);
+}
+</script>

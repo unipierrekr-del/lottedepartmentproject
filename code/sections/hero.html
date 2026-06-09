@@ -1,16 +1,12 @@
 <!-- ═══════════════════════════════════════════════════════════
-   hero.html — 히어로 섹션
-   ---------------------------------------------------------------
-   구조:
-   [1] #hero-video  : 유튜브 영상 (독립 섹션, 전체 화면)
-   [2] #hero        : 텍스트 섹션 (타이틀, 버튼, 통계)
-
-   영상 ID 변경: IRvepLZnH-g 두 곳을 원하는 ID로 교체
+   hero.html — 포르쉐 스타일 히어로
+   - 전체화면 영상 + 텍스트 오버레이
+   - 스크롤 인디케이터
 ═══════════════════════════════════════════════════════════════ -->
 
-<!-- [1] 영상 섹션 -->
-<section id="hero-video">
-  <div class="video-wrapper">
+<!-- 전체화면 영상 + 오버레이 -->
+<section id="hero-video" class="phero">
+  <div class="phero-video">
     <iframe
       src="https://www.youtube.com/embed/IRvepLZnH-g?autoplay=1&mute=1&loop=1&playlist=IRvepLZnH-g&controls=0&rel=0&playsinline=1"
       title="Hero Background Video"
@@ -18,28 +14,26 @@
       allowfullscreen>
     </iframe>
   </div>
-</section>
-
-<!-- [2] 텍스트 섹션 -->
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-kicker">롯데백화점 동탄점 단독 운영 · B2B 기업 전용</div>
-    <h1 class="hero-title">
-      비즈니스를 위한<br>
-      프리미엄 기프팅 솔루션
-    </h1>
-    <p class="hero-desc">
-      백화점 전문 큐레이터가 기업 규모·업종·수신자 특성을 직접 분석하여 엄선한 기프트 리스트를 제공합니다.
-    </p>
-    <div class="hero-btns">
-      <button class="btn btn-dark" onclick="scrollToWizard()">기업 선물 추천받기</button>
-      <button class="btn btn-outline" onclick="document.getElementById('intro').scrollIntoView({behavior:'smooth'})">서비스 알아보기</button>
-    </div>
-    <div class="hero-stats">
-      <div><div class="hero-stat-num">500+</div><div class="hero-stat-desc">기업 고객사</div></div>
-      <div><div class="hero-stat-num">98%</div><div class="hero-stat-desc">정시 배송률</div></div>
-      <div><div class="hero-stat-num">12K</div><div class="hero-stat-desc">월간 배송 건수</div></div>
-      <div><div class="hero-stat-num">4.9</div><div class="hero-stat-desc">고객 만족도</div></div>
+  <div class="phero-overlay"></div>
+  <div class="phero-content">
+    <div class="phero-kicker">LOTTE DONGTAN · B2B GIFT CONCIERGE</div>
+    <h1 class="phero-title">기업 선물의<br>새로운 기준</h1>
+    <p class="phero-sub">백화점 전문 큐레이터가 설계하는 프리미엄 기프팅 솔루션</p>
+    <div class="phero-actions">
+      <button class="phero-btn-dark" onclick="scrollToConfigurator()">나만의 선물 구성하기</button>
+      <button class="phero-btn-outline" onclick="scrollToWizard()">빠른 추천받기</button>
     </div>
   </div>
+  <div class="phero-scroll-ind">
+    <span class="phero-scroll-line"></span>
+    <span class="phero-scroll-lbl">SCROLL</span>
+  </div>
 </section>
+
+<script>
+function scrollToConfigurator(){
+  var el=document.getElementById('configurator');
+  if(el)el.scrollIntoView({behavior:'smooth'});
+  else scrollToWizard();
+}
+</script>
