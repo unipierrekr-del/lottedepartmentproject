@@ -397,7 +397,10 @@ function selectPackage(i) {
   window._selectedPkg = i;
   for (var j = 0; j < 3; j++) {
     var card = document.getElementById('pkc-'+j);
-    if (card) card.style.outline = (j===i) ? '2px solid #111' : 'none';
+    if (!card) continue;
+    card.style.outline = 'none';
+    card.classList.remove('selected');
+    if (j === i) card.classList.add('selected');
   }
   showToast(['STANDARD','PREMIUM','SIGNATURE'][i]+' 패키지가 선택되었습니다');
 }

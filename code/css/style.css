@@ -928,21 +928,25 @@ footer{background:#111;padding:60px 40px 36px}
 .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e8e8e8;margin-bottom:1px}
 .pkg-c{background:#fff;padding:28px 22px;position:relative;transition:background .2s;display:flex;flex-direction:column;border-top:2px solid transparent}
 .pkg-c:hover{background:#fafafa}
-.pkg-c.feat{background:#111;border-top-color:#111}
-.pkg-c.feat *{color:#fff!important}
-.pkg-c.feat .pkg-tag{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.6)!important;border-color:rgba(255,255,255,.12)!important}
-.pkg-c.feat .pkg-div{background:rgba(255,255,255,.1)!important}
-.pkg-c.feat .pkg-tot-row{background:rgba(255,255,255,.06)!important}
-.pkg-c.feat .pkg-disc{background:rgba(100,220,150,.2)!important;color:#7effa0!important}
-.pkg-c.feat .pkg-sb{background:#fff!important;color:#111!important;border-color:#fff!important}
-.pkg-c.feat .pkg-sb:hover{background:#e8e8e8!important}
-.pkg-c.feat .pkg-db{border-color:rgba(255,255,255,.2)!important;color:rgba(255,255,255,.4)!important}
-.pkg-c.feat .pkg-db:hover{border-color:#fff!important;color:#fff!important}
-.pkg-c.feat .pkg-det{background:#1a1a1a!important;border-color:rgba(255,255,255,.08)!important}
-.pkg-c.feat .pkg-det-it{border-bottom-color:rgba(255,255,255,.07)!important;color:rgba(255,255,255,.5)!important}
-.pkg-c.feat .pkg-det-n{color:#fff!important}
+/* feat: 기본은 흰색 — 클릭 시 JS가 .selected 추가하여 검은 배경 적용 */
+.pkg-c.feat{background:#fff;border-top-color:#111}
 .pkg-bdg{position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-50%);background:#111;color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:4px 14px;white-space:nowrap}
-.pkg-c.feat .pkg-bdg{background:#fff;color:#111}
+
+/* 선택된 카드 스타일 */
+.pkg-c.selected{background:#111;border-top-color:#111}
+.pkg-c.selected *{color:#fff!important}
+.pkg-c.selected .pkg-tag{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.6)!important;border-color:rgba(255,255,255,.12)!important}
+.pkg-c.selected .pkg-div{background:rgba(255,255,255,.1)!important}
+.pkg-c.selected .pkg-tot-row{background:rgba(255,255,255,.06)!important}
+.pkg-c.selected .pkg-disc{background:rgba(100,220,150,.2)!important;color:#7effa0!important}
+.pkg-c.selected .pkg-sb{background:#fff!important;color:#111!important;border-color:#fff!important}
+.pkg-c.selected .pkg-sb:hover{background:#e8e8e8!important}
+.pkg-c.selected .pkg-db{border-color:rgba(255,255,255,.2)!important;color:rgba(255,255,255,.4)!important}
+.pkg-c.selected .pkg-db:hover{border-color:#fff!important;color:#fff!important}
+.pkg-c.selected .pkg-det{background:#1a1a1a!important;border-color:rgba(255,255,255,.08)!important}
+.pkg-c.selected .pkg-det-it{border-bottom-color:rgba(255,255,255,.07)!important;color:rgba(255,255,255,.5)!important}
+.pkg-c.selected .pkg-det-n{color:#fff!important}
+.pkg-c.selected .pkg-bdg{background:#fff;color:#111}
 .pkg-tier{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:8px}
 .pkg-price{font-size:26px;font-weight:700;letter-spacing:-.02em;color:#111;margin-bottom:3px;line-height:1}
 .pkg-ps{font-size:11px;color:#aaa;margin-bottom:14px}
