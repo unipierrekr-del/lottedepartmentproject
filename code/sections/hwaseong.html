@@ -1,0 +1,171 @@
+<!-- ═══════════════════════════════════════════════════════════
+   hwaseong.html — 화성시 특별관
+   - 화성상공회의소 회원사(제조업·중견기업) 제품 소개/판매
+   - 카테고리 탭 + 상품 카드 그리드 (얼리썸머 섹션과 동일 디자인)
+═══════════════════════════════════════════════════════════════ -->
+<section id="hwaseong">
+  <div class="pconf-wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">HWASEONG SPECIAL · 지역상생</div>
+      <h2 class="sec-title">화성시 특별관</h2>
+      <p class="sec-desc">오직 동탄점에서만 만나는 화성 지역 제품관입니다.<br>화성상공회의소 회원사인 우수 제조업·중견기업의 제품을 큐레이션하여 소개합니다.</p>
+    </div>
+
+    <!-- 카테고리 탭 -->
+    <div class="season-tab-nav">
+      <button class="season-tab active" onclick="switchSeasonTab(this,'hs-mfg')">화성 | 제조업</button>
+      <button class="season-tab" onclick="switchSeasonTab(this,'hs-food')">화성 | 식품</button>
+      <button class="season-tab" onclick="switchSeasonTab(this,'hs-living')">화성 | 생활·뷰티</button>
+      <button class="season-tab" onclick="switchSeasonTab(this,'hs-tech')">화성 | 테크·전자</button>
+    </div>
+
+    <!-- 제조업 -->
+    <div class="season-grid active" id="hs-mfg">
+      <div class="season-card">
+        <div class="season-card-img season-img-1"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">동탄정밀 스테인리스 텀블러 선물세트 (화성상공회의소 회원사)</div>
+        <div class="season-price"><span class="season-old">38,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">15%</span><span class="season-now">32,300원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-2"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">팔탄금속 수제 명함케이스 &amp; 볼펜 세트</div>
+        <div class="season-price"><span class="season-old">29,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">26,100원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">선물포장</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-3"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">향남산업단지 친환경 도시락 보온가방 세트</div>
+        <div class="season-price"><span class="season-old">24,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">12%</span><span class="season-now">21,120원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-4"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">마도공단 알루미늄 멀티 거치대 기프트팩</div>
+        <div class="season-price"><span class="season-old">19,800원</span></div>
+        <div class="season-price-row"><span class="season-discount">8%</span><span class="season-now">18,220원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span></div>
+      </div>
+    </div>
+
+    <!-- 식품 -->
+    <div class="season-grid" id="hs-food">
+      <div class="season-card">
+        <div class="season-card-img season-img-5"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">동탄 농협 햅쌀 선물세트 4kg</div>
+        <div class="season-price"><span class="season-old">32,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">28,800원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 농가</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-6"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">우정바이오 발효 식초 선물세트 3종</div>
+        <div class="season-price"><span class="season-old">45,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">18%</span><span class="season-now">36,900원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">선물포장</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-7"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">남양 유가공 프리미엄 유제품 선물세트</div>
+        <div class="season-price"><span class="season-old">52,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">15%</span><span class="season-now">44,200원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-8"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">송산 포도즙 선물세트 30포</div>
+        <div class="season-price"><span class="season-old">39,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">12%</span><span class="season-now">34,320원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 농가</span></div>
+      </div>
+    </div>
+
+    <!-- 생활·뷰티 -->
+    <div class="season-grid" id="hs-living">
+      <div class="season-card">
+        <div class="season-card-img season-img-1"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">향남 코스메틱 클러스터 천연 핸드크림 기프트세트</div>
+        <div class="season-price"><span class="season-old">36,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">20%</span><span class="season-now">28,800원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">선물포장</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-2"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">동탄 라이프스타일 디퓨저 &amp; 캔들 세트</div>
+        <div class="season-price"><span class="season-old">42,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">15%</span><span class="season-now">35,700원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-3"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">매송 섬유공방 프리미엄 타올 선물세트</div>
+        <div class="season-price"><span class="season-old">28,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">25,200원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-4"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">정남 우드공방 수제 원목 트레이 세트</div>
+        <div class="season-price"><span class="season-old">33,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">12%</span><span class="season-now">29,040원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">선물포장</span></div>
+      </div>
+    </div>
+
+    <!-- 테크·전자 -->
+    <div class="season-grid" id="hs-tech">
+      <div class="season-card">
+        <div class="season-card-img season-img-5"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">동탄 테크노밸리 무선 충전 기프트 세트</div>
+        <div class="season-price"><span class="season-old">59,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">18%</span><span class="season-now">48,380원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-6"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">향남전자 블루투스 스피커 &amp; 파우치 세트</div>
+        <div class="season-price"><span class="season-old">68,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">20%</span><span class="season-now">54,400원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-7"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">팔탄전기 스마트 멀티탭 &amp; 케이블 정리 세트</div>
+        <div class="season-price"><span class="season-old">25,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">22,500원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">무료배송</span></div>
+      </div>
+      <div class="season-card">
+        <div class="season-card-img season-img-8"></div>
+        <button class="season-heart" aria-label="찜">♡</button>
+        <div class="season-card-name">동탄 정밀기술 미니 가습기 기프트세트</div>
+        <div class="season-price"><span class="season-old">45,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">15%</span><span class="season-now">38,250원</span></div>
+        <div class="season-tags"><span class="season-tag">화성 제조</span><span class="season-tag">선물포장</span></div>
+      </div>
+    </div>
+
+    <div class="hs-foot">
+      <div class="hs-foot-text">화성상공회의소 회원사 입점 문의 &amp; 제휴 수수료 안내</div>
+      <button class="btn btn-d btn-s" onclick="openCM('consult')">입점 제휴 문의하기</button>
+    </div>
+  </div>
+</section>
