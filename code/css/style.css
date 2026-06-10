@@ -318,8 +318,8 @@ img{display:block;max-width:100%}
   transition:background .2s;
 }
 .pconf-card-btn:hover{background:#333}
-.pconf-btn-vip{background:linear-gradient(135deg,#8b7355,#6b5735)}
-.pconf-btn-vip:hover{background:linear-gradient(135deg,#7a6345,#5a4625)}
+.pconf-btn-vip{background:#000}
+.pconf-btn-vip:hover{background:#333}
 .pconf-card-vip .pconf-card-name{color:var(--text)}
 
 /* 통계 바 */
