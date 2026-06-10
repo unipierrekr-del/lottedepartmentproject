@@ -900,6 +900,9 @@ footer{background:#111;padding:60px 40px 36px}
 }
 .sumg-in:focus{outline:none;border-color:#111}
 .sumg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.hs-top-badge{display:inline-block;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;padding:4px 12px;border-radius:20px;vertical-align:middle;margin-left:10px}
+.sumg-grid-4{grid-template-columns:repeat(4,1fr)}
+.sumg-grid-5{grid-template-columns:repeat(5,1fr)}
 .sumg-card{display:flex;flex-direction:column}
 .sumg-card-img{aspect-ratio:4/5;background:var(--gray);overflow:hidden;border-radius:6px;margin-bottom:16px}
 .sumg-badge{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-sub);margin-bottom:8px}
@@ -913,8 +916,9 @@ footer{background:#111;padding:60px 40px 36px}
 }
 .sumg-btn:hover{background:#333}
 
+@media(max-width:1100px){ .sumg-grid-4,.sumg-grid-5{grid-template-columns:repeat(2,1fr)} }
 @media(max-width:900px){ .sumg-grid{grid-template-columns:1fr 1fr} .sumg-card:nth-child(3){grid-column:1/-1} }
-@media(max-width:600px){ .sumg-grid{grid-template-columns:1fr} .sumg-budget-row{flex-direction:column} }
+@media(max-width:600px){ .sumg-grid,.sumg-grid-4,.sumg-grid-5{grid-template-columns:1fr} .sumg-budget-row{flex-direction:column} }
 
 /* ════════════════════════════════
    얼리썸머 기프트 추천 섹션

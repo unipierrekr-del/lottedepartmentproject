@@ -1,381 +1,61 @@
 <!-- ═══════════════════════════════════════════════════════════
-   season.html — 얼리썸머 기프트 추천 섹션
-   - 카테고리 탭 (푸드/리빙/패션/키즈/ACC)
-   - 상품 카드 그리드 (8개)
+   season.html — 프리미엄 명절 선물 컬렉션
+   - 한우 / 과일 / 홍삼 등 프리미엄 선물세트 큐레이션 (4:5 이미지)
+   - 이런 선물은 어떠신가요 섹션과 동일한 카드 디자인
 ═══════════════════════════════════════════════════════════════ -->
 <section id="season">
   <div class="pconf-wrap">
     <div class="sec-head">
-      <div class="sec-kicker">EARLY SUMMER GIFT</div>
-      <h2 class="sec-title">얼리썸머 기프트 추천</h2>
-      <p class="sec-desc">초여름, 센스 있는 선물을 찾는다면? 카테고리별 인기 기프트를 만나보세요.</p>
+      <div class="sec-kicker">PREMIUM GIFT COLLECTION</div>
+      <h2 class="sec-title">프리미엄 명절 선물 컬렉션</h2>
+      <p class="sec-desc">한우, 과일, 홍삼까지 — 받는 분의 격을 높여주는 프리미엄 선물세트를 큐레이션했습니다.<br>대량 주문 시 추가 할인 및 맞춤 패키징 상담이 가능합니다.</p>
     </div>
 
-    <!-- 카테고리 탭 -->
-    <div class="season-tab-nav">
-      <button class="season-tab active" onclick="switchSeasonTab(this,'sf-food')">얼리썸머 | 푸드</button>
-      <button class="season-tab" onclick="switchSeasonTab(this,'sf-living')">얼리썸머 | 리빙</button>
-      <button class="season-tab" onclick="switchSeasonTab(this,'sf-fashion')">얼리썸머 | 패션</button>
-      <button class="season-tab" onclick="switchSeasonTab(this,'sf-kids')">얼리썸머 | 키즈</button>
-      <button class="season-tab" onclick="switchSeasonTab(this,'sf-acc')">얼리썸머 | ACC</button>
-    </div>
-
-    <!-- 푸드 -->
-    <div class="season-grid active" id="sf-food">
-      <div class="season-card">
-        <div class="season-card-img season-img-1"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">GRN [단독] 트리플케어세트 (리얼킨1개+콜라겐젤리1개+레티놀C1개) (+쇼핑백)</div>
-        <div class="season-price"><span class="season-old">43,900원</span></div>
-        <div class="season-price-row"><span class="season-discount">13%</span><span class="season-now">37,760원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
+    <div class="sumg-grid sumg-grid-5">
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/gift1.png" alt="청풍명월 1++ 한우 명작로스1호" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">프리미엄 한우</div>
+        <h3 class="sumg-name">청풍명월 1++ 한우 명작로스1호(2.4kg)</h3>
+        <p class="sumg-desc">1++ 등급 최상급 한우 로스 구성으로, 거래처·VIP 대상 명절 선물 중 가장 품격 있는 선택지입니다.</p>
+        <div class="season-price"><span class="season-old">555,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">499,500원</span></div>
+        <button class="sumg-btn" onclick="openSummerGift('청풍명월 1++ 한우 명작로스1호(2.4kg)')">선물하기</button>
       </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-2"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">오설록 말차플러스 패키지(물병 증정)</div>
-        <div class="season-price"><span class="season-old">36,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">25%</span><span class="season-now">27,000원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag dark">오늘도착 ~10:00 주문 시</span><span class="season-tag">3,000원</span></div>
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/gift2.png" alt="동양축산 한우마을 신선5호세트" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">프리미엄 한우</div>
+        <h3 class="sumg-name">동양축산 1++등급 한우마을 신선5호세트(2.0kg)</h3>
+        <p class="sumg-desc">냉장 직송 1++등급 한우를 부위별로 구성한 세트로, 신선함과 품질을 동시에 만족시키는 실속형 프리미엄 선물입니다.</p>
+        <div class="season-price"><span class="season-old">360,400원</span></div>
+        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">324,360원</span></div>
+        <button class="sumg-btn" onclick="openSummerGift('동양축산 1++등급 한우마을 신선5호세트(2.0kg)')">선물하기</button>
       </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-3"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">엘제이드 얼린 생 수박주스 250mL X 6입</div>
-        <div class="season-price"><span class="season-old">21,800원</span></div>
-        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">19,620원</span></div>
-        <div class="season-tags"><span class="season-tag">3,500원</span></div>
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/gift3.png" alt="안성마춤농협 한우 친환경 패키지 명품세트" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">프리미엄 한우</div>
+        <h3 class="sumg-name">안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)</h3>
+        <p class="sumg-desc">친환경 패키지로 구성된 안성마춤 한우 명품세트로, 실용성과 친환경 가치를 함께 전달하는 선물입니다.</p>
+        <div class="season-price"><span class="season-old">226,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">9%</span><span class="season-now">205,660원</span></div>
+        <button class="sumg-btn" onclick="openSummerGift('안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)')">선물하기</button>
       </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-4"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">오쏘몰 이문 7일분 + 에르메스 어메니티 세트</div>
-        <div class="season-price"><span class="season-old">72,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">64,800원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag dark">오늘도착 ~10:00 주문 시</span><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/gift4.png" alt="일품채 엘프르미에 배 세트" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">프리미엄 과일</div>
+        <h3 class="sumg-name">일품채 엘프르미에 배 세트(7.5kg / 배 9입)</h3>
+        <p class="sumg-desc">당도와 크기를 엄선한 프리미엄 배 세트로, 부담 없이 두루 선호되는 명절 대표 과일 선물입니다.</p>
+        <div class="season-price"><span class="season-old">183,000원</span></div>
+        <div class="season-price-row"><span class="season-discount">5%</span><span class="season-now">173,850원</span></div>
+        <button class="sumg-btn" onclick="openSummerGift('일품채 엘프르미에 배 세트(7.5kg / 배 9입)')">선물하기</button>
       </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-5"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">쌍계명차 허니플라워 미니청 2입세트+쇼핑백</div>
-        <div class="season-price"><span class="season-old">40,500원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">34,430원</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-6"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">레놋티 스킨시너업패키지 1개월(콜라겐2box+글로우2box)</div>
-        <div class="season-price"><span class="season-old">127,800원</span></div>
-        <div class="season-price-row"><span class="season-discount">13%</span><span class="season-now">109,910원</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-7"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">올가홀푸드 [산지]ORGA 저탄소 경산 신비복숭아 2kg(18입 내외)</div>
-        <div class="season-price"><span class="season-old">32,900원</span></div>
-        <div class="season-price-row"><span class="season-discount">5%</span><span class="season-now">30,930원</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-8"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">그린퍼즐 프리미엄 과일꾸러미 7종 선물세트 3.1kg 하미과메론 애플망고 외 일모음</div>
-        <div class="season-price"><span class="season-old">42,500원</span></div>
-        <div class="season-price-row"><span class="season-now">38,250원</span></div>
-      </div>
-    </div>
-
-    <!-- 리빙 -->
-    <div class="season-grid" id="sf-living">
-      <div class="season-card">
-        <div class="season-card-img season-img-1"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">드리미 드리미 MF10 bladeless fan 블레이드리스 팬</div>
-        <div class="season-price-row"><span class="season-now">379,000원</span></div>
-        <div class="season-note">카카오페이 머니 7% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-2"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">샤오미 Xiaomi 스마트 스탠드 선풍기 2</div>
-        <div class="season-price-row"><span class="season-now">89,800원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-3"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">신일 신일 BLDC 에어 서큘레이터 - 스탠드형 (SIF-09BCHM)</div>
-        <div class="season-price"><span class="season-old">149,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">6%</span><span class="season-now">140,060원</span></div>
-        <div class="season-note">카카오페이 머니 7% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-4"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">르젠 스탠드형 리모컨 싸큘레이터 LZEF-AR330</div>
-        <div class="season-price"><span class="season-old">61,900원</span></div>
-        <div class="season-price-row"><span class="season-discount">5%</span><span class="season-now">58,190원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-5"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">세사 [롯데단독] 아이스큐브 냉감 시트Q</div>
-        <div class="season-price"><span class="season-old">49,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">26%</span><span class="season-now">36,260원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-6"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">소프라움 [롯데단독] 프리즈 냉감 스프레드 S</div>
-        <div class="season-price"><span class="season-old">84,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">26%</span><span class="season-now">62,160원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-7"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">소프라움 [롯데단독] 프리즈 냉감 스프레드 Q</div>
-        <div class="season-price"><span class="season-old">99,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">26%</span><span class="season-now">73,260원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-8"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">알레르망 [롯데단독] 소베르 여름 차렵 베개커버세트Q</div>
-        <div class="season-price"><span class="season-old">178,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">26%</span><span class="season-now">131,720원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-    </div>
-
-    <!-- 영패션 -->
-    <div class="season-grid" id="sf-fashion">
-      <div class="season-card">
-        <div class="season-card-img season-img-1"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">써스데이아일랜드 [KiiiKiii 착용] 플라워 패턴 원피스(T264MOP253W)</div>
-        <div class="season-price"><span class="season-old">230,300원</span></div>
-        <div class="season-price-row"><span class="season-discount">21%</span><span class="season-now">179,640원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-2"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">헌터 여성 오리지날 플레이 미드 레인부츠 장화 버터 (WFMK002RMABUT)</div>
-        <div class="season-price-row"><span class="season-now">169,000원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-3"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">에고이스트 [BL] 골드 리본 플랫폼 ES2OAS01</div>
-        <div class="season-price"><span class="season-old">46,550원</span></div>
-        <div class="season-price-row"><span class="season-discount">21%</span><span class="season-now">36,310원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-4"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">아페쎄 Standard Grand VPC T-shirt AM26S3URR1390</div>
-        <div class="season-price-row"><span class="season-now">219,000원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-5"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">시티브리즈 헤미스피어 체인 타이 네크리스_SILVER</div>
-        <div class="season-price"><span class="season-old">27,930원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">23,750원</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-6"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">시티브리즈 큐브 참 네크리스_SILVER</div>
-        <div class="season-price"><span class="season-old">27,930원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">23,750원</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-7"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">시티브리즈 CTBRZ 나일론 배색 볼캡_5COLORS</div>
-        <div class="season-price"><span class="season-old">35,700원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">30,350원</span></div>
-        <div class="season-tags"><span class="season-tag">3,000원</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-8"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">에고이스트 [BLUE LABEL] 3단 펀칭 레이스 숄더백 ES2OAB01</div>
-        <div class="season-price"><span class="season-old">59,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">20%</span><span class="season-now">47,200원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-      </div>
-    </div>
-
-    <!-- 키즈 -->
-    <div class="season-grid" id="sf-kids">
-      <div class="season-card">
-        <div class="season-card-img season-img-1"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">블루독 베이비 GN+RD 스트라이프SET 바디슈트 선물세트 46370-676-02+46370-676-03 출산백일돌선물</div>
-        <div class="season-price"><span class="season-old">130,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">23%</span><span class="season-now">100,100원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-2"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">블루독 베이비 GN 스타포켓바디수트+양말 선물세트 46370-040-05+45A70-011-11 출산백일돌선물</div>
-        <div class="season-price"><span class="season-old">83,500원</span></div>
-        <div class="season-price-row"><span class="season-discount">22%</span><span class="season-now">64,300원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-3"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">봉쁘앙 26SS [봉쁘앙X메종키츠네] 남아 티셔츠 AKIVA S06BTSK00022_102F 04A 06A 08A 10A 12A 14A</div>
-        <div class="season-price"><span class="season-old">205,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">184,500원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-4"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">압소바 트로이 무소 바디슈트(모자)</div>
-        <div class="season-price"><span class="season-old">49,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">23%</span><span class="season-now">37,730원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-5"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">압소바 릴가디건 원피스 세트 A1125101 (임신출산백일돌선물)</div>
-        <div class="season-price"><span class="season-old">151,200원</span></div>
-        <div class="season-price-row"><span class="season-discount">22%</span><span class="season-now">116,430원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-6"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">압소바 출산선물세트 7종택1 (A2C315502SET) (임신출산백일돌선물)</div>
-        <div class="season-price"><span class="season-old">158,400원</span></div>
-        <div class="season-price-row"><span class="season-discount">23%</span><span class="season-now">120,390원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-7"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">봉쁘앙 베이비 기프트 세트 PERZKID00002</div>
-        <div class="season-price"><span class="season-old">214,400원</span></div>
-        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">192,960원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-8"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">봉쁘앙 베이비 기프트 세트 PERZKID00001</div>
-        <div class="season-price"><span class="season-old">226,400원</span></div>
-        <div class="season-price-row"><span class="season-discount">10%</span><span class="season-now">203,760원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span><span class="season-tag">선물포장</span></div>
-      </div>
-    </div>
-
-    <!-- ACC -->
-    <div class="season-grid" id="sf-acc">
-      <div class="season-card">
-        <div class="season-card-img season-img-1"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">헬렌카민스키 [정상가 48만원] 헤스터 HESTER (여성용)</div>
-        <div class="season-price"><span class="season-old">336,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">20%</span><span class="season-now">268,800원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-2"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">헬렌카민스키 [정상가 56만원] 비올라 (여성용)</div>
-        <div class="season-price-row"><span class="season-now">392,000원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-3"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">헬렌카민스키 [정상가 48만원] 이스톤 EASTON (여성용)</div>
-        <div class="season-price"><span class="season-old">336,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">20%</span><span class="season-now">268,800원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-4"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">스타카토 [정상가:309,000원 롯데 EXCLUSIVE] 여성샌들 KKETJJANG7_EBK67_2COLOR</div>
-        <div class="season-price"><span class="season-old">143,500원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">123,410원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-5"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">스타카토 [정상가 309,000원 26SS EXCLUSIVE+사은품세트] 여성 스니커즈 SUPERSHY4_ECE83_3COLOR</div>
-        <div class="season-price"><span class="season-old">149,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">128,140원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-6"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">스타카토 [정상가:269,000원 롯데 EXCLUSIVE+사은품세트] 여성 메리제인로퍼 MANYEE8_EYH02BLK</div>
-        <div class="season-price"><span class="season-old">139,500원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">119,970원</span></div>
-        <div class="season-note">롯데카드 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-7"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">스타카토 [정상가:289,000원 EXCLUSIVE] 여성로퍼 MANYEE6_EGB27_2COLOR</div>
-        <div class="season-price"><span class="season-old">143,500원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">123,410원</span></div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
-      </div>
-      <div class="season-card">
-        <div class="season-card-img season-img-8"></div>
-        <button class="season-heart" aria-label="찜">♡</button>
-        <div class="season-card-name">스타카토 [정상가:329,000원 롯데 EXCLUSIVE 익일출고] 여성운동화 PLAINO5_ESE11_2COLOR</div>
-        <div class="season-price"><span class="season-old">109,000원</span></div>
-        <div class="season-price-row"><span class="season-discount">14%</span><span class="season-now">93,740원</span></div>
-        <div class="season-note">카카오페이 머니 5% 할인</div>
-        <div class="season-tags"><span class="season-tag">무료배송</span></div>
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/gift5.png" alt="정관장 홍삼정 240g" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">건강 선물</div>
+        <h3 class="sumg-name">정관장 홍삼정 240g (80일분, 스푼제거)</h3>
+        <p class="sumg-desc">대한민국 대표 홍삼 브랜드의 농축액 제품으로, 건강을 챙기는 마음을 전하기에 가장 무난하고 신뢰도 높은 선물입니다.</p>
+        <div class="season-price-row"><span class="season-now">220,000원</span></div>
+        <button class="sumg-btn" onclick="openSummerGift('정관장 홍삼정 240g (80일분, 스푼제거)')">선물하기</button>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-function switchSeasonTab(btn, id){
-  var scope = btn.closest('section');
-  scope.querySelectorAll('.season-tab').forEach(function(t){t.classList.remove('active')});
-  btn.classList.add('active');
-  scope.querySelectorAll('.season-grid').forEach(function(g){g.classList.remove('active')});
-  var el = document.getElementById(id);
-  if(el) el.classList.add('active');
-}
-</script>
