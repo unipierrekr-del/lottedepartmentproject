@@ -52,7 +52,6 @@
           <input class="report-input" id="rpt-company" placeholder="회사명 (예: 삼성전자)">
           <input class="report-input" id="rpt-dept"    placeholder="부서명 (예: 총무팀)">
           <input class="report-input" id="rpt-name"    placeholder="담당자명 (예: 김지은 대리)">
-          <input class="report-input" id="rpt-date"    placeholder="품의 예정일 (예: 2025.06.15)">
         </div>
         <div class="report-checklist">
           <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>표지 (회사명 / 부서 / 품의일 / 담당자)</div>
@@ -79,9 +78,12 @@
 
 <section id="compare-section">
   <div style="max-width:1200px;margin:0 auto;padding:0 40px">
-    <div style="margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e8e8e8">
-      <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em">선물 컬렉션 비교</h3>
-      <p style="font-size:12px;color:#888;margin-top:6px">저장된 컬렉션을 한눈에 비교하세요 (최대 3개)</p>
+    <div style="margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e8e8e8;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px">
+      <div>
+        <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em">선물 컬렉션 비교</h3>
+        <p style="font-size:12px;color:#888;margin-top:6px">저장된 컬렉션을 한눈에 비교하세요 (최대 3개)</p>
+      </div>
+      <button class="btn btn-o btn-s" onclick="wizRestart()">다른 조건으로 다시 설문하기</button>
     </div>
     <div class="cmp-grid" id="cmp-grid"></div>
 
