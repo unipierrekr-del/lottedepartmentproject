@@ -39,6 +39,9 @@ jobs:
       - name: Copy order page
         run: cp code/order.html _site/order.html
 
+      - name: Copy biz page
+        run: cp code/biz.html _site/biz.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
