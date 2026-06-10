@@ -981,11 +981,31 @@ function closeDP() { var dp=document.getElementById('dp'); if(dp) dp.classList.r
 /* ══════════════════════════════════════════════════
    컨시어지 상담 모달
    ══════════════════════════════════════════════════ */
+function openSummerGift(name) {
+  var b = (document.getElementById('sumg-budget')||{}).value||'';
+  var q = (document.getElementById('sumg-qty')||{}).value||'';
+  window._summerPick = { name: name, budget: b, qty: q };
+  var cs  = document.getElementById('cm-cs');
+  var csi = document.getElementById('cm-csi');
+  if (cs && csi) {
+    csi.innerHTML = [
+      {l:'선택 상품', v:name},
+      {l:'총예산', v:b?fmt(Number(b))+'원':''},
+      {l:'총수량', v:q?q+'개':''}
+    ].filter(function(i){ return i.v; }).map(function(i){
+      return '<div class="cm-cii"><strong>'+i.l+'</strong>'+i.v+'</div>';
+    }).join('');
+    cs.style.display = 'block';
+  }
+  openCM('consult');
+}
 function openCM(type) {
   window._cmType = type || 'consult'; // 'consult' or 'order'
   var cs  = document.getElementById('cm-cs');
   var csi = document.getElementById('cm-csi');
-  if (wState.bizType && cs && csi) {
+  if (window._summerPick) {
+    // 큐레이터 픽에서 진입한 경우 — 위에서 채운 정보 유지
+  } else if (wState.bizType && cs && csi) {
     var p=wState.unitPrice, q=wState.qty, tot=p&&q?fmt(p*q*(1-getDisc(q))):'';
     csi.innerHTML = [
       {l:'선택 패키지', v:window._selectedPkgName||''},
@@ -1035,6 +1055,12 @@ function submitCM() {
     category:(wState.b2b_cat||wState.b2e_mood||[]).join(', '),
     status: window._cmType==='order' ? '주문접수' : '신규', adminMemo:''
   };
+  if (window._summerPick) {
+    var sp = window._summerPick;
+    if (!rec.selectedPackage) rec.selectedPackage = sp.name;
+    rec.memo = '[얼리썸머 픽: '+sp.name+', 총예산:'+(sp.budget?fmt(Number(sp.budget))+'원':'-')+', 총수량:'+(sp.qty?sp.qty+'개':'-')+'] ' + rec.memo;
+    window._summerPick = null;
+  }
   CRM.push(rec);
   localStorage.setItem('lotteCrm', JSON.stringify(CRM));
   // 품의서 필드에 값 자동 복사 (사용자가 직접 수정하지 않은 경우에만)

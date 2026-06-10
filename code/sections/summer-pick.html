@@ -1,0 +1,50 @@
+<!-- ═══════════════════════════════════════════════════════════
+   summer-pick.html — "이런 선물은 어떠신가요?" 큐레이션 섹션
+   - 여름 보양식 / 비타민 큐레이션 카드 3종 (4:5 이미지)
+   - 총예산 / 총수량 직접 입력
+   - 선물하기 → 상담(품의서) 모달 연결
+═══════════════════════════════════════════════════════════════ -->
+<section id="summer-pick">
+  <div class="pconf-wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">CURATOR'S PICK</div>
+      <h2 class="sec-title">이런 선물은 어떠신가요?</h2>
+      <p class="sec-desc">무더운 여름, 받는 분의 건강까지 챙기는 선물이 가장 오래 기억에 남습니다.<br>큐레이터가 엄선한 여름 보양식 &amp; 비타민 기프트를 추천드립니다.</p>
+    </div>
+
+    <div class="sumg-budget-row">
+      <div class="sumg-bf">
+        <label class="sumg-lb">총예산 (원)</label>
+        <input type="number" class="sumg-in" id="sumg-budget" placeholder="예: 5000000" min="0">
+      </div>
+      <div class="sumg-bf">
+        <label class="sumg-lb">총수량 (개)</label>
+        <input type="number" class="sumg-in" id="sumg-qty" placeholder="예: 50" min="0">
+      </div>
+    </div>
+
+    <div class="sumg-grid">
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/summer1.png" alt="프리미엄 전복 선물세트" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">여름 보양식</div>
+        <h3 class="sumg-name">프리미엄 손질 전복 선물세트</h3>
+        <p class="sumg-desc">손질부터 포장까지 정성스럽게 준비한 활전복 세트로, 무더위에 지친 거래처와 임직원의 건강을 챙기는 정성스러운 보양 선물입니다.</p>
+        <button class="sumg-btn" onclick="openSummerGift('프리미엄 손질 전복 선물세트')">선물하기</button>
+      </div>
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/summer2.png" alt="민물장어 보양 선물세트" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">여름 보양식</div>
+        <h3 class="sumg-name">민물장어 보양 선물세트</h3>
+        <p class="sumg-desc">고단백 민물장어를 간편 조리 가능한 형태로 구성한 프리미엄 세트로, 여름철 체력 보충 선물로 특히 만족도가 높은 구성입니다.</p>
+        <button class="sumg-btn" onclick="openSummerGift('민물장어 보양 선물세트')">선물하기</button>
+      </div>
+      <div class="sumg-card">
+        <div class="sumg-card-img"><img src="images/summer3.png" alt="여름 컨디션 케어 비타민 세트" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="sumg-badge">컨디션 케어</div>
+        <h3 class="sumg-name">여름 컨디션 케어 비타민 세트</h3>
+        <p class="sumg-desc">고온다습한 환경 속 면역력 관리를 돕는 고함량 비타민 구성으로, 부담 없는 가격대로 대량 선물에 적합한 실용적인 기프트입니다.</p>
+        <button class="sumg-btn" onclick="openSummerGift('여름 컨디션 케어 비타민 세트')">선물하기</button>
+      </div>
+    </div>
+  </div>
+</section>
