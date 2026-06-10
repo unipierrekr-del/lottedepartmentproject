@@ -221,94 +221,56 @@ function backFromSum() {
    ══════════════════════════════════════════════════ */
 /* 이런 선물은 어떠신가요 / 프리미엄 명절 선물 컬렉션 상품 카탈로그 */
 var giftCatalog = {
-  g1:{n:'청풍명월 1++ 한우 명작로스1호(2.4kg)', d:'1++ 등급 최상급 한우 · 프리미엄 명절 선물 컬렉션 · ₩499,500', img:'images/pr1.png'},
-  g2:{n:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', d:'냉장 직송 1++ 한우 부위별 구성 · 프리미엄 명절 선물 컬렉션 · ₩324,360', img:'images/pr2.png'},
-  g3:{n:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', d:'친환경 패키지 한우 · 프리미엄 명절 선물 컬렉션 · ₩205,660', img:'images/pr3.png'},
-  g4:{n:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', d:'프리미엄 배 선물세트 · 프리미엄 명절 선물 컬렉션 · ₩173,850', img:'images/pr4.png'},
-  g5:{n:'정관장 홍삼정 240g (80일분, 스푼제거)', d:'대표 홍삼 농축액 · 프리미엄 명절 선물 컬렉션 · ₩220,000', img:'images/pr5.png'},
-  g6:{n:'썬키스트 캘리포니아 오렌지 세트(3kg)', d:'실속형 프리미엄 과일 · 프리미엄 명절 선물 컬렉션 · ₩89,000', img:'images/pr6.png'},
-  g7:{n:'종근당건강 락토핏 골드 + 비타민C 세트', d:'실속형 건강 선물 · 프리미엄 명절 선물 컬렉션 · ₩65,000', img:'images/pr7.png'},
-  g8:{n:'1++한우 갈비탕 6팩 실속세트', d:'간편 조리 1++ 한우 갈비탕 · 프리미엄 명절 선물 컬렉션 · ₩98,000', img:'images/pr8.png'},
-  s1:{n:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', d:'프리미엄 보양식 · 이런 선물은 어떠신가요 · ₩114,000', img:'images/summer1.png'},
-  s2:{n:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', d:'고단백 보양식 · 이런 선물은 어떠신가요 · ₩118,800', img:'images/summer2.png'},
-  s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요 · ₩109,800', img:'images/summer3.png'}
+  g1:{n:'청풍명월 1++ 한우 명작로스1호(2.4kg)', d:'1++ 등급 최상급 한우 · 프리미엄 명절 선물 컬렉션', img:'images/pr1.png', price:499500},
+  g2:{n:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', d:'냉장 직송 1++ 한우 부위별 구성 · 프리미엄 명절 선물 컬렉션', img:'images/pr2.png', price:324360},
+  g3:{n:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', d:'친환경 패키지 한우 · 프리미엄 명절 선물 컬렉션', img:'images/pr3.png', price:205660},
+  g4:{n:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', d:'프리미엄 배 선물세트 · 프리미엄 명절 선물 컬렉션', img:'images/pr4.png', price:173850},
+  g5:{n:'정관장 홍삼정 240g (80일분, 스푼제거)', d:'대표 홍삼 농축액 · 프리미엄 명절 선물 컬렉션', img:'images/pr5.png', price:220000},
+  g6:{n:'썬키스트 캘리포니아 오렌지 세트(3kg)', d:'실속형 프리미엄 과일 · 프리미엄 명절 선물 컬렉션', img:'images/pr6.png', price:89000},
+  g7:{n:'종근당건강 락토핏 골드 + 비타민C 세트', d:'실속형 건강 선물 · 프리미엄 명절 선물 컬렉션', img:'images/pr7.png', price:65000},
+  g8:{n:'1++한우 갈비탕 6팩 실속세트', d:'간편 조리 1++ 한우 갈비탕 · 프리미엄 명절 선물 컬렉션', img:'images/pr8.png', price:98000},
+  s1:{n:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', d:'프리미엄 보양식 · 이런 선물은 어떠신가요', img:'images/summer1.png', price:114000},
+  s2:{n:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', d:'고단백 보양식 · 이런 선물은 어떠신가요', img:'images/summer2.png', price:118800},
+  s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요', img:'images/summer3.png', price:109800}
 };
-function fromCatalog(keys) {
-  return keys.map(function(k){ return giftCatalog[k]; });
-}
 var pkgItems = {
-  /* ═══ 뷰티·향수 (여성) ═══ */
-  beauty_female: {
-    std:  fromCatalog(['g7','g6','s3']),
-    prem: fromCatalog(['g4','s1','g5']),
-    sig:  fromCatalog(['g1','g5','s2'])
-  },
-  /* ═══ 뷰티·향수 (남성) ═══ */
-  beauty_male: {
-    std:  fromCatalog(['g8','g6']),
-    prem: fromCatalog(['g2','g5','s1']),
-    sig:  fromCatalog(['g1','s2','g5'])
-  },
-  /* ═══ 구르메·식품 ═══ */
-  gourmet: {
-    std:  fromCatalog(['g8','g7','g4']),
-    prem: fromCatalog(['g2','g4','s1']),
-    sig:  fromCatalog(['g1','g5','s2'])
-  },
-  /* ═══ 건강·비타민·웰니스 ═══ */
-  wellness: {
-    std:  fromCatalog(['g7','s3']),
-    prem: fromCatalog(['g5','s3','g6']),
-    sig:  fromCatalog(['g5','s1','g1'])
-  },
-  /* ═══ B2B 프리미엄 임원 ═══ */
-  premium: {
-    std:  fromCatalog(['g8','g6']),
-    prem: fromCatalog(['g2','g5','s1']),
-    sig:  fromCatalog(['g1','s2','g5'])
-  },
-  /* ═══ B2E 실용 임직원 ═══ */
-  practical: {
-    std:  fromCatalog(['g7','g6','s3']),
-    prem: fromCatalog(['g4','s2','g8']),
-    sig:  fromCatalog(['g1','s1','g5'])
-  },
-  /* ═══ 기본 (fallback) ═══ */
-  default: {
-    std:  fromCatalog(['g7','g6','s3']),
-    prem: fromCatalog(['g4','s1','g5']),
-    sig:  fromCatalog(['g1','g5','s2'])
-  }
+  beauty_female: { std:'g7', prem:'g4', sig:'g1' },
+  beauty_male:   { std:'g8', prem:'g2', sig:'g1' },
+  gourmet:       { std:'g8', prem:'g2', sig:'g1' },
+  wellness:      { std:'g7', prem:'g5', sig:'g1' },
+  premium:       { std:'g8', prem:'g2', sig:'g1' },
+  practical:     { std:'g7', prem:'g4', sig:'g1' },
+  default:       { std:'g7', prem:'g4', sig:'g1' }
 };
-
 
 function buildPackages(bp, qty, colKey) {
   var d   = getDisc(qty);
   var its = pkgItems[colKey] || pkgItems.default;
-  return [
-    { tier:'STANDARD',  badge:null,        feat:false, price:Math.round(bp*0.78), qty:qty, disc:d,                   tag:'가성비 추천', items:its.std  },
-    { tier:'PREMIUM',   badge:'큐레이터 추천', feat:true,  price:bp,                qty:qty, disc:d,                   tag:'베스트셀러', items:its.prem },
-    { tier:'SIGNATURE', badge:null,        feat:false, price:Math.round(bp*1.55), qty:qty, disc:Math.min(d+0.02,0.15),tag:'프레스티지', items:its.sig  }
+  var defs = [
+    { tier:'STANDARD',  badge:null,            feat:false, key:its.std,  tag:'가성비 추천', discAdj:0 },
+    { tier:'PREMIUM',   badge:'큐레이터 추천', feat:true,  key:its.prem, tag:'베스트셀러', discAdj:0 },
+    { tier:'SIGNATURE', badge:null,            feat:false, key:its.sig,  tag:'프레스티지', discAdj:0.02 }
   ];
+  return defs.map(function(def){
+    var item = giftCatalog[def.key];
+    return { tier:def.tier, badge:def.badge, feat:def.feat, item:item, price:item.price, qty:qty,
+             disc:Math.min(d+def.discAdj,0.15), tag:def.tag };
+  });
 }
 
 function renderPkgCard(pk, i) {
   var sub = pk.price*pk.qty, da = Math.round(sub*pk.disc), tot = sub - da;
-  var itemsHtml = pk.items.map(function(it){
-    return '<div class="pkg-it"><img class="pkg-it-img" src="'+it.img+'" alt="'+it.n+'">'+
-      '<div><span class="pkg-it-n">'+it.n+'</span><span class="pkg-it-d"> — '+it.d+'</span></div></div>';
-  }).join('');
-  var detailHtml = pk.items.map(function(it){
-    return '<div class="pkg-det-it"><img class="pkg-it-img" src="'+it.img+'" alt="'+it.n+'"><div><span class="pkg-det-n">'+it.n+'</span><span>'+it.d+'</span></div></div>';
-  }).join('');
+  var it = pk.item;
   return '<div class="pkg-c'+(pk.feat?' feat':'')+'" id="pkc-'+i+'">' +
     (pk.badge ? '<div class="pkg-bdg">'+pk.badge+'</div>' : '') +
     '<div class="pkg-tier">'+pk.tier+'</div>'+
+    '<div class="pkg-prod-img"><img src="'+it.img+'" alt="'+it.n+'" style="width:100%;height:100%;object-fit:cover;display:block;"></div>'+
+    '<div class="pkg-prod-name">'+it.n+'</div>'+
+    '<div class="pkg-prod-desc">'+it.d+'</div>'+
     '<div class="pkg-price">'+fmt(pk.price)+'</div>'+
-    '<div class="pkg-ps">/ 1인당 (VAT 별도)</div>'+
+    '<div class="pkg-ps">/ 1개 (VAT 별도)</div>'+
     '<div class="pkg-tag">'+pk.tag+'</div>'+
     '<div class="pkg-div"></div>'+
-    '<div class="pkg-items">'+itemsHtml+'</div>'+
     '<div class="pkg-tot-row">'+
       '<div class="pkg-tot-l">총 '+pk.qty+'개</div>'+
       '<div>'+
@@ -316,23 +278,8 @@ function renderPkgCard(pk, i) {
         (pk.disc>0 ? '<div class="pkg-disc">-'+Math.round(pk.disc*100)+'% 할인 ('+fmt(da)+')</div>' : '')+
       '</div>'+
     '</div>'+
-    '<button class="pkg-sb" onclick="selectPackage('+i+')">이 패키지 선택하기</button>'+
-    '<button class="pkg-db" onclick="togglePkgDetail('+i+')">상세 구성 보기 ▾</button>'+
-    '<div class="pkg-det" id="pkd-'+i+'">'+detailHtml+'</div>'+
+    '<button class="pkg-sb" onclick="selectPackage('+i+')">이 상품 선택하기</button>'+
   '</div>';
-}
-
-function togglePkgDetail(i) {
-  var b = document.getElementById('pkd-'+i);
-  var btn = b ? b.previousElementSibling : null;
-  if (!b) return;
-  if (b.classList.contains('open')) {
-    b.classList.remove('open');
-    if (btn) btn.textContent = '상세 구성 보기 ▾';
-  } else {
-    b.classList.add('open');
-    if (btn) btn.textContent = '상세 구성 접기 ▲';
-  }
 }
 
 function selectPackage(i) {
@@ -344,8 +291,9 @@ function selectPackage(i) {
     card.classList.remove('selected');
     if (j === i) card.classList.add('selected');
   }
-  // 선택한 패키지 정보를 모달에 전달 후 상담 신청 모달 열기
-  window._selectedPkgName = ['STANDARD','PREMIUM','SIGNATURE'][i];
+  // 선택한 상품 정보를 모달에 전달 후 상담 신청 모달 열기
+  var pk = (window._genPkgs||[])[i];
+  window._selectedPkgName = pk ? pk.tier+' · '+pk.item.n : ['STANDARD','PREMIUM','SIGNATURE'][i];
   openCM();
 }
 
@@ -388,7 +336,7 @@ function genResult() {
   var setTxt = function(id, txt){ var e=$(id); if(e) e.textContent = txt; };
   setTxt('res-client-tag', (target?target+' 대상':'기업')+' · '+(purpose.split(',')[0]||'맞춤')+' 큐레이션');
   setTxt('res-kicker',     (wState.bizType||'B2B')+' · Curated · 롯데백화점 동탄점');
-  setTxt('res-title',      '맞춤 선물 패키지 3종 — Standard / Premium / Signature');
+  setTxt('res-title',      '맞춤 선물 추천 3종 — Standard / Premium / Signature');
   setTxt('res-story',      '프리미엄 명절 선물 컬렉션 & 이런 선물은 어떠신가요 큐레이션에서 엄선한 상품. 대량 할인 '+Math.round(d*100)+'% 적용.');
 
   /* 패키지 카드 */
@@ -1326,7 +1274,7 @@ function generateReport() {
   w.document.write('<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>기업 선물 품의서 — '+co+'</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Malgun Gothic","Nanum Gothic",sans-serif;font-size:13px;color:#111;padding:40px;max-width:820px;margin:0 auto}h1{font-size:22px;font-weight:700;margin-bottom:6px}.sub{font-size:11px;color:#888;margin-bottom:32px}.sec{margin-bottom:28px}.sec-t{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8e8e8}.ig{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ii{padding:10px 14px;background:#f5f5f5}.il{font-size:10px;color:#888;margin-bottom:4px}.iv{font-size:13px;font-weight:700}table{width:100%;border-collapse:collapse;font-size:12px}th{padding:10px 14px;background:#111;color:#fff;text-align:left;font-weight:700;font-size:11px}.hl{background:#f9f9f9;border:1px solid #e8e8e8;border-left:3px solid #111;padding:16px 20px;margin:20px 0;font-size:12px;color:#444;line-height:1.8;font-style:italic}.tot{background:#111;color:#fff;padding:20px 24px;margin-top:20px;display:flex;justify-content:space-between;align-items:center}.tl{font-size:11px;color:rgba(255,255,255,.55)}.tv{font-size:24px;font-weight:700}.sch{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e8e8e8;margin-top:12px}.si{background:#fff;padding:12px;text-align:center}.ss{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.sl{font-size:12px;font-weight:700}.sd{font-size:10px;color:#888;margin-top:2px}.ft{margin-top:48px;padding-top:20px;border-top:1px solid #e8e8e8;display:flex;justify-content:space-between;font-size:10px;color:#aaa}@media print{body{padding:24px}.np{display:none}}</style></head><body>'+
     '<div class="sub">기업 선물 품의서 · 롯데백화점 동탄점 B2B 큐레이션</div><h1>기업 선물 구매 품의서</h1><div style="height:24px"></div>'+
     '<div class="sec"><div class="sec-t">기본 정보</div><div class="ig"><div class="ii"><div class="il">회사명</div><div class="iv">'+co+'</div></div><div class="ii"><div class="il">부서명</div><div class="iv">'+dept+'</div></div><div class="ii"><div class="il">담당자</div><div class="iv">'+nm+'</div></div><div class="ii"><div class="il">품의 예정일</div><div class="iv">'+dt+'</div></div><div class="ii"><div class="il">수량</div><div class="iv">'+sp.qty+'개</div></div><div class="ii"><div class="il">공급</div><div class="iv">롯데백화점 동탄점 (1577-0001)</div></div></div></div>'+
-    '<div class="sec"><div class="sec-t">큐레이터 선정 배경</div><div class="hl">"롯데백화점 동탄점 입점 브랜드(조 말론, 샤넬, 딥티크, 몽블랑 등)를 카카오 선물하기 인기 순위 기반으로 엄선한 큐레이션입니다."<br><span style="font-size:11px;color:#888">— 롯데백화점 동탄점 선물 큐레이터 팀</span></div></div>'+
+    '<div class="sec"><div class="sec-t">큐레이터 선정 배경</div><div class="hl">"프리미엄 명절 선물 컬렉션 &amp; 이런 선물은 어떠신가요 큐레이션에서 엄선한 상품입니다."<br><span style="font-size:11px;color:#888">— 롯데백화점 동탄점 선물 큐레이터 팀</span></div></div>'+
     '<div class="sec"><div class="sec-t">패키지 비교 견적표</div><table><thead><tr><th>패키지</th><th>단가</th><th>수량</th><th>소계</th><th>할인</th><th>최종 금액</th><th>선택</th></tr></thead><tbody>'+rowHtml+'</tbody></table></div>'+
     '<div class="tot"><div class="tl">선택 패키지 최종 금액<br><span style="font-size:11px;color:rgba(255,255,255,.45)">'+sp.tier+' · '+sp.qty+'개 · 할인 '+Math.round(sp.disc*100)+'% 적용</span></div><div class="tv">₩'+tot.toLocaleString()+'</div></div>'+
     '<div class="sec" style="margin-top:28px"><div class="sec-t">예상 납기 일정</div><div class="sch"><div class="si"><div class="ss">Step 01</div><div class="sl">상담 확정</div><div class="sd">D+1</div></div><div class="si"><div class="ss">Step 02</div><div class="sl">디자인 시안</div><div class="sd">D+3</div></div><div class="si"><div class="ss">Step 03</div><div class="sl">제작 진행</div><div class="sd">D+4~10</div></div><div class="si"><div class="ss">Step 04</div><div class="sl">검수·배송</div><div class="sd">D+11~14</div></div></div></div>'+
@@ -1341,7 +1289,7 @@ function generateCSVReport() {
   var pkgs=window._genPkgs;
   if(!pkgs||!pkgs.length){showToast('먼저 패키지를 생성해 주세요');return;}
   var rows=[['패키지','단가(1인)','수량','소계','할인금액','할인율','최종금액','구성 아이템']];
-  pkgs.forEach(function(p){var s=p.price*p.qty,da=Math.round(s*p.disc),t=s-da;rows.push([p.tier,p.price,p.qty,s,da,Math.round(p.disc*100)+'%',t,p.items.map(function(it){return it.n}).join(' / ')]);});
+  pkgs.forEach(function(p){var s=p.price*p.qty,da=Math.round(s*p.disc),t=s-da;rows.push([p.tier,p.price,p.qty,s,da,Math.round(p.disc*100)+'%',t,p.item.n]);});
   var csv=rows.map(function(r){return r.map(function(v){return'"'+(v||'').toString().replace(/"/g,'""')+'"'}).join(',')}).join('\n');
   var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
   var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='롯데동탄_기업선물_견적서.csv';a.click();
