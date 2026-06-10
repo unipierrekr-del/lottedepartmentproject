@@ -38,6 +38,44 @@ function loadCRM() {
 }
 loadCRM();
 
+/* 데모용 샘플 CRM 데이터 — 최초 1회만 시딩 (캘린더 / 연중행사 예측 시연용) */
+function seedCRMDemo() {
+  if (CRM.length) return;
+  var now = new Date();
+  var Y = now.getFullYear();
+  function dstr(y,m,day){ return y+'-'+String(m).padStart(2,'0')+'-'+String(day).padStart(2,'0'); }
+  var samples = [
+    {company:'(주)삼성전자',     dept:'총무팀',     contactName:'김지은 대리', phone:'010-1111-2222', title:'설 명절 거래처 선물',       month:1,  day:20, product:'청풍명월 1++ 한우 명작로스1호(2.4kg)', img:'images/pr1.png', qty:120, unit:499500, status:'확정'},
+    {company:'(주)삼성전자',     dept:'총무팀',     contactName:'김지은 대리', phone:'010-1111-2222', title:'추석 명절 거래처 선물',     month:9,  day:18, product:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', img:'images/pr2.png', qty:150, unit:324360, status:'완료'},
+    {company:'LG전자',           dept:'인사팀',     contactName:'박민수 과장', phone:'010-2222-3333', title:'창립기념일 임직원 선물',   month:4,  day:5,  product:'정관장 홍삼정 240g (80일분, 스푼제거)', img:'images/pr5.png', qty:300, unit:220000, status:'완료'},
+    {company:'현대자동차',       dept:'구매팀',     contactName:'이수진 차장', phone:'010-3333-4444', title:'협력업체 감사 선물',       month:11, day:10, product:'1++한우 갈비탕 6팩 실속세트', img:'images/pr8.png', qty:200, unit:98000,  status:'검토중'},
+    {company:'SK하이닉스',       dept:'경영지원팀', contactName:'정우영 대리', phone:'010-4444-5555', title:'신입사원 환영 선물',       month:3,  day:2,  product:'종근당건강 락토핏 골드 + 비타민C 세트', img:'images/pr7.png', qty:80,  unit:65000,  status:'신규'},
+    {company:'네이버',           dept:'복지팀',     contactName:'최하늘 매니저', phone:'010-5555-6666', title:'여름 보양식 단체 선물',  month:7,  day:15, product:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', img:'images/summer2.png', qty:60, unit:118800, status:'확정'},
+    {company:'카카오',           dept:'HR팀',       contactName:'한소희 매니저', phone:'010-6666-7777', title:'창립기념일 단체 선물',  month:4,  day:1,  product:'오쏘몰 이뮨 30일분', img:'images/summer3.png', qty:100, unit:109800, status:'신규'},
+    {company:'포스코',           dept:'총무팀',     contactName:'강민호 부장', phone:'010-7777-8888', title:'설 명절 임직원 선물',     month:1,  day:25, product:'썬키스트 캘리포니아 오렌지 세트(3kg)', img:'images/pr6.png', qty:250, unit:89000,  status:'확정'},
+    {company:'CJ제일제당',       dept:'마케팅팀',   contactName:'윤서연 대리', phone:'010-8888-9999', title:'거래처 추석 선물 사전 문의', month:9, day:5,  product:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', img:'images/pr3.png', qty:90, unit:205660, status:'신규'},
+    {company:'화성상공회의소',   dept:'사무국',     contactName:'오태경 국장', phone:'010-9999-0000', title:'회원사 정기총회 답례품', month:5,  day:12, product:'동탄정밀 스테인리스 텀블러 선물세트', img:'images/h1.png', qty:180, unit:32300,  status:'완료'}
+  ];
+  CRM = samples.map(function(s, i){
+    var disc = getDisc(s.qty), total = Math.round(s.qty*s.unit*(1-disc));
+    var evtY = (now.getMonth()+1) > s.month ? Y+1 : Y;
+    return {
+      id: Date.now() - (samples.length-i)*1000,
+      time: new Date().toLocaleString('ko-KR'),
+      title: s.title,
+      eventDate: dstr(evtY, s.month, s.day),
+      company: s.company, dept: s.dept, contactName: s.contactName, phone: s.phone,
+      email:'', datetime:'', memo:'',
+      selectedPackage: s.product, product: s.product,
+      bizType:'B2B', purpose: s.title, target:'',
+      qty: s.qty, unitPrice: s.unit, total: total, discountRate: Math.round(disc*100)+'%',
+      category:'', status: s.status, adminMemo:''
+    };
+  });
+  localStorage.setItem('lotteCrm', JSON.stringify(CRM));
+}
+seedCRMDemo();
+
 /* 패스 관련 전역 */
 var _pkgs    = [];
 var _selPkg  = 1;
@@ -977,15 +1015,20 @@ function submitCM() {
   var co = (document.getElementById('cm-co')||{}).value||'';
   var nm = (document.getElementById('cm-nm')||{}).value||'';
   var ph = (document.getElementById('cm-ph')||{}).value||'';
+  var ti = (document.getElementById('cm-title')||{}).value||'';
+  if (!ti.trim()) { showToast('상담 제목(어떤 일정인지)을 입력해 주세요'); return; }
   if (!co.trim()||!nm.trim()||!ph.trim()) { showToast('회사명, 담당자 성함, 연락처는 필수입니다'); return; }
   var p=wState.unitPrice, q=wState.qty, d=getDisc(q), tot=p&&q?Math.round(p*q*(1-d)):0;
+  var dtVal = (document.getElementById('cm-dt')||{}).value||'';
   var rec = {
     id:Date.now(), time:new Date().toLocaleString('ko-KR'),
+    title:ti.trim(),
+    eventDate:(dtVal?dtVal.split('T')[0]:new Date().toISOString().split('T')[0]),
     company:co.trim(),
     dept:   (document.getElementById('cm-dept')||{}).value||'',
     contactName:nm.trim(), phone:ph.trim(),
     email:  (document.getElementById('cm-em')||{}).value||'',
-    datetime:(document.getElementById('cm-dt')||{}).value||'',
+    datetime:dtVal,
     memo:   (document.getElementById('cm-mo')||{}).value||'',
     selectedPackage:window._selectedPkgName||'',
     product:'',
@@ -1025,7 +1068,7 @@ function submitCM() {
     if (src && rpt && src.value && !rpt._userEdited) rpt.value = src.value;
   });
   closeCM();
-  ['cm-co','cm-dept','cm-nm','cm-ph','cm-em','cm-dt','cm-mo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  ['cm-title','cm-co','cm-dept','cm-nm','cm-ph','cm-em','cm-dt','cm-mo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
   var msg = window._cmType==='order' ? '주문 신청이 완료됐습니다. 24시간 내 확인 후 연락드립니다.' : '상담 신청이 완료됐습니다. 24시간 내 연락드립니다.';
   showToast(msg);
 }
@@ -1155,7 +1198,14 @@ function refreshAP() {
 var calCur = new Date(); calCur.setDate(1);
 var CAL_COLORS = ['#4263eb','#0ca678','#f59f00','#e8590c','#9c36b5','#1098ad','#d6336c','#5f3dc4'];
 function calNav(dir) { calCur.setMonth(calCur.getMonth()+dir); renderApCal(); }
-function crmDate(d) { var t = new Date(d.id); return isNaN(t.getTime()) ? null : t; }
+function crmDate(d) {
+  if (d.eventDate) {
+    var parts = d.eventDate.split('-').map(Number);
+    var t1 = new Date(parts[0],parts[1]-1,parts[2]);
+    if (!isNaN(t1.getTime())) return t1;
+  }
+  var t = new Date(d.id); return isNaN(t.getTime()) ? null : t;
+}
 function renderApCal() {
   var grid = document.getElementById('cal-grid');
   if (!grid) return;
@@ -1187,7 +1237,8 @@ function renderApCal() {
     html += '<div class="cal-cell'+(isToday?' today':'')+'"><div class="cal-day">'+day+'</div>'+
       recs.slice(0,3).map(function(r){
         var color = CAL_COLORS[Math.max(cos.indexOf(r.company),0)%CAL_COLORS.length];
-        return '<div class="cal-evt" style="background:'+color+'" title="'+esc(r.company)+' · '+esc(r.product||r.selectedPackage||r.purpose||'')+'" onclick="openDD('+r.id+')">'+esc(r.company||'—')+'</div>';
+        var label = (r.title || r.product || r.selectedPackage || r.purpose || '제목 없음');
+        return '<div class="cal-evt" style="background:'+color+'" title="'+esc(r.company)+' · '+esc(label)+'" onclick="openDD('+r.id+')">'+esc(r.company||'—')+' · '+esc(label)+'</div>';
       }).join('')+
       (recs.length>3?'<div class="cal-more">+'+(recs.length-3)+'건</div>':'')+
     '</div>';
@@ -1272,6 +1323,11 @@ function openDD(id) {
   var df=function(l,v){ return '<div class="dd-f"><span class="dd-fl">'+l+'</span><span class="dd-fv">'+(v||'—')+'</span></div>'; };
   var bd=document.getElementById('dd-bd'); if(!bd) return;
   bd.innerHTML =
+    '<div class="dd-sec"><div class="dd-st">행사 / 캘린더 일정</div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">상담 제목</label><input type="text" class="dd-edit-in" id="ddtt-'+id+'" value="'+esc(d.title||'')+'" placeholder="예: 2026 설 명절 거래처 선물"></div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">캘린더 날짜</label><input type="date" class="dd-edit-in" id="dddt-'+id+'" value="'+esc(d.eventDate||'')+'"></div>'+
+      '<button class="dd-save" onclick="saveCalInfo('+id+')">제목·날짜 저장</button>'+
+    '</div>'+
     '<div class="dd-sec"><div class="dd-st">고객 정보</div>'+
       df('회사명',esc(d.company))+df('담당자',esc(d.contactName))+
       df('연락처','<a href="tel:'+esc(d.phone||'')+'" style="color:#111">'+esc(d.phone||'—')+'</a>')+
@@ -1297,6 +1353,15 @@ function updStatus(id, st) {
   var d=CRM.find(function(r){ return r.id===id; }); if(!d) return;
   d.status=st; localStorage.setItem('lotteCrm',JSON.stringify(CRM));
   refreshAP(); showToast('상태: ['+st+']');
+}
+function saveCalInfo(id) {
+  loadCRM();
+  var d=CRM.find(function(r){ return r.id===id; }); if(!d) return;
+  var ti=document.getElementById('ddtt-'+id), dt=document.getElementById('dddt-'+id);
+  d.title = ti?ti.value.trim():d.title;
+  d.eventDate = dt?dt.value:d.eventDate;
+  localStorage.setItem('lotteCrm',JSON.stringify(CRM));
+  refreshAP(); showToast('일정 정보가 저장됐습니다');
 }
 function saveMemo(id) {
   loadCRM();

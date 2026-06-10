@@ -1459,3 +1459,12 @@ footer{background:#111;padding:60px 40px 36px}
   .cal-cell{min-height:54px}
   .cal-evt{font-size:8px;padding:1px 3px}
 }
+
+/* ═══════ 상세 드로어 — 캘린더 일정 편집 ═══════ */
+.dd-edit-row{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.dd-edit-lb{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#aaa;font-weight:700}
+.dd-edit-in{border:1px solid #e8e8e8;padding:9px 12px;font-size:12px;font-family:inherit;width:100%;outline:none;border-radius:2px;transition:border-color .15s}
+.dd-edit-in:focus{border-color:#111}
+
+/* ═══════ 한국어 가독성 — 단어 단위 줄바꿈 ═══════ */
+body,p,h1,h2,h3,h4,li,span,div{word-break:keep-all;overflow-wrap:break-word}
