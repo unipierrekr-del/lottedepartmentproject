@@ -870,6 +870,56 @@ footer{background:#111;padding:60px 40px 36px}
 @media(max-width:480px){.ap-sg{grid-template-columns:1fr}}
 
 /* ════════════════════════════════
+   얼리썸머 기프트 추천 섹션
+   ════════════════════════════════ */
+.season-tab-nav{display:flex;overflow-x:auto;gap:0;border-bottom:1px solid var(--gray-mid);margin-bottom:32px;-webkit-overflow-scrolling:touch}
+.season-tab-nav::-webkit-scrollbar{display:none}
+.season-tab{
+  flex-shrink:0;padding:14px 22px;font-size:12px;font-weight:700;letter-spacing:.02em;
+  color:#aaa;background:#fafafa;border:none;border-bottom:2px solid transparent;
+  transition:all .2s;cursor:pointer;white-space:nowrap;font-family:inherit;
+}
+.season-tab.active{color:#111;background:#111;border-bottom-color:#111}
+.season-tab:not(.active):hover{color:#555}
+.season-tab:focus{outline:none}
+.season-tab.active{color:#fff}
+
+.season-grid{display:none;grid-template-columns:repeat(4,1fr);gap:24px 20px;margin-bottom:48px}
+.season-grid.active{display:grid}
+.season-card{position:relative;display:flex;flex-direction:column}
+.season-card-img{
+  width:100%;aspect-ratio:1/1;border-radius:8px;margin-bottom:14px;
+  background:var(--gray);overflow:hidden;
+}
+.season-img-1{background:linear-gradient(135deg,#f7d9e3,#fff5e6)}
+.season-img-2{background:linear-gradient(135deg,#dff0e4,#f5fbf2)}
+.season-img-3{background:linear-gradient(135deg,#ffd9d2,#ffe9d6)}
+.season-img-4{background:linear-gradient(135deg,#ff9a3c,#ff6f3c)}
+.season-img-5{background:linear-gradient(135deg,#f3e7d3,#fff)}
+.season-img-6{background:linear-gradient(135deg,#fbe4ea,#fdeef0)}
+.season-img-7{background:linear-gradient(135deg,#fbeee0,#f5e2c8)}
+.season-img-8{background:linear-gradient(135deg,#dff2d8,#f3fbe9)}
+.season-heart{
+  position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.85);border:none;font-size:14px;color:#999;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.season-card-name{font-size:13px;line-height:1.5;color:#222;margin-bottom:8px;font-weight:500;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.season-old{font-size:12px;color:#bbb;text-decoration:line-through}
+.season-price-row{display:flex;align-items:baseline;gap:6px;margin-top:2px}
+.season-discount{font-size:14px;font-weight:800;color:#e84545}
+.season-now{font-size:16px;font-weight:800;color:#111}
+.season-note{font-size:10px;color:#e8a13c;margin-top:4px}
+.season-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.season-tag{font-size:10px;color:#888;background:#f4f4f4;padding:3px 8px;border-radius:3px}
+.season-tag.dark{background:#111;color:#fff}
+.season-soon{grid-column:1/-1;text-align:center;padding:60px 0;color:#aaa;font-size:13px}
+
+@media(max-width:900px){ .season-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:600px){ .season-grid{grid-template-columns:repeat(2,1fr);gap:16px 12px} }
+
+/* ════════════════════════════════
    서비스 안내 섹션
    ════════════════════════════════ */
 #guide { padding:0; background:#fff; border-bottom:1px solid #e8e8e8; }

@@ -24,6 +24,7 @@ sections = [
     'sections/configurator.html',
     'sections/wizard.html',
     'sections/result.html',
+    'sections/season.html',
     'sections/guide.html',
     'sections/intro.html',
     'sections/clients.html',
