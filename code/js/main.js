@@ -221,17 +221,17 @@ function backFromSum() {
    ══════════════════════════════════════════════════ */
 /* 이런 선물은 어떠신가요 / 프리미엄 명절 선물 컬렉션 상품 카탈로그 */
 var giftCatalog = {
-  g1:{n:'청풍명월 1++ 한우 명작로스1호(2.4kg)', d:'1++ 등급 최상급 한우 · 프리미엄 명절 선물 컬렉션 · ₩499,500'},
-  g2:{n:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', d:'냉장 직송 1++ 한우 부위별 구성 · 프리미엄 명절 선물 컬렉션 · ₩324,360'},
-  g3:{n:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', d:'친환경 패키지 한우 · 프리미엄 명절 선물 컬렉션 · ₩205,660'},
-  g4:{n:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', d:'프리미엄 배 선물세트 · 프리미엄 명절 선물 컬렉션 · ₩173,850'},
-  g5:{n:'정관장 홍삼정 240g (80일분, 스푼제거)', d:'대표 홍삼 농축액 · 프리미엄 명절 선물 컬렉션 · ₩220,000'},
-  g6:{n:'썬키스트 캘리포니아 오렌지 세트(3kg)', d:'실속형 프리미엄 과일 · 프리미엄 명절 선물 컬렉션 · ₩89,000'},
-  g7:{n:'종근당건강 락토핏 골드 + 비타민C 세트', d:'실속형 건강 선물 · 프리미엄 명절 선물 컬렉션 · ₩65,000'},
-  g8:{n:'1++한우 갈비탕 6팩 실속세트', d:'간편 조리 1++ 한우 갈비탕 · 프리미엄 명절 선물 컬렉션 · ₩98,000'},
-  s1:{n:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', d:'프리미엄 보양식 · 이런 선물은 어떠신가요 · ₩114,000'},
-  s2:{n:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', d:'고단백 보양식 · 이런 선물은 어떠신가요 · ₩118,800'},
-  s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요 · ₩109,800'}
+  g1:{n:'청풍명월 1++ 한우 명작로스1호(2.4kg)', d:'1++ 등급 최상급 한우 · 프리미엄 명절 선물 컬렉션 · ₩499,500', img:'images/pr1.png'},
+  g2:{n:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', d:'냉장 직송 1++ 한우 부위별 구성 · 프리미엄 명절 선물 컬렉션 · ₩324,360', img:'images/pr2.png'},
+  g3:{n:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', d:'친환경 패키지 한우 · 프리미엄 명절 선물 컬렉션 · ₩205,660', img:'images/pr3.png'},
+  g4:{n:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', d:'프리미엄 배 선물세트 · 프리미엄 명절 선물 컬렉션 · ₩173,850', img:'images/pr4.png'},
+  g5:{n:'정관장 홍삼정 240g (80일분, 스푼제거)', d:'대표 홍삼 농축액 · 프리미엄 명절 선물 컬렉션 · ₩220,000', img:'images/pr5.png'},
+  g6:{n:'썬키스트 캘리포니아 오렌지 세트(3kg)', d:'실속형 프리미엄 과일 · 프리미엄 명절 선물 컬렉션 · ₩89,000', img:'images/pr6.png'},
+  g7:{n:'종근당건강 락토핏 골드 + 비타민C 세트', d:'실속형 건강 선물 · 프리미엄 명절 선물 컬렉션 · ₩65,000', img:'images/pr7.png'},
+  g8:{n:'1++한우 갈비탕 6팩 실속세트', d:'간편 조리 1++ 한우 갈비탕 · 프리미엄 명절 선물 컬렉션 · ₩98,000', img:'images/pr8.png'},
+  s1:{n:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', d:'프리미엄 보양식 · 이런 선물은 어떠신가요 · ₩114,000', img:'images/summer1.png'},
+  s2:{n:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', d:'고단백 보양식 · 이런 선물은 어떠신가요 · ₩118,800', img:'images/summer2.png'},
+  s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요 · ₩109,800', img:'images/summer3.png'}
 };
 function fromCatalog(keys) {
   return keys.map(function(k){ return giftCatalog[k]; });
@@ -295,10 +295,11 @@ function buildPackages(bp, qty, colKey) {
 function renderPkgCard(pk, i) {
   var sub = pk.price*pk.qty, da = Math.round(sub*pk.disc), tot = sub - da;
   var itemsHtml = pk.items.map(function(it){
-    return '<div class="pkg-it"><div><span class="pkg-it-n">'+it.n+'</span><span class="pkg-it-d"> — '+it.d+'</span></div></div>';
+    return '<div class="pkg-it"><img class="pkg-it-img" src="'+it.img+'" alt="'+it.n+'">'+
+      '<div><span class="pkg-it-n">'+it.n+'</span><span class="pkg-it-d"> — '+it.d+'</span></div></div>';
   }).join('');
   var detailHtml = pk.items.map(function(it){
-    return '<div class="pkg-det-it"><span class="pkg-det-n">'+it.n+'</span><span>'+it.d+'</span></div>';
+    return '<div class="pkg-det-it"><img class="pkg-it-img" src="'+it.img+'" alt="'+it.n+'"><div><span class="pkg-det-n">'+it.n+'</span><span>'+it.d+'</span></div></div>';
   }).join('');
   return '<div class="pkg-c'+(pk.feat?' feat':'')+'" id="pkc-'+i+'">' +
     (pk.badge ? '<div class="pkg-bdg">'+pk.badge+'</div>' : '') +
@@ -388,7 +389,7 @@ function genResult() {
   setTxt('res-client-tag', (target?target+' 대상':'기업')+' · '+(purpose.split(',')[0]||'맞춤')+' 큐레이션');
   setTxt('res-kicker',     (wState.bizType||'B2B')+' · Curated · 롯데백화점 동탄점');
   setTxt('res-title',      '맞춤 선물 패키지 3종 — Standard / Premium / Signature');
-  setTxt('res-story',      '롯데백화점 동탄점 입점 브랜드(조 말론, 샤넬, 딥티크, 몽블랑 등)에서 엄선한 큐레이션. 대량 할인 '+Math.round(d*100)+'% 적용.');
+  setTxt('res-story',      '프리미엄 명절 선물 컬렉션 & 이런 선물은 어떠신가요 큐레이션에서 엄선한 상품. 대량 할인 '+Math.round(d*100)+'% 적용.');
 
   /* 패키지 카드 */
   var pkgs = buildPackages(p, q, key);
