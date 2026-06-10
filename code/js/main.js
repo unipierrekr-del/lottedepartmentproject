@@ -989,7 +989,7 @@ function openSummerGift(name) {
   var sg = document.getElementById('sg'); if(sg) sg.classList.add('open');
 }
 function closeSG() { var sg=document.getElementById('sg'); if(sg) sg.classList.remove('open'); }
-function sgNext() {
+function sgNext(type) {
   var name = window._summerPickName || '';
   var b = (document.getElementById('sg-budget')||{}).value||'';
   var q = (document.getElementById('sg-qty')||{}).value||'';
@@ -1007,7 +1007,7 @@ function sgNext() {
     }).join('');
     cs.style.display = 'block';
   }
-  openCM('consult');
+  openCM(type || 'consult');
 }
 function openCM(type) {
   window._cmType = type || 'consult'; // 'consult' or 'order'

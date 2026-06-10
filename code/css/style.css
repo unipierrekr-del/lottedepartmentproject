@@ -900,7 +900,6 @@ footer{background:#111;padding:60px 40px 36px}
 }
 .sumg-in:focus{outline:none;border-color:#111}
 .sumg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
-.hs-top-badge{display:inline-block;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;padding:4px 12px;border-radius:20px;vertical-align:middle;margin-left:10px}
 .sumg-grid-4{grid-template-columns:repeat(4,1fr)}
 .sumg-grid-5{grid-template-columns:repeat(5,1fr)}
 .sumg-card{display:flex;flex-direction:column}
@@ -909,12 +908,7 @@ footer{background:#111;padding:60px 40px 36px}
 .sumg-name{font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--text);margin-bottom:8px;line-height:1.3}
 .sumg-desc{font-size:13px;color:var(--text-sub);line-height:1.75;font-weight:300;flex:1;margin-bottom:18px}
 .sumg-rating{font-size:12px;color:#e8a13c;font-weight:700;margin-top:6px}
-.sumg-btn{
-  width:100%;background:var(--black);color:var(--white);border:none;
-  padding:14px;font-size:12px;font-weight:700;letter-spacing:.08em;
-  cursor:pointer;transition:background .2s;margin-top:16px;
-}
-.sumg-btn:hover{background:#333}
+.sumg-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px);transition:box-shadow .2s,transform .2s}
 
 @media(max-width:1100px){ .sumg-grid-4,.sumg-grid-5{grid-template-columns:repeat(2,1fr)} }
 @media(max-width:900px){ .sumg-grid{grid-template-columns:1fr 1fr} .sumg-card:nth-child(3){grid-column:1/-1} }
