@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비즈니스 마일리지 멤버십 — 롯데백화점 동탄점 B2B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Barun+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nanum Barun Gothic','Apple SD Gothic Neo',sans-serif;
+  background:#fff;color:#111;
+  -webkit-font-smoothing:antialiased;line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:56px;background:#fff;border-bottom:1px solid #e8e8e8;
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:0.04em}
+.nav-logo-mark{width:32px;height:32px;border:1.5px solid #111;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.nav-back{font-size:12px;color:#666;letter-spacing:0.03em;transition:color .2s}
+.nav-back:hover{color:#111}
+
+/* PAGE */
+.page-wrap{max-width:860px;margin:0 auto;padding:120px 40px 80px}
+.page-kicker{font-size:11px;letter-spacing:0.2em;color:#888;text-transform:uppercase;margin-bottom:16px}
+.page-title{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:12px}
+.page-desc{font-size:14px;color:#666;line-height:1.7;margin-bottom:40px}
+
+/* TABS */
+.biz-tabs{display:flex;border-bottom:1px solid #e8e8e8;margin-bottom:40px}
+.biz-tab{padding:14px 22px;font-size:13px;font-weight:700;color:#aaa;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s}
+.biz-tab.active{color:#111;border-bottom-color:#111}
+
+/* FORM (재사용) */
+.form-section{margin-bottom:40px}
+.form-section-title{
+  font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  color:#888;padding-bottom:12px;border-bottom:1px solid #e8e8e8;margin-bottom:24px;
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-grid.full{grid-template-columns:1fr}
+.form-field{display:flex;flex-direction:column;gap:7px}
+.form-field.span2{grid-column:span 2}
+.form-label{font-size:12px;font-weight:700;letter-spacing:0.03em;color:#111}
+.form-label .req{color:#111;margin-left:2px}
+.form-input{
+  border:1px solid #e8e8e8;padding:12px 14px;font-size:13px;
+  font-family:inherit;color:#111;outline:none;
+  transition:border-color .2s;background:#fff;
+}
+.form-input:focus{border-color:#111}
+.form-input::placeholder{color:#bbb}
+.form-hint{font-size:11px;color:#aaa;margin-top:2px}
+.form-error{font-size:11px;color:#e03;margin-top:4px;display:none}
+
+.form-submit-area{margin-top:40px;padding-top:32px;border-top:1px solid #e8e8e8}
+.form-submit-note{font-size:12px;color:#aaa;margin-bottom:20px;line-height:1.7}
+.btn-submit{
+  width:100%;background:#111;color:#fff;border:none;
+  padding:16px;font-size:14px;font-weight:700;letter-spacing:0.06em;
+  cursor:pointer;transition:background .2s;
+}
+.btn-submit:hover{background:#333}
+.btn-submit:disabled{background:#ccc;cursor:not-allowed}
+
+.btn-line{
+  border:1px solid #111;background:#fff;color:#111;
+  padding:12px 22px;font-size:12px;font-weight:700;letter-spacing:0.06em;
+  transition:all .2s;
+}
+.btn-line:hover{background:#111;color:#fff}
+
+/* SUCCESS */
+.success-box{display:none;text-align:center;padding:60px 40px;border:1px solid #e8e8e8}
+.success-icon{font-size:36px;margin-bottom:20px}
+.success-title{font-size:20px;font-weight:700;margin-bottom:10px}
+.success-desc{font-size:13px;color:#666;line-height:1.7;margin-bottom:28px}
+
+/* DASHBOARD */
+.biz-empty{text-align:center;padding:80px 20px;border:1px solid #e8e8e8;color:#888;font-size:13px;line-height:1.8}
+.biz-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e8e8e8;margin-bottom:32px}
+.biz-card{background:#fff;padding:24px}
+.biz-card-lb{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-bottom:10px}
+.biz-card-v{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.biz-card-sub{font-size:11px;color:#888;margin-top:6px}
+
+.biz-grade-bar{height:8px;background:#eee;border-radius:4px;overflow:hidden;margin:8px 0 6px}
+.biz-grade-fill{height:100%;background:#111;border-radius:4px;transition:width .4s}
+.biz-grade-note{font-size:11px;color:#888}
+
+.biz-section-title{font-size:13px;font-weight:700;letter-spacing:.04em;padding-bottom:12px;border-bottom:1px solid #e8e8e8;margin:40px 0 16px}
+
+.biz-table{width:100%;border-collapse:collapse;font-size:12px}
+.biz-table th{text-align:left;padding:10px 12px;background:#fafafa;color:#888;font-weight:700;font-size:11px;letter-spacing:.04em;border-bottom:1px solid #e8e8e8}
+.biz-table td{padding:10px 12px;border-bottom:1px solid #f2f2f2}
+.biz-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.biz-tag.earn{background:#eafaf0;color:#1f8a4c}
+.biz-tag.convert{background:#eef3fc;color:#2a5fc1}
+.biz-tag.expire{background:#fbeef0;color:#c0395a}
+.biz-tag.bonus{background:#fff7e0;color:#b8860b}
+
+.biz-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.biz-foot-note{font-size:11px;color:#aaa;margin-top:32px;line-height:1.8;border-top:1px solid #e8e8e8;padding-top:16px}
+
+@media(max-width:600px){
+  nav{padding:0 20px}
+  .page-wrap{padding:100px 20px 60px}
+  .form-grid{grid-template-columns:1fr}
+  .form-field.span2{grid-column:span 1}
+  .page-title{font-size:24px}
+  .biz-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">L</div>
+    롯데백화점 동탄점 &nbsp;·&nbsp; B2B 기프트 컨시어지
+  </div>
+  <a href="index.html" class="nav-back">← 메인으로</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-kicker">B2B Mileage Membership · DEMO</div>
+  <h1 class="page-title">비즈니스 마일리지 멤버십</h1>
+  <p class="page-desc">
+    법인 구매 실적에 따라 마일리지를 적립하고, 등급별 혜택과 상품권 전환 혜택을 누리세요.<br>
+    <strong>※ 본 화면은 프론트엔드 데모이며, 입력 데이터는 이 브라우저(localStorage)에만 저장됩니다.</strong>
+  </p>
+
+  <div class="biz-tabs">
+    <div class="biz-tab active" id="tab-register" onclick="showTab('register')">법인 가입</div>
+    <div class="biz-tab" id="tab-dashboard" onclick="showTab('dashboard')">마일리지 대시보드</div>
+  </div>
+
+  <!-- ═══════════ 가입 화면 ═══════════ -->
+  <div id="panel-register">
+
+    <div class="success-box" id="registerSuccess">
+      <div class="success-icon">✓</div>
+      <div class="success-title">법인 가입이 완료되었습니다</div>
+      <p class="success-desc">사업자번호 인증이 완료되었습니다. 마일리지 대시보드에서 적립 현황을 확인해 보세요.</p>
+      <button class="btn-line" onclick="showTab('dashboard')">대시보드로 이동</button>
+    </div>
+
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="form-section">
+        <div class="form-section-title">사업자 정보</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label">사업자등록번호 <span class="req">*</span></label>
+            <input type="text" id="reg-bn" class="form-input" placeholder="000-00-00000" maxlength="12" required>
+            <div class="form-error" id="err-bn">올바른 사업자번호 형식(10자리)을 입력해 주세요.</div>
+            <div class="form-hint">하이픈 포함 입력 가능 · 데모에서는 10자리 형식만 검증합니다 (국세청 API 연동 예정).</div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">법인명 <span class="req">*</span></label>
+            <input type="text" id="reg-company" class="form-input" placeholder="(주)삼성전자" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">담당자 정보</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label class="form-label">담당자 성함 <span class="req">*</span></label>
+            <input type="text" id="reg-name" class="form-input" placeholder="김지은 대리" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">연락처 <span class="req">*</span></label>
+            <input type="tel" id="reg-phone" class="form-input" placeholder="010-0000-0000" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">담당자 개인 이메일 <span class="req">*</span></label>
+            <input type="email" id="reg-pemail" class="form-input" placeholder="me@email.com" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">법인 공용 이메일 <span class="req">*</span></label>
+            <input type="email" id="reg-cemail" class="form-input" placeholder="admin@company.com" required>
+            <div class="form-hint">담당자 교체 시 인증 코드가 발송되는 이메일입니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-submit-area">
+        <p class="form-submit-note">
+          가입 시 사업자등록번호 기준으로 1법인 1계정으로 등록됩니다. 동일 사업자번호로는 재가입할 수 없습니다.<br>
+          <strong>*</strong> 표시 항목은 필수 입력 사항입니다.
+        </p>
+        <button type="submit" class="btn-submit" id="registerBtn">법인 가입 신청하기</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ═══════════ 대시보드 화면 ═══════════ -->
+  <div id="panel-dashboard" style="display:none">
+
+    <div class="biz-empty" id="dashEmpty">
+      아직 가입된 법인 정보가 없습니다.<br><br>
+      <button class="btn-line" onclick="showTab('register')">법인 가입하러 가기</button>
+    </div>
+
+    <div id="dashContent" style="display:none">
+
+      <div class="biz-cards">
+        <div class="biz-card">
+          <div class="biz-card-lb">법인 / 담당자</div>
+          <div class="biz-card-v" id="dash-company" style="font-size:16px"></div>
+          <div class="biz-card-sub" id="dash-contact"></div>
+        </div>
+        <div class="biz-card">
+          <div class="biz-card-lb">유효 마일리지 잔액</div>
+          <div class="biz-card-v" id="dash-balance"></div>
+          <div class="biz-card-sub">상품권 전환 가능 금액</div>
+        </div>
+        <div class="biz-card">
+          <div class="biz-card-lb">현재 등급</div>
+          <div class="biz-card-v" id="dash-grade"></div>
+          <div class="biz-card-sub" id="dash-rate"></div>
+        </div>
+      </div>
+
+      <div class="biz-section-title">다음 등급까지</div>
+      <div class="biz-grade-bar"><div class="biz-grade-fill" id="dash-gradebar"></div></div>
+      <div class="biz-grade-note" id="dash-gradenote"></div>
+
+      <div class="biz-section-title">적립 · 전환 · 소멸 내역</div>
+      <table class="biz-table">
+        <thead><tr><th>일시</th><th>구분</th><th>금액</th><th>비고</th></tr></thead>
+        <tbody id="dash-history"></tbody>
+      </table>
+
+      <div class="biz-actions">
+        <button class="btn-submit" style="width:auto;padding:14px 28px" onclick="openConvert()">상품권 전환 신청</button>
+        <button class="btn-line" onclick="openEarnDemo()">데모: 구매 적립 시뮬레이션</button>
+        <button class="btn-line" onclick="resetBiz()">데모 데이터 초기화</button>
+      </div>
+
+      <div class="biz-foot-note">
+        · 적립률: Standard 5% / Premium 6% / Signature 7% (전년도 누적 구매액 기준 등급 산정)<br>
+        · 최소 전환 단위: Standard 10만원 / Premium 5만원 / Signature 1만원<br>
+        · 전환 가능 주기: Standard 분기 1회 / Premium 월 1회 / Signature 수시<br>
+        · 마일리지는 적립일로부터 24개월 후 자동 소멸됩니다.<br>
+        · 본 데모는 PHASE 1(가입·적립·잔액조회) 기능만 시뮬레이션하며, 실제 결제·알림톡·관리자 기능은 포함되어 있지 않습니다.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var EARN_RATE   = { standard:0.05, premium:0.06, signature:0.07 };
+var MIN_CONVERT = { standard:100000, premium:50000, signature:10000 };
+var GRADE_NEXT  = { standard:{next:'premium',target:20000000}, premium:{next:'signature',target:60000000}, signature:null };
+
+function showTab(name){
+  document.getElementById('tab-register').classList.toggle('active', name==='register');
+  document.getElementById('tab-dashboard').classList.toggle('active', name==='dashboard');
+  document.getElementById('panel-register').style.display  = name==='register' ? 'block':'none';
+  document.getElementById('panel-dashboard').style.display = name==='dashboard' ? 'block':'none';
+  if (name==='dashboard') renderDashboard();
+}
+
+function loadMember(){ try{ return JSON.parse(localStorage.getItem('bizMember')||'null'); }catch(e){ return null; } }
+function saveMember(m){ localStorage.setItem('bizMember', JSON.stringify(m)); }
+function loadLedger(){ try{ return JSON.parse(localStorage.getItem('bizLedger')||'[]'); }catch(e){ return []; } }
+function saveLedger(l){ localStorage.setItem('bizLedger', JSON.stringify(l)); }
+
+function fmt(n){ return '₩' + Math.round(n).toLocaleString('ko-KR'); }
+
+function handleRegister(e){
+  e.preventDefault();
+  var bn = document.getElementById('reg-bn').value.replace(/-/g,'');
+  var errBn = document.getElementById('err-bn');
+  if (!/^\d{10}$/.test(bn)) { errBn.style.display='block'; return; }
+  errBn.style.display='none';
+
+  var existing = loadMember();
+  if (existing && existing.businessNumber === bn) {
+    alert('이미 가입된 법인입니다. 기존 담당자에게 재가입 시도 알림이 발송됩니다. (데모)');
+    return;
+  }
+
+  var member = {
+    businessNumber: bn,
+    companyName: document.getElementById('reg-company').value.trim(),
+    grade: 'standard',
+    status: 'active',
+    contact: {
+      name:  document.getElementById('reg-name').value.trim(),
+      phone: document.getElementById('reg-phone').value.trim(),
+      personalEmail: document.getElementById('reg-pemail').value.trim(),
+      companyEmail:  document.getElementById('reg-cemail').value.trim()
+    },
+    annualAmount: 0,
+    createdAt: new Date().toISOString()
+  };
+  saveMember(member);
+  saveLedger([]);
+
+  document.getElementById('registerForm').style.display = 'none';
+  document.getElementById('registerSuccess').style.display = 'block';
+}
+
+function calcGrade(annualAmount){
+  if (annualAmount >= 60000000) return 'signature';
+  if (annualAmount >= 20000000) return 'premium';
+  return 'standard';
+}
+
+function getAvailableBalance(){
+  var ledger = loadLedger();
+  var now = new Date();
+  var earned = 0, converted = 0, expired = 0;
+  ledger.forEach(function(it){
+    if (it.type==='earn' && new Date(it.expiresAt) > now) earned += it.amount;
+    if (it.type==='earn' && new Date(it.expiresAt) <= now) expired += it.amount;
+    if (it.type==='convert') converted += it.amount;
+    if (it.type==='bonus') earned += it.amount;
+  });
+  return Math.max(0, earned - converted - expired);
+}
+
+function renderDashboard(){
+  var member = loadMember();
+  var empty = document.getElementById('dashEmpty');
+  var content = document.getElementById('dashContent');
+  if (!member){ empty.style.display='block'; content.style.display='none'; return; }
+  empty.style.display='none'; content.style.display='block';
+
+  document.getElementById('dash-company').textContent = member.companyName;
+  document.getElementById('dash-contact').textContent = member.contact.name + ' · ' + member.contact.phone;
+  document.getElementById('dash-balance').textContent = fmt(getAvailableBalance());
+
+  var gradeLabel = { standard:'STANDARD', premium:'PREMIUM', signature:'SIGNATURE' }[member.grade];
+  document.getElementById('dash-grade').textContent = gradeLabel;
+  document.getElementById('dash-rate').textContent = '적립률 ' + Math.round(EARN_RATE[member.grade]*100) + '% · 최소전환 ' + fmt(MIN_CONVERT[member.grade]);
+
+  var nextInfo = GRADE_NEXT[member.grade];
+  if (nextInfo){
+    var pct = Math.min(100, Math.round(member.annualAmount / nextInfo.target * 100));
+    document.getElementById('dash-gradebar').style.width = pct + '%';
+    document.getElementById('dash-gradenote').textContent =
+      gradeLabel + ' → ' + nextInfo.next.toUpperCase() + ' 까지 누적 구매 ' + fmt(nextInfo.target - member.annualAmount) + ' 남음 (현재 누적: ' + fmt(member.annualAmount) + ')';
+  } else {
+    document.getElementById('dash-gradebar').style.width = '100%';
+    document.getElementById('dash-gradenote').textContent = '최고 등급(SIGNATURE)에 도달했습니다.';
+  }
+
+  var ledger = loadLedger().slice().reverse();
+  var rows = ledger.map(function(it){
+    var tagMap = { earn:['earn','적립'], convert:['convert','전환'], expire:['expire','소멸'], bonus:['bonus','보너스'] };
+    var tag = tagMap[it.type] || ['earn',it.type];
+    var sign = (it.type==='convert' || it.type==='expire') ? '-' : '+';
+    return '<tr><td>'+new Date(it.createdAt).toLocaleString('ko-KR')+'</td>'+
+      '<td><span class="biz-tag '+tag[0]+'">'+tag[1]+'</span></td>'+
+      '<td>'+sign+fmt(it.amount)+'</td>'+
+      '<td>'+(it.note||'')+'</td></tr>';
+  }).join('');
+  document.getElementById('dash-history').innerHTML = rows || '<tr><td colspan="4" style="color:#aaa;text-align:center;padding:24px">아직 내역이 없습니다.</td></tr>';
+}
+
+function openEarnDemo(){
+  var member = loadMember();
+  if (!member) return;
+  var input = prompt('구매 금액을 입력하세요 (원 단위, 숫자만)', '500000');
+  if (!input) return;
+  var amount = parseInt(input.replace(/[^0-9]/g,''), 10);
+  if (!amount || amount <= 0) { alert('올바른 금액을 입력해 주세요.'); return; }
+
+  var ledger = loadLedger();
+  var rate = EARN_RATE[member.grade];
+  var earnAmount = Math.floor(amount * rate);
+  var expiresAt = new Date(); expiresAt.setMonth(expiresAt.getMonth()+24);
+
+  ledger.push({
+    type:'earn', amount:earnAmount, rate:rate,
+    expiresAt: expiresAt.toISOString(),
+    note:'구매 ' + fmt(amount) + ' · 적립률 ' + Math.round(rate*100) + '%',
+    createdAt: new Date().toISOString()
+  });
+  saveLedger(ledger);
+
+  member.annualAmount = (member.annualAmount||0) + amount;
+  var newGrade = calcGrade(member.annualAmount);
+  if (newGrade !== member.grade) {
+    member.grade = newGrade;
+    alert('등급이 ' + newGrade.toUpperCase() + '(으)로 상승했습니다!');
+  }
+  saveMember(member);
+
+  // 30일 내 적립 500만원 초과 시 안내 (이상거래 감지 데모)
+  var thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate()-30);
+  var recent = ledger.filter(function(it){ return it.type==='earn' && new Date(it.createdAt) > thirtyDaysAgo; })
+                      .reduce(function(s,it){ return s+it.amount; }, 0);
+  if (recent > 5000000) {
+    alert('⚠ 30일 내 누적 적립이 500만원을 초과하여 이상거래 플래그가 등록되었습니다. (데모 알림)');
+  }
+
+  renderDashboard();
+}
+
+function openConvert(){
+  var member = loadMember();
+  if (!member) return;
+  var balance = getAvailableBalance();
+  var min = MIN_CONVERT[member.grade];
+  if (balance < min) { alert('전환 가능한 잔액이 최소 전환 단위(' + fmt(min) + ') 미만입니다.'); return; }
+
+  var input = prompt('전환 신청 금액을 입력하세요 (최소 ' + fmt(min) + ', 최대 ' + fmt(balance) + ')', String(min));
+  if (!input) return;
+  var amount = parseInt(input.replace(/[^0-9]/g,''), 10);
+  if (!amount || amount < min) { alert('최소 전환 단위 이상으로 입력해 주세요.'); return; }
+  if (amount > balance) { alert('보유 잔액을 초과할 수 없습니다.'); return; }
+  if (amount > 5000000) { alert('1일 전환 한도(500만원)를 초과할 수 없습니다.'); return; }
+
+  var ledger = loadLedger();
+  ledger.push({ type:'convert', amount:amount, note:'상품권 전환 신청 (승인 대기)', createdAt:new Date().toISOString() });
+  saveLedger(ledger);
+  alert('상품권 전환 신청이 접수되었습니다. 관리자 승인 후 발행됩니다. (데모)');
+  renderDashboard();
+}
+
+function resetBiz(){
+  if (!confirm('데모 데이터를 모두 초기화할까요?')) return;
+  localStorage.removeItem('bizMember');
+  localStorage.removeItem('bizLedger');
+  location.reload();
+}
+
+(function init(){
+  var member = loadMember();
+  if (member) {
+    document.getElementById('registerForm').style.display='none';
+    document.getElementById('registerSuccess').style.display='block';
+    showTab('dashboard');
+  }
+})();
+</script>
+
+</body>
+</html>
