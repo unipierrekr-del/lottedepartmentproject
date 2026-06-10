@@ -264,7 +264,7 @@ img{display:block;max-width:100%}
 
 /* 카드 이미지 영역 */
 .pconf-card-img{
-  height:220px;background:var(--gray);
+  aspect-ratio:16/9;background:var(--gray);
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;position:relative;
 }
