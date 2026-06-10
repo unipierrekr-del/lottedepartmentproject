@@ -880,6 +880,7 @@ footer{background:#111;padding:60px 40px 36px}
   background:#fff; border-bottom:1px solid #e8e8e8;
   display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
+  max-width:1200px; margin:0 auto; padding:0 40px;
 }
 .guide-tab-nav::-webkit-scrollbar { display:none; }
 .gtab {
@@ -890,6 +891,7 @@ footer{background:#111;padding:60px 40px 36px}
   scroll-snap-align:start;
 }
 .gtab.active { color:#111; border-bottom-color:#111; }
+.gtab:focus { outline:none; }
 .gtab:hover:not(.active) { color:#555; }
 
 /* 각 섹션 */
