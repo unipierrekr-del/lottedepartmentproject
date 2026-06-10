@@ -371,9 +371,10 @@
 
 <script>
 function switchSeasonTab(btn, id){
-  document.querySelectorAll('.season-tab').forEach(function(t){t.classList.remove('active')});
+  var scope = btn.closest('section');
+  scope.querySelectorAll('.season-tab').forEach(function(t){t.classList.remove('active')});
   btn.classList.add('active');
-  document.querySelectorAll('.season-grid').forEach(function(g){g.classList.remove('active')});
+  scope.querySelectorAll('.season-grid').forEach(function(g){g.classList.remove('active')});
   var el = document.getElementById(id);
   if(el) el.classList.add('active');
 }

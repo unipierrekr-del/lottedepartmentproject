@@ -387,6 +387,7 @@ section{border-bottom:1px solid var(--gray-mid)}
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 800' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23111' stop-opacity='0'/%3E%3Cstop offset='.5' stop-color='%23111' stop-opacity='.9'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M300,0 C100,160 320,320 100,480 C-60,600 200,720 40,800' fill='none' stroke='url(%23g2)' stroke-width='3'/%3E%3Cpath d='M350,40 C140,220 340,380 140,560 C0,700 240,760 80,840' fill='none' stroke='url(%23g2)' stroke-width='1.5'/%3E%3C/svg%3E");
 }
 @media(max-width:1100px){ #wizard::before,#wizard::after{display:none} }
+#wizard .sec-title{font-size:clamp(22px,2.6vw,32px)}
 .wiz-prog{display:flex;align-items:center;margin-bottom:52px}
 .wdot{width:5px;height:5px;border-radius:50%;background:#ddd;flex-shrink:0;transition:all .35s;font-size:0}
 .wdot.active{background:#111;width:16px;border-radius:2px}
@@ -424,6 +425,9 @@ section{border-bottom:1px solid var(--gray-mid)}
 }
 .chip:hover{border-color:#111;color:#111}
 .chip.sel{border-color:#111;background:#111;color:#fff}
+
+.wp-2col{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:640px){ .wp-2col{grid-template-columns:1fr} }
 
 /* BUDGET CARDS */
 .bud-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e8e8e8}

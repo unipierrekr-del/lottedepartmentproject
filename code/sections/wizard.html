@@ -61,21 +61,27 @@
     <div class="wpanel" id="wp-b2b-2">
       <h3 class="wp-title">받으시는 분과 수량을 알려주세요</h3>
       <p class="wp-hint">Step 03 / 06 · B2B</p>
-      <div class="wp-divider">대상</div>
-      <div class="bud-grid bud-grid-2col" style="margin-bottom:24px">
-        <div class="bud-card" onclick="sChip(this,'b2b_target','VIP 고객사')"><div class="bud-amt">VIP 고객사</div><div class="bud-sub">최고 수준 대접</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2b_target','협력사 임원')"><div class="bud-amt">협력사 임원</div><div class="bud-sub">임원급 예우</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2b_target','일반 협력사')"><div class="bud-amt">일반 협력사</div><div class="bud-sub">실용적 감사 표현</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2b_target','행사 참가자')"><div class="bud-amt">행사 참가자</div><div class="bud-sub">이벤트 기념</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2b_target','정부·기관')"><div class="bud-amt">정부 · 기관</div><div class="bud-sub">공식적 격식</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2b_target','미디어·언론')"><div class="bud-amt">미디어 · 언론</div><div class="bud-sub">홍보·관계 관리</div></div>
-      </div>
-      <div class="wp-divider">수량</div>
-      <div class="qty-input-wrap">
-        <span class="qty-label">총 수량</span>
-        <input type="number" class="qty-input" id="gift-qty" min="1" value="50" oninput="calcTotal()">
-        <span class="qty-unit">개</span>
-        <button class="wbtn-next qty-next-btn" onclick="gp('wp-b2b-3',3)">다음 단계 →</button>
+      <div class="wp-2col">
+        <div>
+          <div class="wp-divider">대상</div>
+          <div class="bud-grid">
+            <div class="bud-card" onclick="sChip(this,'b2b_target','VIP 고객사')"><div class="bud-amt">VIP 고객사</div><div class="bud-sub">최고 수준 대접</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2b_target','협력사 임원')"><div class="bud-amt">협력사 임원</div><div class="bud-sub">임원급 예우</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2b_target','일반 협력사')"><div class="bud-amt">일반 협력사</div><div class="bud-sub">실용적 감사 표현</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2b_target','행사 참가자')"><div class="bud-amt">행사 참가자</div><div class="bud-sub">이벤트 기념</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2b_target','정부·기관')"><div class="bud-amt">정부 · 기관</div><div class="bud-sub">공식적 격식</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2b_target','미디어·언론')"><div class="bud-amt">미디어 · 언론</div><div class="bud-sub">홍보·관계 관리</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="wp-divider">수량</div>
+          <div class="qty-input-wrap">
+            <span class="qty-label">총 수량</span>
+            <input type="number" class="qty-input" id="gift-qty" min="1" value="50" oninput="calcTotal()">
+            <span class="qty-unit">개</span>
+          </div>
+          <button class="wbtn-next qty-next-btn" onclick="gp('wp-b2b-3',3)" style="width:100%;margin-top:16px">다음 단계 →</button>
+        </div>
       </div>
       <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-1',1)">Back</button></div>
     </div>
@@ -166,20 +172,26 @@
     <div class="wpanel" id="wp-b2e-2">
       <h3 class="wp-title">임직원 특성을 알려주세요</h3>
       <p class="wp-hint">Step 03 / 06 · B2E</p>
-      <div class="wp-divider">직급 / 대상</div>
-      <div class="bud-grid bud-grid-2col" style="margin-bottom:24px">
-        <div class="bud-card" onclick="sChip(this,'b2e_target','경영진·임원')"><div class="bud-amt">경영진 · 임원</div><div class="bud-sub">최고급 예우</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2e_target','파트장·부서장')"><div class="bud-amt">파트장 · 부서장</div><div class="bud-sub">리더십 존중</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2e_target','일반 직원')"><div class="bud-amt">일반 직원</div><div class="bud-sub">전직원 실용 선물</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2e_target','신입·인턴')"><div class="bud-amt">신입 · 인턴</div><div class="bud-sub">따뜻한 시작</div></div>
-        <div class="bud-card" onclick="sChip(this,'b2e_target','전 직원 일괄')"><div class="bud-amt">전 직원 일괄</div><div class="bud-sub">동일 선물 패키지</div></div>
-      </div>
-      <div class="wp-divider">수량</div>
-      <div class="qty-input-wrap">
-        <span class="qty-label">총 인원</span>
-        <input type="number" class="qty-input" id="b2e-qty" min="1" value="30" oninput="calcTotal()">
-        <span class="qty-unit">명</span>
-        <button class="wbtn-next qty-next-btn" onclick="gp('wp-b2e-3',3)">다음 단계 →</button>
+      <div class="wp-2col">
+        <div>
+          <div class="wp-divider">직급 / 대상</div>
+          <div class="bud-grid">
+            <div class="bud-card" onclick="sChip(this,'b2e_target','경영진·임원')"><div class="bud-amt">경영진 · 임원</div><div class="bud-sub">최고급 예우</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2e_target','파트장·부서장')"><div class="bud-amt">파트장 · 부서장</div><div class="bud-sub">리더십 존중</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2e_target','일반 직원')"><div class="bud-amt">일반 직원</div><div class="bud-sub">전직원 실용 선물</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2e_target','신입·인턴')"><div class="bud-amt">신입 · 인턴</div><div class="bud-sub">따뜻한 시작</div></div>
+            <div class="bud-card" onclick="sChip(this,'b2e_target','전 직원 일괄')"><div class="bud-amt">전 직원 일괄</div><div class="bud-sub">동일 선물 패키지</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="wp-divider">수량</div>
+          <div class="qty-input-wrap">
+            <span class="qty-label">총 인원</span>
+            <input type="number" class="qty-input" id="b2e-qty" min="1" value="30" oninput="calcTotal()">
+            <span class="qty-unit">명</span>
+          </div>
+          <button class="wbtn-next qty-next-btn" onclick="gp('wp-b2e-3',3)" style="width:100%;margin-top:16px">다음 단계 →</button>
+        </div>
       </div>
       <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-1',1)">Back</button></div>
     </div>
