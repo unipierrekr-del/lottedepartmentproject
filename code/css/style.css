@@ -94,6 +94,7 @@ img{display:block;max-width:100%}
   margin-left:8px;background:#fff;color:#000;border:none;
   padding:9px 20px;font-size:11px;font-weight:700;letter-spacing:.08em;
   transition:background .2s,color .2s;white-space:nowrap;
+  text-decoration:none;display:inline-block;cursor:pointer;
 }
 .pnav.scrolled .pnav-cta-btn{background:#111;color:#fff;}
 .pnav-cta-btn:hover{opacity:.85}
@@ -1422,4 +1423,39 @@ footer{background:#111;padding:60px 40px 36px}
   .pnav-cta-btn{display:none}
   .res-top-bar{flex-wrap:wrap}
   table{font-size:11px}
+}
+
+/* ═══════ 큐레이터 픽 자동 연산 노트 ═══════ */
+.sg-note{
+  margin-top:10px;font-size:11px;color:#888;line-height:1.6;
+  background:#f7f7f7;border-radius:4px;padding:10px 14px;min-height:18px;
+}
+.sg-note strong{color:#111;font-weight:800}
+
+/* ═══════ 관리자 기업 캘린더 ═══════ */
+.cal-grid-head{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  font-size:10px;font-weight:700;color:#888;text-align:center;
+  padding:10px 0 8px;border-bottom:1px solid #eee;
+}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal-cell{
+  min-height:76px;border-bottom:1px solid #f0f0f0;border-right:1px solid #f0f0f0;
+  padding:4px;font-size:10px;overflow:hidden;
+}
+.cal-cell:nth-child(7n){border-right:none}
+.cal-cell.empty{background:#fafafa}
+.cal-cell.today{background:#f4f7ff}
+.cal-day{font-size:10px;font-weight:700;color:#999;margin-bottom:3px}
+.cal-cell.today .cal-day{color:#4263eb}
+.cal-evt{
+  color:#fff;border-radius:2px;padding:2px 5px;margin-bottom:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  cursor:pointer;font-size:9px;font-weight:700;
+}
+.cal-evt:hover{opacity:.85}
+.cal-more{font-size:9px;color:#888;padding-left:2px}
+@media(max-width:600px){
+  .cal-cell{min-height:54px}
+  .cal-evt{font-size:8px;padding:1px 3px}
 }

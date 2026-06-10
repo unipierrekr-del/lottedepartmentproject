@@ -231,8 +231,20 @@ var giftCatalog = {
   g8:{n:'1++한우 갈비탕 6팩 실속세트', d:'간편 조리 1++ 한우 갈비탕 · 프리미엄 명절 선물 컬렉션', img:'images/pr8.png', price:98000},
   s1:{n:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', d:'프리미엄 보양식 · 이런 선물은 어떠신가요', img:'images/summer1.png', price:114000},
   s2:{n:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', d:'고단백 보양식 · 이런 선물은 어떠신가요', img:'images/summer2.png', price:118800},
-  s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요', img:'images/summer3.png', price:109800}
+  s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요', img:'images/summer3.png', price:109800},
+  h1:{n:'동탄정밀 스테인리스 텀블러 선물세트', d:'화성 제조 프리미엄 텀블러 · 화성시 특별관', img:'images/h1.png', price:32300},
+  h2:{n:'우정바이오 발효 식초 선물세트 3종', d:'화성 지역 발효 식초 · 화성시 특별관', img:'images/h2.png', price:36900},
+  h3:{n:'향남 코스메틱 클러스터 천연 핸드크림 기프트세트', d:'천연 성분 핸드크림 · 화성시 특별관', img:'images/h3.png', price:28800},
+  h4:{n:'동탄 테크노밸리 무선 충전 기프트 세트', d:'무선 충전 기프트 · 화성시 특별관', img:'images/h4.png', price:48380}
 };
+/* 상품명으로 카탈로그 항목 찾기 (완전 일치 → 접두 일치) */
+function findGiftByName(name) {
+  if (!name) return null;
+  var keys = Object.keys(giftCatalog), i, it;
+  for (i=0;i<keys.length;i++){ it=giftCatalog[keys[i]]; if(it.n===name) return it; }
+  for (i=0;i<keys.length;i++){ it=giftCatalog[keys[i]]; if(name.indexOf(it.n)===0||it.n.indexOf(name)===0) return it; }
+  return null;
+}
 var pkgItems = {
   beauty_female: { std:'g7', prem:'g4', sig:'g1' },
   beauty_male:   { std:'g8', prem:'g2', sig:'g1' },
@@ -851,25 +863,74 @@ function closeDP() { var dp=document.getElementById('dp'); if(dp) dp.classList.r
    ══════════════════════════════════════════════════ */
 function openSummerGift(name) {
   window._summerPickName = name;
+  var item = findGiftByName(name);
+  window._summerPickItem = item;
   var csi = document.getElementById('sg-csi');
-  if (csi) csi.innerHTML = '<div class="cm-cii"><strong>선택 상품</strong>'+name+'</div>';
+  if (csi) csi.innerHTML = '<div class="cm-cii"><strong>선택 상품</strong>'+name+'</div>'+
+    (item ? '<div class="cm-cii"><strong>단가</strong>'+fmt(item.price)+'</div>' : '');
   ['sg-budget','sg-qty'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  var note = document.getElementById('sg-note');
+  if (note) note.innerHTML = item ? '총예산 또는 총수량 중 하나만 입력하면 나머지가 자동 계산됩니다.' : '';
   var sg = document.getElementById('sg'); if(sg) sg.classList.add('open');
 }
 function closeSG() { var sg=document.getElementById('sg'); if(sg) sg.classList.remove('open'); }
+/* 총예산 ↔ 총수량 양방향 자동 연산 */
+function sgCalc(src) {
+  var item = window._summerPickItem;
+  if (!item || !item.price) return;
+  var bEl = document.getElementById('sg-budget'), qEl = document.getElementById('sg-qty');
+  if (!bEl || !qEl) return;
+  if (src === 'budget') {
+    var b = parseInt(bEl.value)||0;
+    qEl.value = b > 0 ? Math.floor(b/item.price) : '';
+  } else {
+    var q = parseInt(qEl.value)||0;
+    bEl.value = q > 0 ? q*item.price : '';
+  }
+  var qty = parseInt(qEl.value)||0;
+  var note = document.getElementById('sg-note');
+  if (!note) return;
+  if (qty > 0) {
+    var d = getDisc(qty), sub = qty*item.price, tot = Math.round(sub*(1-d));
+    note.innerHTML = '단가 '+fmt(item.price)+' × '+qty+'개 = '+fmt(sub)+
+      (d > 0 ? ' &#8212; 대량 할인 '+Math.round(d*100)+'% 적용 시 <strong>'+fmt(tot)+'</strong>' : '');
+  } else {
+    note.innerHTML = '총예산 또는 총수량 중 하나만 입력하면 나머지가 자동 계산됩니다.';
+  }
+}
 function sgNext(type) {
   var name = window._summerPickName || '';
+  var item = window._summerPickItem || null;
   var b = (document.getElementById('sg-budget')||{}).value||'';
   var q = (document.getElementById('sg-qty')||{}).value||'';
-  window._summerPick = { name: name, budget: b, qty: q };
+  var qty = parseInt(q)||0;
+  var unitPrice = item ? item.price : (qty && b ? Math.round(Number(b)/qty) : 0);
+  var d = getDisc(qty);
+  window._summerPick = { name:name, budget:b, qty:q, unitPrice:unitPrice };
   closeSG();
+  /* 온라인 주문 → 결제 페이지로 직행 (선택 상품 그대로 전달) */
+  if (type === 'order') {
+    localStorage.setItem('lotteOrderData', JSON.stringify({
+      packageName: name,
+      productImg: item ? item.img : '',
+      bizType: 'B2B',
+      purpose: '온라인 주문 · 큐레이션 상품',
+      qty: qty,
+      unitPrice: unitPrice,
+      discountRate: Math.round(d*100)
+    }));
+    window.location.href = 'order.html';
+    return;
+  }
   var cs  = document.getElementById('cm-cs');
   var csi = document.getElementById('cm-csi');
   if (cs && csi) {
+    var tot = qty && unitPrice ? Math.round(qty*unitPrice*(1-d)) : 0;
     csi.innerHTML = [
       {l:'선택 상품', v:name},
-      {l:'총예산', v:b?fmt(Number(b))+'원':''},
-      {l:'총수량', v:q?q+'개':''}
+      {l:'단가', v:unitPrice?fmt(unitPrice):''},
+      {l:'총수량', v:qty?qty+'개':''},
+      {l:'예상총액', v:tot?fmt(tot)+(d>0?' ('+Math.round(d*100)+'% 할인 적용)':''):(b?fmt(Number(b)):'')}
     ].filter(function(i){ return i.v; }).map(function(i){
       return '<div class="cm-cii"><strong>'+i.l+'</strong>'+i.v+'</div>';
     }).join('');
@@ -917,7 +978,7 @@ function submitCM() {
   var nm = (document.getElementById('cm-nm')||{}).value||'';
   var ph = (document.getElementById('cm-ph')||{}).value||'';
   if (!co.trim()||!nm.trim()||!ph.trim()) { showToast('회사명, 담당자 성함, 연락처는 필수입니다'); return; }
-  var p=wState.unitPrice, q=wState.qty, d=getDisc(q), tot=p&&q?p*q*(1-d):0;
+  var p=wState.unitPrice, q=wState.qty, d=getDisc(q), tot=p&&q?Math.round(p*q*(1-d)):0;
   var rec = {
     id:Date.now(), time:new Date().toLocaleString('ko-KR'),
     company:co.trim(),
@@ -927,6 +988,7 @@ function submitCM() {
     datetime:(document.getElementById('cm-dt')||{}).value||'',
     memo:   (document.getElementById('cm-mo')||{}).value||'',
     selectedPackage:window._selectedPkgName||'',
+    product:'',
     bizType:wState.bizType||'B2B', purpose:(wState.b2b_purpose||wState.b2e_purpose||[]).join(', '),
     target:wState.b2b_target||wState.b2e_target||'',
     qty:q||0, unitPrice:p||0, total:tot, discountRate:Math.round(d*100)+'%',
@@ -934,10 +996,25 @@ function submitCM() {
     status: window._cmType==='order' ? '주문접수' : '신규', adminMemo:''
   };
   if (window._summerPick) {
-    var sp = window._summerPick;
-    if (!rec.selectedPackage) rec.selectedPackage = sp.name;
-    rec.memo = '[얼리썸머 픽: '+sp.name+', 총예산:'+(sp.budget?fmt(Number(sp.budget))+'원':'-')+', 총수량:'+(sp.qty?sp.qty+'개':'-')+'] ' + rec.memo;
+    /* 큐레이션 상품 카드에서 진입 — 실제 선택 상품·수량·금액 그대로 저장 */
+    var sp = window._summerPick, spq = parseInt(sp.qty)||0, spd = getDisc(spq);
+    rec.selectedPackage = sp.name;
+    rec.product   = sp.name;
+    rec.qty       = spq;
+    rec.unitPrice = sp.unitPrice||0;
+    rec.total     = (spq && sp.unitPrice) ? Math.round(spq*sp.unitPrice*(1-spd)) : (Number(sp.budget)||0);
+    rec.discountRate = Math.round(spd*100)+'%';
+    rec.purpose   = rec.purpose || '큐레이션 상품 문의';
+    rec.memo = '[큐레이터 픽: '+sp.name+', 총예산:'+(sp.budget?fmt(Number(sp.budget)):'-')+', 총수량:'+(spq?spq+'개':'-')+'] ' + rec.memo;
     window._summerPick = null;
+  } else if (window._selectedPkgName && window._genPkgs && window._genPkgs[window._selectedPkg]) {
+    /* 위저드 추천 3종에서 상품 선택 후 진입 — 해당 상품의 실제 단가·수량·금액 저장 */
+    var pk = window._genPkgs[window._selectedPkg];
+    rec.product      = pk.item.n;
+    rec.qty          = pk.qty;
+    rec.unitPrice    = pk.price;
+    rec.total        = Math.round(pk.price*pk.qty*(1-pk.disc));
+    rec.discountRate = Math.round(pk.disc*100)+'%';
   }
   CRM.push(rec);
   localStorage.setItem('lotteCrm', JSON.stringify(CRM));
@@ -996,13 +1073,16 @@ function cmpQuickOrder() {
   var d = p && q ? getDisc(q) : 0;
   var co = (document.getElementById('cm-co')||{}).value ||
            (document.getElementById('rpt-company')||{}).value || '';
+  /* 위저드에서 선택한 상품이 있으면 실제 상품 단가·이미지로 주문 데이터 구성 */
+  var pk = (window._genPkgs||[])[window._selectedPkg];
   var orderData = {
-    packageName: window._selectedPkgName || '맞춤 선물 패키지',
+    packageName: window._selectedPkgName || (pk ? pk.item.n : '맞춤 선물 패키지'),
+    productImg: pk ? pk.item.img : '',
     bizType: wState.bizType || 'B2B',
     purpose: (wState.b2b_purpose || wState.b2e_purpose || []).join(', '),
-    qty: q || 0,
-    unitPrice: p || 0,
-    discountRate: Math.round(d * 100),
+    qty: pk ? pk.qty : (q || 0),
+    unitPrice: pk ? pk.price : (p || 0),
+    discountRate: pk ? Math.round(pk.disc * 100) : Math.round(d * 100),
     company: co,
     dept: (document.getElementById('cm-dept')||{}).value || (document.getElementById('rpt-dept')||{}).value || '',
     name: (document.getElementById('cm-nm')||{}).value || (document.getElementById('rpt-name')||{}).value || '',
@@ -1066,7 +1146,80 @@ function refreshAP() {
     '<div class="ap-sc"><div class="ap-sv">'+b2b+'</div><div class="ap-sl">B2B 거래처</div></div>'+
     '<div class="ap-sc"><div class="ap-sv">'+b2e+'</div><div class="ap-sl">B2E 임직원</div></div>'+
     '<div class="ap-sc"><div class="ap-sv" style="font-size:18px">'+fmt(tot)+'</div><div class="ap-sl">누적 총액</div></div>';
-  renderApDash(); renderApTable();
+  renderApDash(); renderApTable(); renderApCal();
+}
+
+/* ══════════════════════════════════════════════════
+   기업 캘린더 & 연중행사 예측
+   ══════════════════════════════════════════════════ */
+var calCur = new Date(); calCur.setDate(1);
+var CAL_COLORS = ['#4263eb','#0ca678','#f59f00','#e8590c','#9c36b5','#1098ad','#d6336c','#5f3dc4'];
+function calNav(dir) { calCur.setMonth(calCur.getMonth()+dir); renderApCal(); }
+function crmDate(d) { var t = new Date(d.id); return isNaN(t.getTime()) ? null : t; }
+function renderApCal() {
+  var grid = document.getElementById('cal-grid');
+  if (!grid) return;
+  loadCRM();
+  /* 기업 셀렉트 갱신 (선택 유지) */
+  var cos = [];
+  CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+  var selEl = document.getElementById('cal-co');
+  var sel = selEl ? selEl.value : '';
+  if (selEl) selEl.innerHTML = '<option value="">전체 기업</option>'+cos.map(function(c){
+    return '<option value="'+esc(c)+'"'+(c===sel?' selected':'')+'>'+esc(c)+'</option>';
+  }).join('');
+  var y = calCur.getFullYear(), m = calCur.getMonth();
+  var tEl = document.getElementById('cal-title'); if(tEl) tEl.textContent = y+'년 '+(m+1)+'월';
+  /* 날짜별 신청 매핑 */
+  var byDay = {};
+  CRM.forEach(function(d){
+    if (sel && d.company !== sel) return;
+    var t = crmDate(d); if (!t) return;
+    if (t.getFullYear()===y && t.getMonth()===m) { var k=t.getDate(); (byDay[k]=byDay[k]||[]).push(d); }
+  });
+  var first = new Date(y,m,1).getDay(), days = new Date(y,m+1,0).getDate();
+  var today = new Date();
+  var html = '';
+  for (var i=0;i<first;i++) html += '<div class="cal-cell empty"></div>';
+  for (var day=1;day<=days;day++) {
+    var isToday = today.getFullYear()===y && today.getMonth()===m && today.getDate()===day;
+    var recs = byDay[day]||[];
+    html += '<div class="cal-cell'+(isToday?' today':'')+'"><div class="cal-day">'+day+'</div>'+
+      recs.slice(0,3).map(function(r){
+        var color = CAL_COLORS[Math.max(cos.indexOf(r.company),0)%CAL_COLORS.length];
+        return '<div class="cal-evt" style="background:'+color+'" title="'+esc(r.company)+' · '+esc(r.product||r.selectedPackage||r.purpose||'')+'" onclick="openDD('+r.id+')">'+esc(r.company||'—')+'</div>';
+      }).join('')+
+      (recs.length>3?'<div class="cal-more">+'+(recs.length-3)+'건</div>':'')+
+    '</div>';
+  }
+  grid.innerHTML = html;
+  renderCalPrediction();
+}
+function renderCalPrediction() {
+  var tb = document.getElementById('cal-pred-tbody'); if (!tb) return;
+  var byCo = {};
+  CRM.forEach(function(d){
+    if (!d.company) return;
+    var t = crmDate(d); if (!t) return;
+    (byCo[d.company]=byCo[d.company]||[]).push(t);
+  });
+  var names = Object.keys(byCo);
+  if (!names.length) { tb.innerHTML='<tr class="er"><td colspan="5">상담 신청 데이터가 쌓이면 자동으로 연중행사를 예측합니다</td></tr>'; return; }
+  var now = new Date();
+  tb.innerHTML = names.map(function(co){
+    var dates = byCo[co].sort(function(a,b){ return a-b; });
+    var mc = {};
+    dates.forEach(function(t){ mc[t.getMonth()]=(mc[t.getMonth()]||0)+1; });
+    var top = Object.keys(mc).map(Number).sort(function(a,b){ return mc[b]-mc[a] || a-b; });
+    var main = top.slice(0,2).map(function(mo){ return (mo+1)+'월('+mc[mo]+'건)'; }).join(', ');
+    var pm = top[0];
+    var py = now.getMonth() > pm ? now.getFullYear()+1 : now.getFullYear();
+    var last = dates[dates.length-1];
+    var conf = Math.min(95, 40 + dates.length*10);
+    return '<tr><td><strong>'+esc(co)+'</strong></td><td>'+dates.length+'건</td><td>'+main+'</td>'+
+      '<td style="font-size:11px;white-space:nowrap">'+last.toLocaleDateString('ko-KR')+'</td>'+
+      '<td><strong>'+py+'년 '+(pm+1)+'월</strong> <span style="font-size:10px;color:#888">신뢰도 '+conf+'%</span></td></tr>';
+  }).join('');
 }
 function renderApDash() {
   var tb=document.getElementById('ap-dash-tbody'); if(!tb) return;
@@ -1079,7 +1232,7 @@ function renderApDash() {
       '<td><strong>'+esc(d.company||'—')+'</strong></td>'+
       '<td>'+esc(d.contactName||'—')+'</td>'+
       '<td><span class="tp '+(d.bizType==='B2B'?'b2b':d.bizType==='UNIFORM'?'uni':'b2e')+'">'+esc(d.bizType)+'</span></td>'+
-      '<td>'+(d.selectedPackage||'—')+'</td>'+
+      '<td>'+esc(d.product||d.selectedPackage||'—')+'</td>'+
       '<td>'+(d.total?fmt(d.total):'—')+'</td>'+
       '<td><span class="sp '+(d.status==='신규'?'new':d.status==='검토중'?'rev':d.status==='확정'?'con':'com')+'">'+esc(d.status)+'</span></td>'+
     '</tr>';
@@ -1104,7 +1257,7 @@ function renderApTable() {
       '<td>'+esc(d.contactName||'—')+'</td>'+
       '<td>'+esc(d.phone||'—')+'</td>'+
       '<td><span class="tp '+(d.bizType==='B2B'?'b2b':d.bizType==='UNIFORM'?'uni':'b2e')+'">'+esc(d.bizType)+'</span></td>'+
-      '<td>'+(d.selectedPackage||'—')+'</td>'+
+      '<td>'+esc(d.product||d.selectedPackage||'—')+'</td>'+
       '<td>'+(d.qty||'—')+'</td>'+
       '<td>'+(d.total?fmt(d.total):'—')+'</td>'+
       '<td><span class="sp '+(d.status==='신규'?'new':d.status==='검토중'?'rev':d.status==='확정'?'con':'com')+'">'+esc(d.status)+'</span></td>'+
@@ -1125,6 +1278,7 @@ function openDD(id) {
       df('이메일',esc(d.email))+df('희망일시',esc(d.datetime))+'</div>'+
     '<div class="dd-sec"><div class="dd-st">큐레이션</div>'+
       df('유형','<span class="tp '+(d.bizType==='B2B'?'b2b':d.bizType==='UNIFORM'?'uni':'b2e')+'">'+esc(d.bizType)+'</span>')+
+      df('선택 상품',esc(d.product||d.selectedPackage))+
       df('목적',esc(d.purpose))+df('대상',esc(d.target))+
       df('수량',(d.qty||'—')+'개')+df('단가',d.unitPrice?fmt(d.unitPrice):'—')+df('할인율',esc(d.discountRate))+
       '<div class="dd-totbox"><div style="font-size:10px;color:#555">예상 총 금액</div><div style="font-size:20px;font-weight:700;color:#fff;margin-top:2px">'+(d.total?fmt(d.total):'미입력')+'</div></div></div>'+
@@ -1153,8 +1307,8 @@ function saveMemo(id) {
 }
 function exportCSV() {
   loadCRM();
-  var rows=[['#','시각','회사명','담당자','연락처','이메일','유형','목적','수량','단가','총액','할인율','상태','메모']];
-  CRM.forEach(function(d,i){ rows.push([i+1,d.time,d.company,d.contactName,d.phone,d.email,d.bizType,d.purpose,d.qty,d.unitPrice,d.total,d.discountRate,d.status,d.adminMemo]); });
+  var rows=[['#','시각','회사명','담당자','연락처','이메일','유형','선택상품','목적','수량','단가','총액','할인율','상태','메모']];
+  CRM.forEach(function(d,i){ rows.push([i+1,d.time,d.company,d.contactName,d.phone,d.email,d.bizType,d.product||d.selectedPackage,d.purpose,d.qty,d.unitPrice,d.total,d.discountRate,d.status,d.adminMemo]); });
   var csv=rows.map(function(r){ return r.map(function(v){ return '"'+(v||'').toString().replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
   var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
   var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='lotte_dongtan_crm.csv'; a.click();

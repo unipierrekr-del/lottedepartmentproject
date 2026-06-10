@@ -133,7 +133,7 @@
       </div>
       <div class="o-card-bd" id="order-products">
         <div class="prod-row">
-          <div class="prod-img">🎁</div>
+          <div class="prod-img" id="op-img">🎁</div>
           <div class="prod-info">
             <div class="prod-brand">LOTTE DONGTAN B2B</div>
             <div class="prod-name" id="op-name">로딩 중...</div>
@@ -352,7 +352,13 @@
   var total = subtotal - discAmt;
 
   document.getElementById('op-name').textContent = pkgName;
-  document.getElementById('op-opt').textContent = d.purpose ? '목적: ' + d.purpose : '롯데백화점 동탄점 B2B 큐레이션';
+  document.getElementById('op-opt').textContent =
+    (unitPrice ? '단가 ' + fmt(unitPrice) + ' · ' : '') +
+    (d.purpose ? d.purpose : '롯데백화점 동탄점 B2B 큐레이션');
+  if (d.productImg) {
+    document.getElementById('op-img').innerHTML =
+      '<img src="' + d.productImg + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:4px;display:block">';
+  }
   document.getElementById('op-qty').textContent = qty ? qty + (d.bizType === 'B2E' ? '명' : '개') : '';
   document.getElementById('op-price').textContent = total ? fmt(total) : '상담 후 확정';
   document.getElementById('pr-subtotal').textContent = subtotal ? fmt(subtotal) : '—';
@@ -399,6 +405,7 @@ function submitOrder() {
       contactName: nm, phone: ph,
       email: document.getElementById('o-email').value,
       selectedPackage: d.packageName || '',
+      product: d.packageName || '',
       bizType: d.bizType || 'B2B', purpose: d.purpose || '',
       qty: d.qty || 0, unitPrice: d.unitPrice || 0,
       total: (d.unitPrice||0)*(d.qty||0)*(1-(d.discountRate||0)/100),
