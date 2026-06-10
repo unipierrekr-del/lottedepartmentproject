@@ -982,9 +982,19 @@ function closeDP() { var dp=document.getElementById('dp'); if(dp) dp.classList.r
    컨시어지 상담 모달
    ══════════════════════════════════════════════════ */
 function openSummerGift(name) {
-  var b = (document.getElementById('sumg-budget')||{}).value||'';
-  var q = (document.getElementById('sumg-qty')||{}).value||'';
+  window._summerPickName = name;
+  var csi = document.getElementById('sg-csi');
+  if (csi) csi.innerHTML = '<div class="cm-cii"><strong>선택 상품</strong>'+name+'</div>';
+  ['sg-budget','sg-qty'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  var sg = document.getElementById('sg'); if(sg) sg.classList.add('open');
+}
+function closeSG() { var sg=document.getElementById('sg'); if(sg) sg.classList.remove('open'); }
+function sgNext() {
+  var name = window._summerPickName || '';
+  var b = (document.getElementById('sg-budget')||{}).value||'';
+  var q = (document.getElementById('sg-qty')||{}).value||'';
   window._summerPick = { name: name, budget: b, qty: q };
+  closeSG();
   var cs  = document.getElementById('cm-cs');
   var csi = document.getElementById('cm-csi');
   if (cs && csi) {

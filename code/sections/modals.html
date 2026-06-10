@@ -126,6 +126,34 @@
   </div>
 </div>
 
+<!-- ════════════ SUMMER PICK STEP MODAL ════════════ -->
+<div id="sg">
+  <div class="cm-box">
+    <div class="cm-hd">
+      <div>
+        <div class="cm-hdk">Curator's Pick · Step 1</div>
+        <div class="cm-hdt">선물 정보 입력</div>
+      </div>
+      <button class="cm-hx" onclick="closeSG()">✕</button>
+    </div>
+    <div class="cm-bd">
+      <div class="cm-cs" id="sg-cs">
+        <div class="cm-cst">선택하신 상품</div>
+        <div class="cm-csi" id="sg-csi"></div>
+      </div>
+      <div class="cm-st">예산 &amp; 수량</div>
+      <div class="cm-fg">
+        <div class="cm-f"><label class="cm-lb">총예산 (원)</label><input type="number" class="cm-in" id="sg-budget" placeholder="예: 5000000" min="0"></div>
+        <div class="cm-f"><label class="cm-lb">총수량 (개)</label><input type="number" class="cm-in" id="sg-qty" placeholder="예: 50" min="0"></div>
+      </div>
+    </div>
+    <div class="cm-ft">
+      <button class="cm-can" onclick="closeSG()">취소</button>
+      <button class="cm-sub" onclick="sgNext()">다음 — 컨시어지 상담 신청 →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ════════════ CONSULT MODAL ════════════ -->
 <div id="cm">
   <div class="cm-box">
