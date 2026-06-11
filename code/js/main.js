@@ -148,6 +148,14 @@ function gp(id, dot) {
   if (w) w.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
+/* 번호형 진행 단계 — 클릭 시 해당 단계로 자유 이동 */
+function wizGoStep(n) {
+  if (n === 0) { gp('wp-0', 0); return; }
+  if (!wState.bizType) { showToast('먼저 선물 유형을 선택해 주세요'); gp('wp-0', 0); return; }
+  var pre = wState.bizType === 'B2B' ? 'wp-b2b-' : 'wp-b2e-';
+  gp(pre + n, n);
+}
+
 // 패널별 자동 다음 단계 매핑 (복수 섹션 패널은 제외)
 var PANEL_AUTO_NEXT = {
   'wp-b2b-1': function(){ gp('wp-b2b-2',2); },
@@ -1020,10 +1028,11 @@ function submitCM() {
   if (!co.trim()||!nm.trim()||!ph.trim()) { showToast('회사명, 담당자 성함, 연락처는 필수입니다'); return; }
   var p=wState.unitPrice, q=wState.qty, d=getDisc(q), tot=p&&q?Math.round(p*q*(1-d)):0;
   var dtVal = (document.getElementById('cm-dt')||{}).value||'';
+  var evVal = (document.getElementById('cm-event-date')||{}).value||'';
   var rec = {
     id:Date.now(), time:new Date().toLocaleString('ko-KR'),
     title:ti.trim(),
-    eventDate:(dtVal?dtVal.split('T')[0]:new Date().toISOString().split('T')[0]),
+    eventDate:(evVal || (dtVal?dtVal.split('T')[0]:new Date().toISOString().split('T')[0])),
     company:co.trim(),
     dept:   (document.getElementById('cm-dept')||{}).value||'',
     contactName:nm.trim(), phone:ph.trim(),
@@ -1068,7 +1077,7 @@ function submitCM() {
     if (src && rpt && src.value && !rpt._userEdited) rpt.value = src.value;
   });
   closeCM();
-  ['cm-title','cm-co','cm-dept','cm-nm','cm-ph','cm-em','cm-dt','cm-mo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  ['cm-title','cm-event-date','cm-co','cm-dept','cm-nm','cm-ph','cm-em','cm-dt','cm-mo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
   var msg = window._cmType==='order' ? '주문 신청이 완료됐습니다. 24시간 내 확인 후 연락드립니다.' : '상담 신청이 완료됐습니다. 24시간 내 연락드립니다.';
   showToast(msg);
 }
