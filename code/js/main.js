@@ -1074,6 +1074,7 @@ function openCM(type) {
   if (visitData.company) { var e=document.getElementById('cm-co'); if(e) e.value=visitData.company; }
   if (visitData.name)    { var e=document.getElementById('cm-nm'); if(e) e.value=visitData.name; }
   if (visitData.phone)   { var e=document.getElementById('cm-ph'); if(e) e.value=visitData.phone; }
+  cmPrefillFromWizard();
   var consentRadios = document.getElementsByName('cm-consent');
   for (var i=0;i<consentRadios.length;i++) consentRadios[i].checked = false;
   var cmSubBtn = document.getElementById('cm-submit-btn'); if(cmSubBtn) cmSubBtn.disabled = true;
@@ -1090,6 +1091,38 @@ function openCM(type) {
   }
 }
 function closeCM() { var cm=document.getElementById('cm'); if(cm) cm.classList.remove('open'); }
+/* 직전 설문(위저드) 응답을 상담 요청 내용에 자동 기입 */
+function cmPrefillFromWizard() {
+  function setVal(id, cid, max, v) {
+    var el = document.getElementById(id);
+    if (!el || !v || el.value) return; // 사용자가 이미 입력한 값은 보존
+    el.value = v;
+    if (cid) cmCount(id, cid, max);
+  }
+  function setRadio(name, v) {
+    if (!v) return;
+    var rs = document.getElementsByName(name);
+    for (var i=0;i<rs.length;i++) if (rs[i].value === v) { rs[i].checked = true; return; }
+  }
+  /* 지급 대상 */
+  if (wState.bizType === 'B2E') setRadio('cm-paytarget', '임직원 선물용');
+  else if (wState.bizType === 'B2B') setRadio('cm-paytarget', '대외 선물용');
+  /* 지급 목적 / 시기 */
+  var purpose = (wState.b2b_purpose || []).concat(wState.b2e_purpose || []).join(', ');
+  if (purpose) {
+    if (/명절|설|추석/.test(purpose)) setRadio('cm-paypurpose', '명절');
+    else if (/창립/.test(purpose)) setRadio('cm-paypurpose', '창립기념일');
+    else if (/근로자/.test(purpose)) setRadio('cm-paypurpose', '근로자의날');
+    else setRadio('cm-paypurpose', '기타');
+    setVal('cm-paytime', 'cm-paytime-cnt', 30, purpose);
+  }
+  /* 선호 상품군 */
+  var cat = (wState.b2b_cat || []).concat(wState.b2e_mood || []).join(', ');
+  setVal('cm-prodpref', 'cm-prodpref-cnt', 30, cat || window._selectedPkgName || '');
+  /* 희망 단가 / 수량 */
+  if (wState.unitPrice) setVal('cm-priceband', 'cm-priceband-cnt', 30, wState.unitLabel || (fmt(wState.unitPrice)+' 대'));
+  if (wState.qty) setVal('cm-qtypref', 'cm-qtypref-cnt', 30, wState.qty + (wState.bizType === 'B2E' ? '명' : '개'));
+}
 function cmCount(inputId, counterId, max) {
   var el = document.getElementById(inputId), cnt = document.getElementById(counterId);
   if (!el || !cnt) return;
@@ -1338,6 +1371,7 @@ function renderApCal() {
   }
   grid.innerHTML = html;
   renderCalPrediction();
+  renderPriority();
 }
 function renderCalPrediction() {
   var tb = document.getElementById('cal-pred-tbody'); if (!tb) return;
@@ -1364,6 +1398,161 @@ function renderCalPrediction() {
       '<td style="font-size:11px;white-space:nowrap">'+last.toLocaleDateString('ko-KR')+'</td>'+
       '<td><strong>'+py+'년 '+(pm+1)+'월</strong> <span style="font-size:10px;color:#888">신뢰도 '+conf+'%</span></td></tr>';
   }).join('');
+}
+/* ══════════════════════════════════════════════════
+   우선순위 타겟 마케팅 (LMS)
+   연중행사 예측 기반 D-30/D-15/D-7 분류 + AI 자동 문안 LMS 발송
+   ══════════════════════════════════════════════════ */
+var priTab = 'd30';
+var COMMON_EVENTS = [
+  {name:'추석',       date:'2026-09-25'},
+  {name:'크리스마스 / 연말', date:'2026-12-25'},
+  {name:'설날',       date:'2027-02-07'},
+  {name:'근로자의 날', date:'2027-05-01'}
+];
+function lmsSentKey(){ try{ return JSON.parse(localStorage.getItem('LOTTE_LMS_SENT')||'{}'); }catch(e){ return {}; } }
+function lmsMarkSent(k){ var s=lmsSentKey(); s[k]=Date.now(); localStorage.setItem('LOTTE_LMS_SENT',JSON.stringify(s)); }
+function priDday(dateObj){ var now=new Date(); now.setHours(0,0,0,0); return Math.ceil((dateObj-now)/86400000); }
+/* 기업별 다음 예상 행사 목록 (예측 로직은 renderCalPrediction과 동일 기준) */
+function getPriPredictions() {
+  loadCRM();
+  var byCo = {};
+  CRM.forEach(function(d){
+    if (!d.company) return;
+    var t = crmDate(d); if (!t) return;
+    (byCo[d.company]=byCo[d.company]||[]).push({t:t, rec:d});
+  });
+  var now = new Date();
+  return Object.keys(byCo).map(function(co){
+    var items = byCo[co].sort(function(a,b){ return a.t-b.t; });
+    var mc = {};
+    items.forEach(function(it){ mc[it.t.getMonth()]=(mc[it.t.getMonth()]||0)+1; });
+    var top = Object.keys(mc).map(Number).sort(function(a,b){ return mc[b]-mc[a] || a-b; });
+    var pm = top[0];
+    var py = now.getMonth() > pm ? now.getFullYear()+1 : now.getFullYear();
+    var evtDate = new Date(py, pm, 15);
+    var last = items[items.length-1].rec;
+    return {
+      company: co, evtDate: evtDate, dday: priDday(evtDate),
+      conf: Math.min(95, 40 + items.length*10),
+      lastRec: last,
+      evtLabel: (last.dept?last.dept+' ':'') + (last.title || last.purpose || ((pm+1)+'월 행사'))
+    };
+  });
+}
+function priSwitch(t, btn) {
+  priTab = t;
+  document.querySelectorAll('.pri-tab').forEach(function(b){ b.classList.remove('on'); });
+  if (btn) btn.classList.add('on');
+  renderPriority();
+}
+function renderPriority() {
+  var th = document.getElementById('pri-thead'), tb = document.getElementById('pri-tbody');
+  if (!th || !tb) return;
+  var sent = lmsSentKey();
+  if (priTab === 'common') {
+    th.innerHTML = '<tr><th>D-Day</th><th>공통 행사</th><th>예정일</th><th>발송 대상</th><th>LMS</th></tr>';
+    var cos = []; loadCRM();
+    CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+    tb.innerHTML = COMMON_EVENTS.map(function(ev){
+      var p = ev.date.split('-').map(Number), dt = new Date(p[0],p[1]-1,p[2]), dd = priDday(dt);
+      if (dd < 0) return '';
+      var cls = dd<=7?'d7':dd<=15?'d15':'d30';
+      var k = 'common:'+ev.name;
+      return '<tr><td><span class="dday-bdg '+cls+'">D-'+dd+'</span></td>'+
+        '<td><strong>'+esc(ev.name)+'</strong></td>'+
+        '<td style="font-size:11px;white-space:nowrap">'+dt.toLocaleDateString('ko-KR')+'</td>'+
+        '<td>보유 기업 전체 <strong>'+cos.length+'개사</strong></td>'+
+        '<td>'+(sent[k]?'<button class="lms-btn sent">발송완료</button>':'<button class="lms-btn" onclick="openLMS(\'common\',\''+esc(ev.name)+'\','+dd+')">전체 LMS 발송</button>')+'</td></tr>';
+    }).join('') || '<tr class="er"><td colspan="5">예정된 공통 행사가 없습니다</td></tr>';
+    return;
+  }
+  th.innerHTML = '<tr><th>D-Day</th><th>기업명</th><th>예상 행사</th><th>예상일</th><th>담당자</th><th>연락처</th><th>신뢰도</th><th>LMS</th></tr>';
+  var range = priTab==='d7' ? [0,7] : priTab==='d15' ? [8,15] : [16,30];
+  var rows = getPriPredictions().filter(function(p){ return p.dday>=range[0] && p.dday<=range[1]; })
+    .sort(function(a,b){ return a.dday-b.dday; });
+  if (!rows.length) { tb.innerHTML = '<tr class="er"><td colspan="8">해당 구간(D-'+range[0]+'~'+range[1]+')에 예상 행사가 있는 기업이 없습니다</td></tr>'; return; }
+  tb.innerHTML = rows.map(function(p){
+    var cls = p.dday<=7?'d7':p.dday<=15?'d15':'d30';
+    var k = p.company+':'+p.evtLabel;
+    return '<tr><td><span class="dday-bdg '+cls+'">D-'+p.dday+'</span></td>'+
+      '<td><strong>'+esc(p.company)+'</strong></td>'+
+      '<td>'+esc(p.evtLabel)+'</td>'+
+      '<td style="font-size:11px;white-space:nowrap">'+p.evtDate.toLocaleDateString('ko-KR')+'</td>'+
+      '<td>'+esc(p.lastRec.contactName||'—')+'</td>'+
+      '<td style="font-size:11px;white-space:nowrap">'+esc(p.lastRec.phone||'—')+'</td>'+
+      '<td style="font-size:10px;color:#888">'+p.conf+'%</td>'+
+      '<td>'+(sent[k]?'<button class="lms-btn sent">발송완료</button>':'<button class="lms-btn" onclick="openLMS(\''+esc(p.company)+'\',\''+esc(p.evtLabel)+'\','+p.dday+')">LMS 발송</button>')+'</td></tr>';
+  }).join('');
+}
+/* AI 자동 문안 생성 — 기존 주문 데이터를 녹여 작성 */
+function lmsGenText(co, evt, dday) {
+  var recs = CRM.filter(function(d){ return d.company===co; });
+  var last = recs.length ? recs[recs.length-1] : null;
+  var nm = last && last.contactName ? last.contactName : '담당자';
+  var prod = last ? (last.product || last.selectedPackage || '') : '';
+  var lastDate = last ? (crmDate(last)||new Date(last.id)) : null;
+  var lines = ['(광고) 롯데백화점 법인영업팀','',
+    nm+'님, 안녕하세요. 롯데백화점 B2B 컨시어지입니다.',''];
+  if (last && prod) {
+    lines.push('지난 '+(lastDate?lastDate.toLocaleDateString('ko-KR'):'')+' 주문하신 \''+prod+'\''+(last.qty?' ('+last.qty+'개)':'')+'은 어떠셨나요?');
+    lines.push('임직원·거래처분들의 반응이 좋으셨기를 바랍니다.','');
+  }
+  lines.push('작년 기준 「'+evt+'」 행사가 이제 D-'+dday+' 앞으로 다가왔습니다.');
+  lines.push('아직 올해 주문을 안 하셨나요?','');
+  lines.push('지금 상담 신청 시 수량별 최대 12% 대량 할인과 전담 컨시어지의 1:1 큐레이션을 받아보실 수 있습니다.','');
+  lines.push('▶ 상담 신청: https://lotte-b2b.example.com','무료수신거부 080-000-0000');
+  return lines.join('\n');
+}
+function lmsGenBulkText(evt, dday) {
+  return ['(광고) 롯데백화점 법인영업팀','',
+    '{담당자명}님, 안녕하세요. 롯데백화점 B2B 컨시어지입니다.','',
+    '지난번 {기업명}에서 주문하신 선물은 어떠셨나요?','',
+    '「'+evt+'」이 이제 D-'+dday+' 앞으로 다가왔습니다.',
+    '아직 올해 단체 선물 준비를 시작하지 않으셨다면, 지금이 가장 좋은 시기입니다.','',
+    '지금 상담 신청 시 수량별 최대 12% 대량 할인과 전담 컨시어지의 1:1 큐레이션을 받아보실 수 있습니다.','',
+    '▶ 상담 신청: https://lotte-b2b.example.com','무료수신거부 080-000-0000'].join('\n');
+}
+var _lmsCtx = null;
+function openLMS(co, evt, dday) {
+  loadCRM();
+  _lmsCtx = {co:co, evt:evt, dday:dday};
+  var meta = document.getElementById('lms-meta'), ta = document.getElementById('lms-text');
+  if (co === 'common') {
+    var cos = []; CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+    meta.innerHTML = '<b>D-'+dday+' · '+esc(evt)+'</b> — 공통 행사 일괄 발송<br>수신 대상: 보유 기업 전체 <b>'+cos.length+'개사</b> 총무 담당자 ('+cos.slice(0,4).map(esc).join(', ')+(cos.length>4?' 외 '+(cos.length-4)+'개사':'')+')<br><span style="color:#888;font-size:10px">{기업명}, {담당자명}은 발송 시 기업별로 자동 치환됩니다.</span>';
+    ta.value = lmsGenBulkText(evt, dday);
+  } else {
+    var recs = CRM.filter(function(d){ return d.company===co; });
+    var last = recs.length ? recs[recs.length-1] : {};
+    meta.innerHTML = '<b>D-'+dday+' · '+esc(co)+' · '+esc(evt)+'</b><br>수신: '+esc(last.contactName||'담당자')+' '+esc(last.phone||'')+' '+(last.dept?'('+esc(last.dept)+')':'');
+    ta.value = lmsGenText(co, evt, dday);
+  }
+  lmsUpdateCnt();
+  ta.oninput = lmsUpdateCnt;
+  document.getElementById('lms-modal').classList.add('open');
+}
+function lmsUpdateCnt(){ var ta=document.getElementById('lms-text'), c=document.getElementById('lms-cnt'); if(ta&&c) c.textContent=ta.value.length+'자 / LMS(2,000자 이내)'; }
+function lmsRegen() {
+  if (!_lmsCtx) return;
+  var ta = document.getElementById('lms-text');
+  ta.value = _lmsCtx.co==='common' ? lmsGenBulkText(_lmsCtx.evt,_lmsCtx.dday) : lmsGenText(_lmsCtx.co,_lmsCtx.evt,_lmsCtx.dday);
+  lmsUpdateCnt();
+  showToast('AI가 문안을 다시 작성했습니다');
+}
+function closeLMS(){ document.getElementById('lms-modal').classList.remove('open'); }
+function sendLMS() {
+  if (!_lmsCtx) return;
+  var k = _lmsCtx.co==='common' ? 'common:'+_lmsCtx.evt : _lmsCtx.co+':'+_lmsCtx.evt;
+  lmsMarkSent(k);
+  if (_lmsCtx.co==='common') {
+    var cos = []; CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+    showToast('공통 행사 LMS '+cos.length+'개사 일괄 발송 완료');
+  } else {
+    showToast(_lmsCtx.co+' 담당자에게 LMS 발송 완료');
+  }
+  closeLMS();
+  renderPriority();
 }
 function renderApDash() {
   var tb=document.getElementById('ap-dash-tbody'); if(!tb) return;

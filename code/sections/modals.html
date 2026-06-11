@@ -439,8 +439,49 @@
               </div>
             </div>
           </div>
+          <!-- 우선순위 타겟 마케팅 (LMS) -->
+          <div class="ap-tcard" style="margin-top:16px">
+            <div class="ap-thd" style="flex-wrap:wrap;gap:10px">
+              <div class="ap-thtl">우선순위 타겟 마케팅 · LMS 발송</div>
+            </div>
+            <div style="padding:0 16px 10px;font-size:11px;color:#888;line-height:1.6">연중행사 예측을 기반으로 행사 임박 기업을 D-30 / D-15 / D-7 우선순위로 분류합니다. 각 기업 담당자(총무)에게 AI가 자동 작성한 LMS를 발송하거나, 추석 등 공통 행사는 보유 기업 전체에 일괄 발송할 수 있습니다.</div>
+            <div class="pri-tabs">
+              <button class="pri-tab on" id="pri-tab-d30" onclick="priSwitch('d30',this)">D-30</button>
+              <button class="pri-tab" id="pri-tab-d15" onclick="priSwitch('d15',this)">D-15</button>
+              <button class="pri-tab" id="pri-tab-d7" onclick="priSwitch('d7',this)">D-7</button>
+              <button class="pri-tab" id="pri-tab-common" onclick="priSwitch('common',this)">공통 행사</button>
+            </div>
+            <div class="tbl-w">
+              <table class="atbl">
+                <thead id="pri-thead"></thead>
+                <tbody id="pri-tbody"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<!-- LMS Compose Modal -->
+<div id="lms-modal">
+  <div class="cm-box" style="max-width:560px">
+    <div class="cm-hd">
+      <div><div class="cm-hdk">Target Marketing</div><div class="cm-hdt">LMS 발송</div></div>
+      <button class="cm-hx" onclick="closeLMS()">✕</button>
+    </div>
+    <div class="cm-bd">
+      <div class="lms-meta" id="lms-meta"></div>
+      <div class="lms-ai-tag">⚡ AI 자동 작성 — 기존 주문 데이터를 기반으로 메시지가 생성되었습니다. 발송 전 자유롭게 수정하세요.</div>
+      <textarea class="cm-in cm-ta" id="lms-text" style="width:100%;min-height:220px;line-height:1.8;font-size:12.5px"></textarea>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+        <button class="cm-can" style="padding:9px 14px;font-size:10px" onclick="lmsRegen()">↺ AI 다시 작성</button>
+        <div style="font-size:10px;color:#bbb" id="lms-cnt"></div>
+      </div>
+    </div>
+    <div class="cm-ft">
+      <button class="cm-can" onclick="closeLMS()">취소</button>
+      <button class="cm-sub" onclick="sendLMS()">LMS 발송하기</button>
     </div>
   </div>
 </div>
