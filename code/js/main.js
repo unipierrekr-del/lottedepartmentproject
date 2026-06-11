@@ -40,7 +40,7 @@ loadCRM();
 
 /* 데모용 샘플 CRM 데이터 — 최초 1회만 시딩 (캘린더 / 연중행사 예측 시연용) */
 function seedCRMDemo() {
-  if (CRM.length >= 50) return;
+  if (CRM.length >= 150) return;
   CRM = [];
   var now = new Date();
   var Y = now.getFullYear();
@@ -114,6 +114,52 @@ function seedCRMDemo() {
       bizType:'B2B', purpose: ev.title, target:'',
       qty: qty, unitPrice: ev.unit, total: total2, discountRate: Math.round(disc2*100)+'%',
       category:'', status: statuses[e % statuses.length], adminMemo:''
+    });
+  }
+
+  /* 우선순위 타겟 마케팅(D-30/D-15/D-7) 데모 시연용 — 행사 임박 기업 100개사 추가 */
+  var ddayCo = ['대한','동양','한빛','서울','한국','동부','효성','대성','경동','삼천리','일진','풍산','영풍','한솔','태광',
+    '동원','빙그레','오리온','농심','매일유업','남양유업','락앤락','쿠쿠전자','위니아','신세계','현대백화점','이마트','GS건설','대우건설','삼성물산',
+    'SK텔레콤','KT','LG유플러스','롯데정보통신','한진','대한항공','아시아나','CJ대한통운','한국전력','한국가스공사',
+    '한국수력원자력','두산밥캣','현대중공업','삼성SDI','LG에너지솔루션','한미약품','유한양행','종근당','대웅제약','셀트리온'];
+  var ddayProd = [
+    {p:'정관장 홍삼정 240g (80일분, 스푼제거)', unit:220000, qty:60},
+    {p:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', unit:324360, qty:80},
+    {p:'썬키스트 캘리포니아 오렌지 세트(3kg)', unit:89000, qty:150},
+    {p:'종근당건강 락토핏 골드 + 비타민C 세트', unit:65000, qty:90},
+    {p:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', unit:173850, qty:70},
+    {p:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', unit:114000, qty:50},
+    {p:'1++한우 갈비탕 6팩 실속세트', unit:98000, qty:120}
+  ];
+  var ddayTitle = ['휴가철 임직원 선물','거래처 추석 선물 사전 문의','창립기념일 임직원 선물','협력업체 감사 선물','연말 임직원 선물','가정의 달 임직원 선물'];
+  var ddayDepts = ['총무팀','인사팀','구매팀','경영지원팀','복지팀','HR팀','DS팀','마케팅팀'];
+  var ddayContacts = ['김지은 대리','박민수 과장','이수진 차장','정우영 대리','최하늘 매니저','한소희 매니저','강민호 부장','윤서연 대리','오태경 국장','서지훈 과장'];
+  /* offset 구성: D-7(10건), D-15(10건), D-30(10건), 그 외 70건은 31~300일 분산 */
+  var ddayOffsets = [];
+  for (var k=0;k<10;k++) ddayOffsets.push(1 + (k%7));
+  for (var k=0;k<10;k++) ddayOffsets.push(8 + (k%8));
+  for (var k=0;k<10;k++) ddayOffsets.push(16 + (k%15));
+  for (var k=0;k<70;k++) ddayOffsets.push(31 + (k*4)%270);
+  var DDAY_N = 100;
+  for (var n=0; n<DDAY_N; n++) {
+    var co2 = ddayCo[n % ddayCo.length] + (n < ddayCo.length ? '' : '(주)');
+    var prod2 = ddayProd[n % ddayProd.length];
+    var title2 = ddayTitle[n % ddayTitle.length];
+    var qty3 = prod2.qty + ((n*9) % 80);
+    var disc3 = getDisc(qty3), total3 = Math.round(qty3*prod2.unit*(1-disc3));
+    var evDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + ddayOffsets[n]);
+    CRM.push({
+      id: Date.now() - (samples.length+EXTRA_N+DDAY_N-n)*1000 - 900000,
+      time: new Date().toLocaleString('ko-KR'),
+      title: title2,
+      eventDate: dstr(evDate.getFullYear(), evDate.getMonth()+1, evDate.getDate()),
+      company: co2, dept: ddayDepts[n % ddayDepts.length], contactName: ddayContacts[n % ddayContacts.length],
+      phone: '010-'+String(3000+n).slice(-4)+'-'+String(4000+n).slice(-4),
+      email:'', datetime:'', memo:'',
+      selectedPackage: prod2.p, product: prod2.p,
+      bizType:'B2B', purpose: title2, target:'',
+      qty: qty3, unitPrice: prod2.unit, total: total3, discountRate: Math.round(disc3*100)+'%',
+      category:'', status:'신규', adminMemo:''
     });
   }
 
@@ -1429,8 +1475,10 @@ function getPriPredictions() {
     items.forEach(function(it){ mc[it.t.getMonth()]=(mc[it.t.getMonth()]||0)+1; });
     var top = Object.keys(mc).map(Number).sort(function(a,b){ return mc[b]-mc[a] || a-b; });
     var pm = top[0];
-    var py = now.getMonth() > pm ? now.getFullYear()+1 : now.getFullYear();
-    var evtDate = new Date(py, pm, 15);
+    var pmItems = items.filter(function(it){ return it.t.getMonth()===pm; });
+    var pday = pmItems[pmItems.length-1].t.getDate();
+    var py = (now.getMonth() > pm || (now.getMonth()===pm && now.getDate()>pday)) ? now.getFullYear()+1 : now.getFullYear();
+    var evtDate = new Date(py, pm, pday);
     var last = items[items.length-1].rec;
     return {
       company: co, evtDate: evtDate, dday: priDday(evtDate),
