@@ -40,7 +40,7 @@ loadCRM();
 
 /* 데모용 샘플 CRM 데이터 — 최초 1회만 시딩 (캘린더 / 연중행사 예측 시연용) */
 function seedCRMDemo() {
-  if (CRM.length >= 10) return;
+  if (CRM.length >= 50) return;
   CRM = [];
   var now = new Date();
   var Y = now.getFullYear();
@@ -73,6 +73,50 @@ function seedCRMDemo() {
       category:'', status: s.status, adminMemo:''
     };
   });
+
+  /* 추가 데모 데이터 — 1년 전체에 고르게 분포된 40건 생성 */
+  var extraCo = ['(주)삼성전자','LG전자','현대자동차','SK하이닉스','네이버','카카오','포스코','CJ제일제당','화성상공회의소',
+    '롯데케미칼','기아','한화솔루션','신한은행','KB금융','두산에너빌리티','LS일렉트릭','코오롱인더스트리','아모레퍼시픽',
+    '한국타이어','GS리테일'];
+  var extraEvt = [
+    {title:'설 명절 거래처 선물',     month:1,  product:'청풍명월 1++ 한우 명작로스1호(2.4kg)', unit:499500, qty:60},
+    {title:'창립기념일 임직원 선물',   month:2,  product:'정관장 홍삼정 240g (80일분, 스푼제거)', unit:220000, qty:90},
+    {title:'신입사원 환영 선물',       month:3,  product:'종근당건강 락토핏 골드 + 비타민C 세트', unit:65000,  qty:70},
+    {title:'창립기념일 단체 선물',     month:4,  product:'오쏘몰 이뮨 30일분', unit:109800, qty:100},
+    {title:'가정의 달 임직원 선물',    month:5,  product:'동탄정밀 스테인리스 텀블러 선물세트', unit:32300, qty:150},
+    {title:'여름 보양식 단체 선물',    month:6,  product:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', unit:114000, qty:50},
+    {title:'여름휴가 선물 사전 문의',  month:7,  product:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', unit:118800, qty:60},
+    {title:'협력업체 감사 선물',       month:8,  product:'1++한우 갈비탕 6팩 실속세트', unit:98000, qty:120},
+    {title:'추석 명절 거래처 선물',    month:9,  product:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', unit:324360, qty:80},
+    {title:'거래처 추석 선물 사전 문의', month:9, product:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', unit:205660, qty:70},
+    {title:'협력업체 감사 선물',       month:11, product:'썬키스트 캘리포니아 오렌지 세트(3kg)', unit:89000, qty:200},
+    {title:'연말 임직원 선물',         month:12, product:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', unit:173850, qty:90}
+  ];
+  var statuses = ['확정','완료','검토중','신규'];
+  var depts = ['총무팀','인사팀','구매팀','경영지원팀','복지팀','HR팀','마케팅팀','사무국'];
+  var contacts = ['김지은 대리','박민수 과장','이수진 차장','정우영 대리','최하늘 매니저','한소희 매니저','강민호 부장','윤서연 대리','오태경 국장','서지훈 과장'];
+  var EXTRA_N = 40;
+  for (var e=0; e<EXTRA_N; e++) {
+    var co = extraCo[e % extraCo.length];
+    var ev = extraEvt[e % extraEvt.length];
+    var day = 3 + ((e*7) % 24);
+    var qty = ev.qty + ((e*13) % 60);
+    var disc2 = getDisc(qty), total2 = Math.round(qty*ev.unit*(1-disc2));
+    var evtY2 = (now.getMonth()+1) > ev.month ? Y+1 : Y;
+    CRM.push({
+      id: Date.now() - (samples.length+EXTRA_N-e)*1000 - 500000,
+      time: new Date().toLocaleString('ko-KR'),
+      title: ev.title,
+      eventDate: dstr(evtY2, ev.month, day),
+      company: co, dept: depts[e % depts.length], contactName: contacts[e % contacts.length], phone: '010-'+String(1000+e).slice(-4)+'-'+String(2000+e).slice(-4),
+      email:'', datetime:'', memo:'',
+      selectedPackage: ev.product, product: ev.product,
+      bizType:'B2B', purpose: ev.title, target:'',
+      qty: qty, unitPrice: ev.unit, total: total2, discountRate: Math.round(disc2*100)+'%',
+      category:'', status: statuses[e % statuses.length], adminMemo:''
+    });
+  }
+
   localStorage.setItem('lotteCrm', JSON.stringify(CRM));
 }
 seedCRMDemo();

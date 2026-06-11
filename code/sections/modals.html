@@ -273,27 +273,29 @@
         </div>
         <!-- 기업 캘린더 & 연중행사 예측 -->
         <div class="ap-pg" id="pg-cal">
-          <div class="ap-tcard">
-            <div class="ap-thd" style="flex-wrap:wrap;gap:10px">
-              <div class="ap-thtl">기업별 상담 신청 캘린더</div>
-              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-                <select class="ap-sf" id="cal-co" onchange="renderApCal()"><option value="">전체 기업</option></select>
-                <button class="ap-ab" onclick="calNav(-1)">&#9664;</button>
-                <div id="cal-title" style="font-size:13px;font-weight:700;min-width:96px;text-align:center"></div>
-                <button class="ap-ab" onclick="calNav(1)">&#9654;</button>
+          <div class="cal-layout">
+            <div class="ap-tcard">
+              <div class="ap-thd" style="flex-wrap:wrap;gap:10px">
+                <div class="ap-thtl">기업별 상담 신청 캘린더</div>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                  <select class="ap-sf" id="cal-co" onchange="renderApCal()"><option value="">전체 기업</option></select>
+                  <button class="ap-ab" onclick="calNav(-1)">&#9664;</button>
+                  <div id="cal-title" style="font-size:13px;font-weight:700;min-width:96px;text-align:center"></div>
+                  <button class="ap-ab" onclick="calNav(1)">&#9654;</button>
+                </div>
               </div>
+              <div class="cal-grid-head"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div>
+              <div class="cal-grid" id="cal-grid"></div>
             </div>
-            <div class="cal-grid-head"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div>
-            <div class="cal-grid" id="cal-grid"></div>
-          </div>
-          <div class="ap-tcard" style="margin-top:16px">
-            <div class="ap-thd"><div class="ap-thtl">기업 연중행사 예측</div></div>
-            <div style="padding:0 16px 10px;font-size:11px;color:#888;line-height:1.6">기업별 상담 신청 이력을 월 단위로 데이터화하여, 명절·창립기념일 등 각 기업의 연중행사 시기를 예측합니다. 신청 데이터가 쌓일수록 예측 신뢰도가 올라갑니다.</div>
-            <div class="tbl-w">
-              <table class="atbl">
-                <thead><tr><th>기업명</th><th>신청 건수</th><th>주요 신청 시기</th><th>최근 신청일</th><th>다음 예상 행사 시기</th></tr></thead>
-                <tbody id="cal-pred-tbody"></tbody>
-              </table>
+            <div class="ap-tcard">
+              <div class="ap-thd"><div class="ap-thtl">기업 연중행사 예측</div></div>
+              <div style="padding:0 16px 10px;font-size:11px;color:#888;line-height:1.6">기업별 상담 신청 이력을 월 단위로 데이터화하여, 명절·창립기념일 등 각 기업의 연중행사 시기를 예측합니다. 신청 데이터가 쌓일수록 예측 신뢰도가 올라갑니다.</div>
+              <div class="tbl-w cal-pred-w">
+                <table class="atbl">
+                  <thead><tr><th>기업명</th><th>신청 건수</th><th>주요 신청 시기</th><th>최근 신청일</th><th>다음 예상 행사 시기</th></tr></thead>
+                  <tbody id="cal-pred-tbody"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
