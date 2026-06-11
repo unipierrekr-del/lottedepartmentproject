@@ -475,7 +475,10 @@
       <div class="lms-ai-tag">⚡ AI 자동 작성 — 기존 주문 데이터를 기반으로 메시지가 생성되었습니다. 발송 전 자유롭게 수정하세요.</div>
       <textarea class="cm-in cm-ta" id="lms-text" style="width:100%;min-height:220px;line-height:1.8;font-size:12.5px"></textarea>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-        <button class="cm-can" style="padding:9px 14px;font-size:10px" onclick="lmsRegen()">↺ AI 다시 작성</button>
+        <div style="display:flex;gap:6px">
+          <button class="cm-can" style="padding:9px 14px;font-size:10px" onclick="lmsRegen()">↺ AI 다시 작성</button>
+          <button class="cm-can" style="padding:9px 14px;font-size:10px" id="lms-preview-btn" onclick="lmsTogglePreview()">👁 기업별 예시 보기</button>
+        </div>
         <div style="font-size:10px;color:#bbb" id="lms-cnt"></div>
       </div>
     </div>

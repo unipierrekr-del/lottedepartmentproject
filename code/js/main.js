@@ -1514,6 +1514,61 @@ function renderPriority() {
   }).join('');
 }
 /* AI 자동 문안 생성 — 기존 주문 데이터를 녹여 작성 */
+/* 행사별 동탄점 프로모션 콘텐츠 — 실제 매장 LMS 포맷에 맞춘 시즌별 혜택 정보 */
+var EVENT_PROMOS = {
+  '추석': {
+    headline:'풍성한 한가위, 마음을 전하는 추석 선물 준비는 동탄점에서',
+    benefits:[
+      '[전상품군] 롯데/현대/국민/농협/우리카드 단일 7% (9.10-9.24)',
+      '[추석 선물세트] 정육·청과·굴비 세트 단일 10% (9.1-9.24)',
+      '[법인 단체구매] 50개 이상 주문 시 추가 5% + 무료 포장·배송'
+    ],
+    eventHall:'■ [추석 선물세트관] 정육/청과/건강식품 셀렉션 (9.1-9.24, 1F 이벤트홀)',
+    shoppingNews:[
+      '■ [한과/전통주] 추석 선물세트 사전예약 할인 (9.1-9.10, 식품관)',
+      '■ [넥타이/스카프] 명절 선물 기획전 (9.1-9.24, 2F 본매장)'
+    ]
+  },
+  '크리스마스 / 연말': {
+    headline:'한 해의 마무리, 따뜻한 연말 선물로 감사한 마음을 전하세요',
+    benefits:[
+      '[전상품군] 롯데/현대/국민/농협/우리카드 단일 7% (12.18-12.31)',
+      '[리빙/홈데코] 연말 선물세트 단일 10% (12.10-12.31)',
+      '[법인 단체구매] 50개 이상 주문 시 추가 5% + 무료 포장·배송'
+    ],
+    eventHall:'■ [연말 선물전] 리빙/뷰티/푸드 기프트 셀렉션 (12.10-12.31, B1F 이벤트홀)',
+    shoppingNews:[
+      '■ [캘린더/다이어리] 새해맞이 사은 증정 (12.15-12.31, 문구코너)',
+      '■ [위스키/와인] 연말 선물 기획전 (12.10-12.31, 식품관)'
+    ]
+  },
+  '설날': {
+    headline:'넉넉한 새해 인사, 정성 가득한 설 선물을 준비해보세요',
+    benefits:[
+      '[전상품군] 롯데/현대/국민/농협/우리카드 단일 7% (1.20-2.7)',
+      '[설 선물세트] 정육·청과·굴비·홍삼 세트 단일 10% (1.20-2.7)',
+      '[법인 단체구매] 50개 이상 주문 시 추가 5% + 무료 포장·배송'
+    ],
+    eventHall:'■ [설 선물세트관] 정육/청과/건강식품 셀렉션 (1.20-2.7, 1F 이벤트홀)',
+    shoppingNews:[
+      '■ [한과/전통주] 설 선물세트 사전예약 할인 (1.20-1.30, 식품관)',
+      '■ [상품권] 설 선물 인기 1위, 지금 구매 시 적립 2배 (1.20-2.7)'
+    ]
+  },
+  '근로자의 날': {
+    headline:'임직원들의 노고에 감사를 전하는 특별한 선물을 만나보세요',
+    benefits:[
+      '[전상품군] 롯데/현대/국민/농협/우리카드 단일 7% (4.25-5.1)',
+      '[건강식품/리빙] 임직원 선물 인기 품목 단일 10% (4.25-5.1)',
+      '[법인 단체구매] 50개 이상 주문 시 추가 5% + 무료 포장·배송'
+    ],
+    eventHall:'■ [임직원 선물 기획전] 건강식품/리빙/뷰티 셀렉션 (4.25-5.1, 1F 이벤트홀)',
+    shoppingNews:[
+      '■ [상품권] 근로자의 날 인기 선물, 구매 시 적립 2배 (4.25-5.1)',
+      '■ [소형가전] 사무실·재택용 가전 특별전 (4.25-5.1, 5F 행사장)'
+    ]
+  }
+};
 function lmsGenText(co, evt, dday) {
   var recs = CRM.filter(function(d){ return d.company===co; });
   var last = recs.length ? recs[recs.length-1] : null;
@@ -1533,38 +1588,97 @@ function lmsGenText(co, evt, dday) {
   return lines.join('\n');
 }
 function lmsGenBulkText(evt, dday) {
-  return ['(광고) 롯데백화점 법인영업팀','',
-    '{담당자명}님, 안녕하세요. 롯데백화점 B2B 컨시어지입니다.','',
-    '지난번 {기업명}에서 주문하신 선물은 어떠셨나요?','',
-    '「'+evt+'」이 이제 D-'+dday+' 앞으로 다가왔습니다.',
-    '아직 올해 단체 선물 준비를 시작하지 않으셨다면, 지금이 가장 좋은 시기입니다.','',
-    '지금 상담 신청 시 수량별 최대 12% 대량 할인과 전담 컨시어지의 1:1 큐레이션을 받아보실 수 있습니다.','',
-    '▶ 상담 신청: https://lotte-b2b.example.com','무료수신거부 080-000-0000'].join('\n');
+  var promo = EVENT_PROMOS[evt];
+  var lines = ['(광고)롯데백화점 동탄점','[Web발신]',' (광고)롯데백화점 동탄점',''];
+  if (promo) {
+    lines.push(promo.headline);
+    lines.push('{기업명} {담당자명}님께 「'+evt+'」(D-'+dday+')을 맞아 동탄점이 준비한 법인 단체구매 혜택을 안내드립니다.','');
+    lines.push('{지난주문안내}','');
+    lines.push('※ 자세한 내용은 아래 링크에서 확인하세요↓');
+    lines.push('https://m.lotteshopping.com/news/Dongtan/lms','');
+    lines.push('￣￣￣￣￣￣￣￣￣￣');
+    lines.push('【Special Benefit】');
+    promo.benefits.forEach(function(b){ lines.push('■ '+b); });
+    lines.push('');
+    lines.push('【Event Hall】');
+    lines.push(promo.eventHall);
+    lines.push('');
+    lines.push('【Shopping News】');
+    promo.shoppingNews.forEach(function(s){ lines.push(s); });
+    lines.push('');
+  } else {
+    lines.push('{기업명} {담당자명}님, 안녕하세요. 롯데백화점 B2B 컨시어지입니다.','');
+    lines.push('{지난주문안내}','');
+    lines.push('「'+evt+'」이 이제 D-'+dday+' 앞으로 다가왔습니다.');
+    lines.push('아직 올해 단체 선물 준비를 시작하지 않으셨다면, 지금이 가장 좋은 시기입니다.','');
+    lines.push('지금 상담 신청 시 수량별 최대 12% 대량 할인과 전담 컨시어지의 1:1 큐레이션을 받아보실 수 있습니다.','');
+    lines.push('▶ 상담 신청: https://lotte-b2b.example.com','');
+  }
+  lines.push('무료수신거부 080-409-9871');
+  return lines.join('\n');
+}
+/* {기업명}/{담당자명}/{지난주문안내} 플레이스홀더를 기업별 데이터로 치환 */
+function lmsFillPlaceholders(tpl, co) {
+  var recs = CRM.filter(function(d){ return d.company===co; });
+  var last = recs.length ? recs[recs.length-1] : null;
+  var nm = last && last.contactName ? last.contactName : '담당자';
+  var prod = last ? (last.product || last.selectedPackage || '') : '';
+  var lastDate = last ? (crmDate(last)||new Date(last.id)) : null;
+  var lastNote = (last && prod)
+    ? ('지난 '+(lastDate?lastDate.toLocaleDateString('ko-KR'):'')+' 주문하신 \''+prod+'\''+(last.qty?' ('+last.qty+'개)':'')+'은 어떠셨나요? 올해도 좋은 선택이 되도록 도와드리겠습니다.')
+    : '귀사를 위한 맞춤 법인 단체구매 상담을 도와드리겠습니다.';
+  return tpl.replace(/\{기업명\}/g, co).replace(/\{담당자명\}/g, nm).replace(/\{지난주문안내\}/g, lastNote);
 }
 var _lmsCtx = null;
 function openLMS(co, evt, dday) {
   loadCRM();
   _lmsCtx = {co:co, evt:evt, dday:dday};
   var meta = document.getElementById('lms-meta'), ta = document.getElementById('lms-text');
+  _lmsPreview = false;
+  var pbtn = document.getElementById('lms-preview-btn');
   if (co === 'common') {
     var cos = []; CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
-    meta.innerHTML = '<b>D-'+dday+' · '+esc(evt)+'</b> — 공통 행사 일괄 발송<br>수신 대상: 보유 기업 전체 <b>'+cos.length+'개사</b> 총무 담당자 ('+cos.slice(0,4).map(esc).join(', ')+(cos.length>4?' 외 '+(cos.length-4)+'개사':'')+')<br><span style="color:#888;font-size:10px">{기업명}, {담당자명}은 발송 시 기업별로 자동 치환됩니다.</span>';
+    meta.innerHTML = '<b>D-'+dday+' · '+esc(evt)+'</b> — 공통 행사 일괄 발송<br>수신 대상: 보유 기업 전체 <b>'+cos.length+'개사</b> 총무 담당자 ('+cos.slice(0,4).map(esc).join(', ')+(cos.length>4?' 외 '+(cos.length-4)+'개사':'')+')<br><span style="color:#888;font-size:10px">{기업명}, {담당자명}, {지난주문안내}는 발송 시 기업별로 자동 치환됩니다.</span>';
     ta.value = lmsGenBulkText(evt, dday);
+    if (pbtn) { pbtn.style.display = ''; pbtn.textContent = '👁 기업별 예시 보기'; }
   } else {
     var recs = CRM.filter(function(d){ return d.company===co; });
     var last = recs.length ? recs[recs.length-1] : {};
     meta.innerHTML = '<b>D-'+dday+' · '+esc(co)+' · '+esc(evt)+'</b><br>수신: '+esc(last.contactName||'담당자')+' '+esc(last.phone||'')+' '+(last.dept?'('+esc(last.dept)+')':'');
     ta.value = lmsGenText(co, evt, dday);
+    if (pbtn) pbtn.style.display = 'none';
   }
   lmsUpdateCnt();
   ta.oninput = lmsUpdateCnt;
   document.getElementById('lms-modal').classList.add('open');
 }
 function lmsUpdateCnt(){ var ta=document.getElementById('lms-text'), c=document.getElementById('lms-cnt'); if(ta&&c) c.textContent=ta.value.length+'자 / LMS(2,000자 이내)'; }
+var _lmsPreview = false;
+function lmsTogglePreview() {
+  if (!_lmsCtx || _lmsCtx.co!=='common') return;
+  var ta = document.getElementById('lms-text'), btn = document.getElementById('lms-preview-btn');
+  loadCRM();
+  var cos = []; CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+  var sample = cos[0] || '예시기업(주)';
+  if (!_lmsPreview) {
+    ta.value = lmsFillPlaceholders(ta.value, sample);
+    ta.readOnly = true;
+    btn.textContent = '✎ 템플릿으로 돌아가기';
+    _lmsPreview = true;
+  } else {
+    ta.value = lmsGenBulkText(_lmsCtx.evt, _lmsCtx.dday);
+    ta.readOnly = false;
+    btn.textContent = '👁 기업별 예시 보기';
+    _lmsPreview = false;
+  }
+  lmsUpdateCnt();
+}
 function lmsRegen() {
   if (!_lmsCtx) return;
   var ta = document.getElementById('lms-text');
   ta.value = _lmsCtx.co==='common' ? lmsGenBulkText(_lmsCtx.evt,_lmsCtx.dday) : lmsGenText(_lmsCtx.co,_lmsCtx.evt,_lmsCtx.dday);
+  ta.readOnly = false; _lmsPreview = false;
+  var pbtn = document.getElementById('lms-preview-btn'); if (pbtn) pbtn.textContent = '👁 기업별 예시 보기';
   lmsUpdateCnt();
   showToast('AI가 문안을 다시 작성했습니다');
 }
