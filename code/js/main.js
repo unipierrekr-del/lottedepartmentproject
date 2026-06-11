@@ -278,10 +278,10 @@ var giftCatalog = {
   s1:{n:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', d:'프리미엄 보양식 · 이런 선물은 어떠신가요', img:'images/summer1.png', price:114000},
   s2:{n:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', d:'고단백 보양식 · 이런 선물은 어떠신가요', img:'images/summer2.png', price:118800},
   s3:{n:'오쏘몰 이뮨 30일분', d:'고함량 면역 비타민 · 이런 선물은 어떠신가요', img:'images/summer3.png', price:109800},
-  h1:{n:'동탄정밀 스테인리스 텀블러 선물세트', d:'화성 제조 프리미엄 텀블러 · 화성시 특별관', img:'images/h1.png', price:32300},
-  h2:{n:'우정바이오 발효 식초 선물세트 3종', d:'화성 지역 발효 식초 · 화성시 특별관', img:'images/h2.png', price:36900},
-  h3:{n:'향남 코스메틱 클러스터 천연 핸드크림 기프트세트', d:'천연 성분 핸드크림 · 화성시 특별관', img:'images/h3.png', price:28800},
-  h4:{n:'동탄 테크노밸리 무선 충전 기프트 세트', d:'무선 충전 기프트 · 화성시 특별관', img:'images/h4.png', price:48380}
+  h1:{n:'송산포도 프리미엄 선물세트', d:'화성 송산 청정 포도 · 화성시 특별관', img:'images/h1.png', price:32300},
+  h2:{n:'송산농협 경기미 햅쌀 선물세트', d:'화성 송산농협 경기미 · 화성시 특별관', img:'images/h2.png', price:36900},
+  h3:{n:'화성 도예명장 블루 과반접시 세트', d:'도예명장 수제 도자기 · 화성시 특별관', img:'images/h3.png', price:28800},
+  h4:{n:'화성 도예명장 찻잔세트', d:'도예명장 수제 찻잔세트 · 화성시 특별관', img:'images/h4.png', price:48380}
 };
 /* 상품명으로 카탈로그 항목 찾기 (완전 일치 → 접두 일치) */
 function findGiftByName(name) {
@@ -336,11 +336,14 @@ function renderPkgCard(pk, i) {
         (pk.disc>0 ? '<div class="pkg-disc">-'+Math.round(pk.disc*100)+'% 할인 ('+fmt(da)+')</div>' : '')+
       '</div>'+
     '</div>'+
-    '<button class="pkg-sb" onclick="selectPackage('+i+')">이 상품 선택하기</button>'+
+    '<div class="pkg-btn-row">'+
+      '<button class="pkg-sb" onclick="pkgOrder('+i+')">온라인 주문하기</button>'+
+      '<button class="pkg-db pkg-cb" onclick="pkgConsult('+i+')">오프라인 상담하기</button>'+
+    '</div>'+
   '</div>';
 }
 
-function selectPackage(i) {
+function markPkgSelected(i) {
   window._selectedPkg = i;
   for (var j = 0; j < 3; j++) {
     var card = document.getElementById('pkc-'+j);
@@ -349,10 +352,31 @@ function selectPackage(i) {
     card.classList.remove('selected');
     if (j === i) card.classList.add('selected');
   }
-  // 선택한 상품 정보를 모달에 전달 후 상담 신청 모달 열기
   var pk = (window._genPkgs||[])[i];
   window._selectedPkgName = pk ? pk.tier+' · '+pk.item.n : ['STANDARD','PREMIUM','SIGNATURE'][i];
-  openCM();
+  return pk;
+}
+
+function pkgConsult(i) {
+  markPkgSelected(i);
+  openCM('consult');
+}
+
+function pkgOrder(i) {
+  var pk = markPkgSelected(i);
+  if (!pk) return;
+  var orderData = {
+    packageName: window._selectedPkgName,
+    productImg: pk.item.img,
+    bizType: wState.bizType || 'B2B',
+    purpose: (wState.b2b_purpose || wState.b2e_purpose || []).join(', '),
+    qty: pk.qty,
+    unitPrice: pk.price,
+    discountRate: Math.round(pk.disc * 100),
+    company: '', dept: '', name: '', phone: '', email: ''
+  };
+  localStorage.setItem('lotteOrderData', JSON.stringify(orderData));
+  window.location.href = 'order.html';
 }
 
 /* ══════════════════════════════════════════════════
@@ -394,7 +418,6 @@ function genResult() {
   var setTxt = function(id, txt){ var e=$(id); if(e) e.textContent = txt; };
   setTxt('res-client-tag', (target?target+' 대상':'기업')+' · '+(purpose.split(',')[0]||'맞춤')+' 큐레이션');
   setTxt('res-kicker',     (wState.bizType||'B2B')+' · Curated · 롯데백화점 동탄점');
-  setTxt('res-title',      '맞춤 선물 추천 3종 — Standard / Premium / Signature');
   setTxt('res-story',      '프리미엄 명절 선물 컬렉션 & 이런 선물은 어떠신가요 큐레이션에서 엄선한 상품. 대량 할인 '+Math.round(d*100)+'% 적용.');
 
   /* 패키지 카드 */
