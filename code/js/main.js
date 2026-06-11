@@ -1446,10 +1446,38 @@ function priSwitch(t, btn) {
   if (btn) btn.classList.add('on');
   renderPriority();
 }
+var _priAutoTab = false;
+function priRange(t){ return t==='d7' ? [0,7] : t==='d15' ? [8,15] : [16,30]; }
 function renderPriority() {
   var th = document.getElementById('pri-thead'), tb = document.getElementById('pri-tbody');
   if (!th || !tb) return;
   var sent = lmsSentKey();
+  /* 탭별 건수 배지 + 최초 1회 내용 있는 탭 자동 선택 */
+  var preds = getPriPredictions();
+  var counts = {};
+  ['d30','d15','d7'].forEach(function(t){
+    var r = priRange(t);
+    counts[t] = preds.filter(function(p){ return p.dday>=r[0] && p.dday<=r[1]; }).length;
+  });
+  counts.common = COMMON_EVENTS.filter(function(ev){
+    var p = ev.date.split('-').map(Number);
+    return priDday(new Date(p[0],p[1]-1,p[2])) >= 0;
+  }).length;
+  [['d30','D-30'],['d15','D-15'],['d7','D-7'],['common','공통 행사']].forEach(function(pair){
+    var b = document.getElementById('pri-tab-'+pair[0]);
+    if (b) b.innerHTML = pair[1] + (counts[pair[0]] ? ' <span class="pri-cnt">'+counts[pair[0]]+'</span>' : '');
+  });
+  if (!_priAutoTab) {
+    _priAutoTab = true;
+    if (!counts[priTab]) {
+      var first = ['d7','d15','d30','common'].filter(function(t){ return counts[t]; })[0];
+      if (first) {
+        priTab = first;
+        document.querySelectorAll('.pri-tab').forEach(function(b){ b.classList.remove('on'); });
+        var btn = document.getElementById('pri-tab-'+first); if (btn) btn.classList.add('on');
+      }
+    }
+  }
   if (priTab === 'common') {
     th.innerHTML = '<tr><th>D-Day</th><th>공통 행사</th><th>예정일</th><th>발송 대상</th><th>LMS</th></tr>';
     var cos = []; loadCRM();
@@ -1468,8 +1496,8 @@ function renderPriority() {
     return;
   }
   th.innerHTML = '<tr><th>D-Day</th><th>기업명</th><th>예상 행사</th><th>예상일</th><th>담당자</th><th>연락처</th><th>신뢰도</th><th>LMS</th></tr>';
-  var range = priTab==='d7' ? [0,7] : priTab==='d15' ? [8,15] : [16,30];
-  var rows = getPriPredictions().filter(function(p){ return p.dday>=range[0] && p.dday<=range[1]; })
+  var range = priRange(priTab);
+  var rows = preds.filter(function(p){ return p.dday>=range[0] && p.dday<=range[1]; })
     .sort(function(a,b){ return a.dday-b.dday; });
   if (!rows.length) { tb.innerHTML = '<tr class="er"><td colspan="8">해당 구간(D-'+range[0]+'~'+range[1]+')에 예상 행사가 있는 기업이 없습니다</td></tr>'; return; }
   tb.innerHTML = rows.map(function(p){
