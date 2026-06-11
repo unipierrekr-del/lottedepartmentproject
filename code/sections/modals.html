@@ -158,36 +158,177 @@
 
 <!-- ════════════ CONSULT MODAL ════════════ -->
 <div id="cm">
-  <div class="cm-box">
+  <div class="cm-box cm-box-wide">
     <div class="cm-hd">
-      <div><div class="cm-hdk">Concierge Consultation</div><div class="cm-hdt">컨시어지 상담 신청</div></div>
+      <div><div class="cm-hdk">Concierge Consultation</div><div class="cm-hdt">법인/단체 구매 상담 신청서</div></div>
       <button class="cm-hx" onclick="closeCM()">✕</button>
     </div>
     <div class="cm-bd">
+      <p class="cm-intro">귀사(단체)의 선물세트 대량 구매와 관련하여 상품 신청에서 정산업무까지 상담해드립니다.</p>
+
       <div class="cm-cs" id="cm-cs" style="display:none">
         <div class="cm-cst">선택하신 큐레이션 내용</div>
         <div class="cm-csi" id="cm-csi"></div>
       </div>
-      <div class="cm-st">상담 제목 · 어떤 일정인가요?</div>
-      <div class="cm-fg">
-        <div class="cm-f full"><label class="cm-lb">상담 제목 *</label><input type="text" class="cm-in" id="cm-title" placeholder="예: 2026년 설 명절 거래처 선물 200개"></div>
-        <div class="cm-f full"><label class="cm-lb">희망 납기일 / 행사일</label><input type="date" class="cm-in" id="cm-event-date"></div>
+
+      <!-- 신청자 정보 -->
+      <div class="cm-sect-hd"><div class="cm-sect-title">신청자 정보</div><div class="cm-req-note">* 필수 항목</div></div>
+
+      <div class="cm-row">
+        <div class="cm-row-lb">상담 제목 <span class="req">*</span></div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-title" maxlength="40" placeholder="예: 2026년 설 명절 거래처 선물 200개" oninput="cmCount('cm-title','cm-title-cnt',40)">
+          <div class="cm-counter" id="cm-title-cnt">0/40</div>
+        </div>
       </div>
-      <div class="cm-st" style="margin-top:8px">담당자 정보</div>
-      <div class="cm-fg">
-        <div class="cm-f"><label class="cm-lb">회사명 *</label><input type="text" class="cm-in" id="cm-co" placeholder="(주)삼성전자"></div>
-        <div class="cm-f"><label class="cm-lb">부서명</label><input type="text" class="cm-in" id="cm-dept" placeholder="총무팀"></div>
-        <div class="cm-f"><label class="cm-lb">담당자 성함 *</label><input type="text" class="cm-in" id="cm-nm" placeholder="김지은 대리"></div>
-        <div class="cm-f"><label class="cm-lb">연락처 *</label><input type="tel" class="cm-in" id="cm-ph" placeholder="010-0000-0000"></div>
-        <div class="cm-f"><label class="cm-lb">이메일</label><input type="email" class="cm-in" id="cm-em" placeholder="email@company.com"></div>
-        <div class="cm-f"><label class="cm-lb">희망 상담 일시</label><input type="datetime-local" class="cm-in" id="cm-dt"></div>
-        <div class="cm-f full"><label class="cm-lb">추가 요청 사항</label><textarea class="cm-in cm-ta" id="cm-mo" placeholder="기타 요청 사항을 입력해 주세요"></textarea></div>
+      <div class="cm-row">
+        <div class="cm-row-lb">법인/단체명 <span class="req">*</span></div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-co" maxlength="30" placeholder="법인/단체명을 입력해 주세요." oninput="cmCount('cm-co','cm-co-cnt',30)">
+          <div class="cm-counter" id="cm-co-cnt">0/30</div>
+        </div>
       </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">법인/단체 위치</div>
+        <div class="cm-row-bd">
+          <div class="cm-radio-group" id="cm-region">
+            <label><input type="radio" name="cm-region" value="서울/수도권 및 기타" checked> 서울/수도권 및 기타</label>
+            <label><input type="radio" name="cm-region" value="충청지역"> 충청지역</label>
+            <label><input type="radio" name="cm-region" value="경북지역"> 경북지역</label>
+            <label><input type="radio" name="cm-region" value="경남지역"> 경남지역</label>
+            <label><input type="radio" name="cm-region" value="호남지역"> 호남지역</label>
+          </div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">담당자명 <span class="req">*</span></div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-nm" maxlength="30" placeholder="담당자명을 입력해 주세요." oninput="cmCount('cm-nm','cm-nm-cnt',30)">
+          <div class="cm-counter" id="cm-nm-cnt">0/30</div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">부서명</div>
+        <div class="cm-row-bd"><input type="text" class="cm-row-in" id="cm-dept" placeholder="총무팀"></div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">연락처 <span class="req">*</span></div>
+        <div class="cm-row-bd"><input type="tel" class="cm-row-in" id="cm-ph" placeholder="'-'를 제외하고 숫자만 입력해 주세요."></div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">이메일</div>
+        <div class="cm-row-bd"><input type="email" class="cm-row-in" id="cm-em" placeholder="email@company.com"></div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">희망 납기일 / 행사일</div>
+        <div class="cm-row-bd"><input type="date" class="cm-row-in" id="cm-event-date"></div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">희망 상담 일시</div>
+        <div class="cm-row-bd"><input type="datetime-local" class="cm-row-in" id="cm-dt"></div>
+      </div>
+
+      <!-- 상담 요청 내용 -->
+      <div class="cm-sect-hd" style="margin-top:36px"><div class="cm-sect-title">상담 요청 내용</div></div>
+
+      <div class="cm-row">
+        <div class="cm-row-lb">지급 대상</div>
+        <div class="cm-row-bd">
+          <div class="cm-radio-group">
+            <label><input type="radio" name="cm-paytarget" value="임직원 선물용" checked> 임직원 선물용</label>
+            <label><input type="radio" name="cm-paytarget" value="대외 선물용"> 대외 선물용</label>
+            <label><input type="radio" name="cm-paytarget" value="기타"> 기타</label>
+          </div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">지급 목적</div>
+        <div class="cm-row-bd">
+          <div class="cm-radio-group">
+            <label><input type="radio" name="cm-paypurpose" value="창립기념일" checked> 창립기념일</label>
+            <label><input type="radio" name="cm-paypurpose" value="근로자의날"> 근로자의날</label>
+            <label><input type="radio" name="cm-paypurpose" value="명절"> 명절</label>
+            <label><input type="radio" name="cm-paypurpose" value="기타"> 기타</label>
+          </div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">지급 시기</div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-paytime" maxlength="30" placeholder="설날, 추석, 7월 등" oninput="cmCount('cm-paytime','cm-paytime-cnt',30)">
+          <div class="cm-counter" id="cm-paytime-cnt">0/30</div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">선호 상품군</div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-prodpref" maxlength="30" placeholder="상품권, 생활용품 (소형가전), 건강식품 등" oninput="cmCount('cm-prodpref','cm-prodpref-cnt',30)">
+          <div class="cm-counter" id="cm-prodpref-cnt">0/30</div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">희망 단가</div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-priceband" maxlength="30" placeholder="1~3만원 대, 5~10만원 대 등" oninput="cmCount('cm-priceband','cm-priceband-cnt',30)">
+          <div class="cm-counter" id="cm-priceband-cnt">0/30</div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">희망 수량</div>
+        <div class="cm-row-bd">
+          <input type="text" class="cm-row-in" id="cm-qtypref" maxlength="30" placeholder="50~100개 세트 등" oninput="cmCount('cm-qtypref','cm-qtypref-cnt',30)">
+          <div class="cm-counter" id="cm-qtypref-cnt">0/30</div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">추가 요청사항</div>
+        <div class="cm-row-bd">
+          <textarea class="cm-row-in cm-ta" id="cm-mo" maxlength="500" placeholder="추가 요청사항을 기입해 주세요." oninput="cmCount('cm-mo','cm-mo-cnt',500)"></textarea>
+          <div class="cm-counter" id="cm-mo-cnt">0/500</div>
+        </div>
+      </div>
+      <div class="cm-row">
+        <div class="cm-row-lb">답변안내 <span class="req">*</span></div>
+        <div class="cm-row-bd">
+          <div class="cm-radio-group">
+            <label><input type="checkbox" id="cm-notify-email" checked> 이메일</label>
+            <label><input type="checkbox" id="cm-notify-phone"> 전화</label>
+          </div>
+          <div class="cm-hint">* 답변안내는 복수선택이 가능합니다.</div>
+        </div>
+      </div>
+
+      <!-- 개인정보 수집 이용 동의 -->
+      <div class="cm-sect-hd" style="margin-top:36px"><div class="cm-sect-title">개인정보수집 이용 동의(필수)</div></div>
+      <div class="cm-consent-box">
+        <div class="cm-consent-item"><b>수집목적</b><br>롯데백화점 법인/단체 구매 상담 신청</div>
+        <div class="cm-consent-item"><b>수집항목</b><br>담당자명, 연락처, 이메일</div>
+        <div class="cm-consent-item"><b>보유기간</b><br>상담 신청일로부터 30일 이후 파기</div>
+        <div class="cm-consent-item"><b>동의 거부권 및 거부 시 불이익</b><br>본 개인정보 수집 및 이용 동의를 거부할 수 있으며, 거부 시 법인/단체 구매 상담기능의 사용이 제한될 수 있습니다.</div>
+      </div>
+      <div class="cm-consent-row">
+        <div>위 내용을 모두 확인하였으며, 이용에 동의합니다.</div>
+        <div class="cm-radio-group">
+          <label><input type="radio" name="cm-consent" value="agree" onchange="cmConsentChange()"> 동의</label>
+          <label><input type="radio" name="cm-consent" value="disagree" onchange="cmConsentChange()"> 동의하지 않음</label>
+        </div>
+      </div>
+
+      <div class="cm-notice-box">
+        <div class="cm-notice-tt">유의사항</div>
+        <ul>
+          <li>원활한 상담 진행을 위하여 미입력하신 상담 요청 내용은 담당자가 전화 상담을 통해 확인할 수 있습니다.</li>
+          <li>내용 확인 후 답변 안내까지 영업일 기준 2~3일 정도 시간이 소요될 수 있습니다. 상담 신청 후 최대한 빠르게 답변을 드리고자 최선을 다하고 있으나, 사정에 따라 답변이 지연될 수 있으니 양해 부탁드립니다.</li>
+          <li>입력하신 정보가 정확하지 않을 경우 상담 연락 불가 및 답변이 지연될 수 있습니다.</li>
+          <li>홍보 및 광고성 내용은 관리자에 의해 삭제될 수 있습니다.</li>
+        </ul>
+      </div>
+
       <p style="font-size:10px;color:#bbb">* 필수 입력. 입력 정보는 상담 목적으로만 사용됩니다.</p>
     </div>
     <div class="cm-ft">
       <button class="cm-can" onclick="closeCM()">취소</button>
-      <button class="cm-sub" id="cm-submit-btn" onclick="submitCM()">상담 신청 완료하기</button>
+      <button class="cm-sub" id="cm-submit-btn" onclick="submitCM()" disabled>상담 신청 완료하기</button>
     </div>
   </div>
 </div>

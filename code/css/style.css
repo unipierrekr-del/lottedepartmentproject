@@ -885,6 +885,36 @@ footer{background:#111;padding:60px 40px 36px}
 .cm-sub:hover{background:#444}
 .cm-can{background:#fff;color:#888;border:1px solid #e8e8e8;padding:14px 20px;font-size:11px;transition:all .2s;font-family:inherit}
 .cm-can:hover{border-color:#111;color:#111}
+.cm-sub:disabled{background:#ccc;cursor:not-allowed}
+.cm-box-wide{max-width:680px}
+.cm-intro{font-size:12px;color:#888;line-height:1.7;margin-bottom:24px}
+.cm-sect-hd{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:4px}
+.cm-sect-title{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.cm-req-note{font-size:10px;color:#999}
+.req{color:#e23;margin-left:2px}
+.cm-row{display:flex;align-items:flex-start;gap:20px;padding:14px 0;border-bottom:1px solid #f3f3f3}
+.cm-row-lb{width:130px;flex-shrink:0;font-size:12px;font-weight:700;color:#333;padding-top:10px}
+.cm-row-bd{flex:1;min-width:0}
+.cm-row-in{width:100%;border:none;border-bottom:1px solid #e0e0e0;padding:9px 2px;font-size:13px;font-family:inherit;background:#fff;transition:border .2s}
+.cm-row-in:focus{outline:none;border-color:#111}
+.cm-row-in::placeholder{color:#bbb}
+.cm-row-in.cm-ta{resize:vertical;min-height:70px;border:1px solid #e8e8e8;padding:10px 12px}
+.cm-counter{text-align:right;font-size:10px;color:#bbb;margin-top:4px}
+.cm-radio-group{display:flex;flex-wrap:wrap;gap:8px 18px;padding-top:9px}
+.cm-radio-group label{display:flex;align-items:center;gap:6px;font-size:12px;color:#444;cursor:pointer;white-space:nowrap}
+.cm-radio-group input{margin:0;accent-color:#111}
+.cm-hint{font-size:10px;color:#bbb;margin-top:6px}
+.cm-consent-box{background:#f9f9f9;border:1px solid #eee;padding:18px 20px;font-size:11px;color:#666;line-height:1.8;margin-top:14px}
+.cm-consent-item{margin-bottom:10px}
+.cm-consent-item:last-child{margin-bottom:0}
+.cm-consent-item b{color:#111;font-size:11px}
+.cm-consent-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:14px 2px;font-size:12px;font-weight:700;border-bottom:1px solid #f3f3f3}
+.cm-notice-box{margin-top:24px;padding:18px 20px;background:#fcfcfc;border:1px solid #f0f0f0}
+.cm-notice-tt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:10px}
+.cm-notice-box ul{padding-left:16px;margin:0}
+.cm-notice-box li{font-size:10.5px;color:#999;line-height:1.8;margin-bottom:6px}
+.cm-notice-box li:last-child{margin-bottom:0}
+@media(max-width:768px){.cm-row{flex-direction:column;gap:8px}.cm-row-lb{width:auto;padding-top:0}}
 /* Walk-through bridge banner */
 .wt-ban{background:#111;padding:26px 32px;margin:28px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-left:4px solid #333;position:relative;overflow:hidden}
 .wt-ban-k{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#444;margin-bottom:5px;display:flex;align-items:center;gap:8px}

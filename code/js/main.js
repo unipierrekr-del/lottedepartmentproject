@@ -1074,6 +1074,9 @@ function openCM(type) {
   if (visitData.company) { var e=document.getElementById('cm-co'); if(e) e.value=visitData.company; }
   if (visitData.name)    { var e=document.getElementById('cm-nm'); if(e) e.value=visitData.name; }
   if (visitData.phone)   { var e=document.getElementById('cm-ph'); if(e) e.value=visitData.phone; }
+  var consentRadios = document.getElementsByName('cm-consent');
+  for (var i=0;i<consentRadios.length;i++) consentRadios[i].checked = false;
+  var cmSubBtn = document.getElementById('cm-submit-btn'); if(cmSubBtn) cmSubBtn.disabled = true;
   var cm = document.getElementById('cm'); if(cm) cm.classList.add('open');
   // 모달 제목 & 버튼 텍스트 변경
   var hdt = cm ? cm.querySelector('.cm-hdt') : null;
@@ -1087,7 +1090,20 @@ function openCM(type) {
   }
 }
 function closeCM() { var cm=document.getElementById('cm'); if(cm) cm.classList.remove('open'); }
+function cmCount(inputId, counterId, max) {
+  var el = document.getElementById(inputId), cnt = document.getElementById(counterId);
+  if (!el || !cnt) return;
+  cnt.textContent = (el.value||'').length + '/' + max;
+}
+function cmConsentChange() {
+  var checked = document.querySelector('input[name="cm-consent"]:checked');
+  var btn = document.getElementById('cm-submit-btn');
+  if (!btn) return;
+  btn.disabled = !(checked && checked.value === 'agree');
+}
 function submitCM() {
+  var consent = document.querySelector('input[name="cm-consent"]:checked');
+  if (!consent || consent.value !== 'agree') { showToast('개인정보 수집 및 이용에 동의해 주세요'); return; }
   var co = (document.getElementById('cm-co')||{}).value||'';
   var nm = (document.getElementById('cm-nm')||{}).value||'';
   var ph = (document.getElementById('cm-ph')||{}).value||'';
