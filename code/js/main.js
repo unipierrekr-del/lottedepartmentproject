@@ -40,7 +40,8 @@ loadCRM();
 
 /* 데모용 샘플 CRM 데이터 — 최초 1회만 시딩 (캘린더 / 연중행사 예측 시연용) */
 function seedCRMDemo() {
-  if (CRM.length) return;
+  if (CRM.length >= 10) return;
+  CRM = [];
   var now = new Date();
   var Y = now.getFullYear();
   function dstr(y,m,day){ return y+'-'+String(m).padStart(2,'0')+'-'+String(day).padStart(2,'0'); }

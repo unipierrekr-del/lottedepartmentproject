@@ -31,7 +31,7 @@ jobs:
         run: cp -r images _site/images
 
       - name: Copy login page
-        run: cp code/login _site/login.html
+        run: cp code/login.html _site/login.html
 
       - name: Copy contact page
         run: cp code/contact.html _site/contact.html

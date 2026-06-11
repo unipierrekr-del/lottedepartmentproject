@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로그인 / 회원가입 — 롯데백화점 동탄점 B2B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Barun+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nanum Barun Gothic','Apple SD Gothic Neo',sans-serif;
+  background:#fff;color:#111;
+  -webkit-font-smoothing:antialiased;line-height:1.6;
+  word-break:keep-all;
+}
+a{text-decoration:none;color:inherit}
+button,input{font-family:inherit}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  height:56px;background:#fff;border-bottom:1px solid #e8e8e8;
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;
+}
+.nav-logo{font-size:14px;font-weight:700;letter-spacing:0.06em}
+.nav-back{font-size:12px;color:#666;letter-spacing:0.03em;transition:color .2s}
+.nav-back:hover{color:#111}
+
+.page-wrap{max-width:420px;margin:0 auto;padding:120px 24px 80px}
+.page-kicker{font-size:11px;letter-spacing:0.2em;color:#888;text-transform:uppercase;margin-bottom:14px;text-align:center}
+.page-title{font-size:26px;font-weight:700;letter-spacing:-0.02em;margin-bottom:36px;text-align:center}
+
+.lg-tabs{display:flex;border-bottom:1px solid #e8e8e8;margin-bottom:28px}
+.lg-tab{flex:1;padding:13px;font-size:13px;font-weight:700;color:#aaa;border-bottom:2px solid transparent;cursor:pointer;text-align:center;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none}
+.lg-tab.active{color:#111;border-bottom-color:#111}
+
+.lg-pane{display:none}
+.lg-pane.active{display:block}
+
+.lg-field{margin-bottom:14px}
+.lg-field label{display:block;font-size:11px;letter-spacing:.08em;color:#888;margin-bottom:6px;text-transform:uppercase}
+.lg-field input{width:100%;padding:12px 14px;border:1px solid #ddd;font-size:14px;font-family:inherit;background:#fff}
+.lg-field input:focus{outline:none;border-color:#111}
+
+.lg-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#666;margin:4px 0 22px}
+
+.lg-submit{width:100%;padding:13px;background:#111;color:#fff;border:none;font-size:13px;font-weight:700;letter-spacing:.08em;cursor:pointer;margin-bottom:14px}
+.lg-submit:hover{background:#333}
+
+.lg-links{display:flex;justify-content:center;gap:18px;font-size:12px;color:#888;margin-bottom:28px}
+.lg-links a:hover{color:#111}
+
+.lg-elpoint{
+  border:1px solid #f0d9c8;background:#fdf6f0;padding:14px 16px;font-size:12px;color:#a05a3c;
+  margin-bottom:28px;line-height:1.7;
+}
+.lg-elpoint b{color:#7a3b22}
+
+.lg-divider{display:flex;align-items:center;gap:12px;color:#bbb;font-size:11px;letter-spacing:.1em;margin:28px 0 18px}
+.lg-divider::before,.lg-divider::after{content:'';flex:1;height:1px;background:#eee}
+
+.lg-social{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.lg-social-btn{
+  width:100%;padding:13px;border:none;border-radius:6px;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+}
+.lg-kakao{background:#FEE500;color:#191919}
+.lg-naver{background:#03C75A;color:#fff}
+.lg-apple{background:#000;color:#fff}
+.lg-email{background:#fff;color:#333;border:1px solid #ddd}
+
+.lg-note{font-size:11px;color:#bbb;text-align:center;line-height:1.7}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">LOTTE department</span>
+  <a href="index.html" class="nav-back">← 홈으로</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-kicker">MEMBER</div>
+  <h1 class="page-title">로그인 / 회원가입</h1>
+
+  <div class="lg-tabs">
+    <button class="lg-tab active" id="tab-login" onclick="lgTab('login')">로그인</button>
+    <button class="lg-tab" id="tab-join" onclick="lgTab('join')">회원가입</button>
+  </div>
+
+  <!-- 로그인 -->
+  <div class="lg-pane active" id="pane-login">
+    <div class="lg-field">
+      <label>아이디 (이메일)</label>
+      <input type="text" placeholder="example@company.com">
+    </div>
+    <div class="lg-field">
+      <label>비밀번호</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <div class="lg-row">
+      <input type="checkbox" id="lg-save"> <label for="lg-save">아이디 저장</label>
+    </div>
+    <button class="lg-submit" onclick="alert('데모 화면입니다. 실제 로그인은 동작하지 않습니다.')">로그인</button>
+    <div class="lg-links">
+      <a href="#">아이디 찾기</a>
+      <a href="#">비밀번호 찾기</a>
+      <a href="#" onclick="lgTab('join');return false;">회원가입</a>
+    </div>
+  </div>
+
+  <!-- 회원가입 -->
+  <div class="lg-pane" id="pane-join">
+    <div class="lg-field">
+      <label>이름 / 회사명</label>
+      <input type="text" placeholder="홍길동 / (주)롯데">
+    </div>
+    <div class="lg-field">
+      <label>이메일</label>
+      <input type="text" placeholder="example@company.com">
+    </div>
+    <div class="lg-field">
+      <label>비밀번호</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <div class="lg-field">
+      <label>비밀번호 확인</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <button class="lg-submit" onclick="alert('데모 화면입니다. 실제 회원가입은 동작하지 않습니다.')">회원가입</button>
+  </div>
+
+  <!-- 엘포인트 통합회원 안내 -->
+  <div class="lg-elpoint">
+    <b>롯데 L.POINT 통합회원 안내</b><br>
+    기존 롯데 L.POINT 통합회원이라면 별도 가입 없이 통합 계정으로 로그인 및 연동이 가능합니다.
+    회원가입 시 L.POINT 멤버십 번호를 등록하면 적립·사용 내역이 자동으로 동기화됩니다.
+  </div>
+
+  <div class="lg-divider">SNS 계정으로 간편 로그인</div>
+
+  <!-- 간편 로그인 (이미지/데모용 — 실제 연동 미구현) -->
+  <div class="lg-social">
+    <button class="lg-social-btn lg-kakao" onclick="alert('데모 화면입니다. 카카오 연동은 준비 중입니다.')">💬 카카오로 계속하기</button>
+    <button class="lg-social-btn lg-naver" onclick="alert('데모 화면입니다. 네이버 연동은 준비 중입니다.')">N 네이버로 계속하기</button>
+    <button class="lg-social-btn lg-apple" onclick="alert('데모 화면입니다. Apple 연동은 준비 중입니다.')">🍎 Apple로 계속하기</button>
+    <button class="lg-social-btn lg-email" onclick="alert('데모 화면입니다. 이메일 연동은 준비 중입니다.')">✉ 이메일로 계속하기</button>
+  </div>
+
+  <div class="lg-note">본 화면은 데모 페이지로, 실제 로그인·가입·SNS 연동 기능은 제공되지 않습니다.</div>
+</div>
+
+<script>
+function lgTab(t) {
+  document.getElementById('tab-login').classList.toggle('active', t==='login');
+  document.getElementById('tab-join').classList.toggle('active', t==='join');
+  document.getElementById('pane-login').classList.toggle('active', t==='login');
+  document.getElementById('pane-join').classList.toggle('active', t==='join');
+}
+</script>
+
+</body>
+</html>
