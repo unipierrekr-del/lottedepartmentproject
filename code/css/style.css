@@ -920,7 +920,7 @@ footer{background:#111;padding:60px 40px 36px}
 .lms-btn{font-size:10px;background:#111;color:#fff;border:none;padding:5px 12px;font-family:inherit;font-weight:700;letter-spacing:.04em;white-space:nowrap;cursor:pointer;transition:background .2s}
 .lms-btn:hover{background:#444}
 .lms-btn.sent{background:#e8e8e8;color:#999;cursor:default}
-#lms-modal{display:none;position:fixed;inset:0;z-index:850;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
+#lms-modal{display:none;position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
 #lms-modal.open{display:flex;animation:fi .2s ease}
 .lms-meta{background:#f9f9f9;border:1px solid #eee;border-left:3px solid #111;padding:12px 14px;margin-bottom:14px;font-size:11px;color:#555;line-height:1.8}
 .lms-meta b{color:#111}
