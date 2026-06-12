@@ -1606,13 +1606,18 @@ function renderPriority() {
         '<td>보유 기업 전체 <strong>'+cos.length+'개사</strong></td>'+
         '<td>'+(sent[k]?'<button class="lms-btn sent">발송완료</button>':'<button class="lms-btn" onclick="openLMS(\'common\',\''+esc(ev.name)+'\','+dd+')">전체 LMS 발송</button>')+'</td></tr>';
     }).join('') || '<tr class="er"><td colspan="5">예정된 공통 행사가 없습니다</td></tr>';
+    _priPending = COMMON_EVENTS.map(function(ev){
+      var p = ev.date.split('-').map(Number), dd = priDday(new Date(p[0],p[1]-1,p[2]));
+      return {co:'common', evt:ev.name, dday:dd};
+    }).filter(function(it){ return it.dday>=0 && !sent['common:'+it.evt]; });
+    renderPriSendAll();
     return;
   }
   th.innerHTML = '<tr><th>D-Day</th><th>기업명</th><th>예상 행사</th><th>예상일</th><th>담당자</th><th>연락처</th><th>신뢰도</th><th>LMS</th></tr>';
   var range = priRange(priTab);
   var rows = preds.filter(function(p){ return p.dday>=range[0] && p.dday<=range[1]; })
     .sort(function(a,b){ return a.dday-b.dday; });
-  if (!rows.length) { tb.innerHTML = '<tr class="er"><td colspan="8">해당 구간(D-'+range[0]+'~'+range[1]+')에 예상 행사가 있는 기업이 없습니다</td></tr>'; return; }
+  if (!rows.length) { tb.innerHTML = '<tr class="er"><td colspan="8">해당 구간(D-'+range[0]+'~'+range[1]+')에 예상 행사가 있는 기업이 없습니다</td></tr>'; _priPending=[]; renderPriSendAll(); return; }
   tb.innerHTML = rows.map(function(p){
     var cls = p.dday<=7?'d7':p.dday<=15?'d15':'d30';
     var k = p.company+':'+p.evtLabel;
@@ -1625,6 +1630,32 @@ function renderPriority() {
       '<td style="font-size:10px;color:#888">'+p.conf+'%</td>'+
       '<td>'+(sent[k]?'<button class="lms-btn sent">발송완료</button>':'<button class="lms-btn" onclick="openLMS(\''+esc(p.company)+'\',\''+esc(p.evtLabel)+'\','+p.dday+')">LMS 발송</button>')+'</td></tr>';
   }).join('');
+  _priPending = rows.filter(function(p){ return !sent[p.company+':'+p.evtLabel]; })
+    .map(function(p){ return {co:p.company, evt:p.evtLabel, dday:p.dday}; });
+  renderPriSendAll();
+}
+/* ── 한번에 발송하기: 현재 탭의 미발송 대상 전체에 AI 문안 LMS 자동 일괄 발송 ── */
+var _priPending = [];
+function renderPriSendAll() {
+  var bar = document.getElementById('pri-sendall-bar'); if (!bar) return;
+  var n = _priPending.length;
+  var lbl = priTab==='common' ? '공통 행사' : 'D-'+priRange(priTab)[0]+'~'+priRange(priTab)[1];
+  if (!n) {
+    bar.innerHTML = '<div class="pri-sendall-done">✓ '+lbl+' 구간의 모든 대상에게 발송이 완료됐습니다</div>';
+    return;
+  }
+  bar.innerHTML =
+    '<div class="pri-sendall-info">'+lbl+' 구간 미발송 <strong>'+n+'건</strong> — AI가 작성한 문안으로 자동 일괄 발송합니다</div>'+
+    '<button class="pri-sendall-btn" onclick="priSendAll()">⚡ 한번에 발송하기 ('+n+'건)</button>';
+}
+function priSendAll() {
+  if (!_priPending.length) return;
+  if (!confirm('미발송 '+_priPending.length+'건을 AI 자동 문안으로 한번에 발송할까요?')) return;
+  _priPending.forEach(function(it){
+    lmsMarkSent(it.co==='common' ? 'common:'+it.evt : it.co+':'+it.evt);
+  });
+  showToast('LMS '+_priPending.length+'건 일괄 발송 완료');
+  renderPriority();
 }
 /* AI 자동 문안 생성 — 기존 주문 데이터를 녹여 작성 */
 /* 행사별 동탄점 프로모션 콘텐츠 — 실제 매장 LMS 포맷에 맞춘 시즌별 혜택 정보 */

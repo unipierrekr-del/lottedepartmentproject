@@ -928,6 +928,12 @@ footer{background:#111;padding:60px 40px 36px}
 .lms-btn{font-size:10px;background:#1cbf85;color:#fff;border:none;border-radius:20px;padding:7px 16px;font-family:inherit;font-weight:700;letter-spacing:.04em;white-space:nowrap;cursor:pointer;transition:opacity .2s}
 .lms-btn:hover{opacity:.85}
 .lms-btn.sent{background:#f0f1f5;color:#b3b8cc;cursor:default}
+.pri-sendall-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 20px;border-top:1px solid #f0f2f7}
+.pri-sendall-info{font-size:11px;color:#9aa0b4}
+.pri-sendall-info strong{color:#4263eb}
+.pri-sendall-btn{background:#4263eb;color:#fff;border:none;border-radius:10px;padding:12px 26px;font-size:12px;font-weight:700;letter-spacing:.04em;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(66,99,235,.3);transition:all .15s}
+.pri-sendall-btn:hover{background:#3651d4;transform:translateY(-1px)}
+.pri-sendall-done{font-size:11px;font-weight:700;color:#1cbf85;padding:2px 0}
 #lms-modal{display:none;position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
 #lms-modal.open{display:flex;animation:fi .2s ease}
 .lms-meta{background:#f9f9f9;border:1px solid #eee;border-left:3px solid #111;padding:12px 14px;margin-bottom:14px;font-size:11px;color:#555;line-height:1.8}
