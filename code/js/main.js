@@ -1849,7 +1849,7 @@ function renderApTable() {
       '<td>'+(d.qty||'—')+'</td>'+
       '<td>'+(d.total?fmt(d.total):'—')+'</td>'+
       '<td><span class="sp '+(d.status==='신규'?'new':d.status==='검토중'?'rev':d.status==='확정'?'con':'com')+'">'+esc(d.status)+'</span></td>'+
-      '<td><button style="font-size:10px;background:#111;color:#fff;border:none;padding:4px 10px;font-family:inherit" onclick="event.stopPropagation();openDD('+d.id+')">상세</button></td>'+
+      '<td style="white-space:nowrap"><button class="row-act" onclick="event.stopPropagation();openDD('+d.id+')">수정</button> <button class="row-act del" onclick="event.stopPropagation();crmDelete('+d.id+')">삭제</button></td>'+
     '</tr>';
   }).join('');
 }
@@ -1865,15 +1865,20 @@ function openDD(id) {
       '<div class="dd-edit-row"><label class="dd-edit-lb">캘린더 날짜</label><input type="date" class="dd-edit-in" id="dddt-'+id+'" value="'+esc(d.eventDate||'')+'"></div>'+
       '<button class="dd-save" onclick="saveCalInfo('+id+')">제목·날짜 저장</button>'+
     '</div>'+
-    '<div class="dd-sec"><div class="dd-st">고객 정보</div>'+
-      df('회사명',esc(d.company))+df('담당자',esc(d.contactName))+
-      df('연락처','<a href="tel:'+esc(d.phone||'')+'" style="color:#111">'+esc(d.phone||'—')+'</a>')+
-      df('이메일',esc(d.email))+df('희망일시',esc(d.datetime))+'</div>'+
-    '<div class="dd-sec"><div class="dd-st">큐레이션</div>'+
+    '<div class="dd-sec"><div class="dd-st">고객 정보 <span style="font-size:9px;color:#aaa;font-weight:400">— 직접 수정 가능</span></div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">회사명</label><input type="text" class="dd-edit-in" id="ddco-'+id+'" value="'+esc(d.company||'')+'"></div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">담당자</label><input type="text" class="dd-edit-in" id="ddcn-'+id+'" value="'+esc(d.contactName||'')+'"></div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">연락처</label><input type="text" class="dd-edit-in" id="ddph-'+id+'" value="'+esc(d.phone||'')+'"></div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">이메일</label><input type="text" class="dd-edit-in" id="ddem-'+id+'" value="'+esc(d.email||'')+'"></div>'+
+      df('희망일시',esc(d.datetime))+'</div>'+
+    '<div class="dd-sec"><div class="dd-st">큐레이션 <span style="font-size:9px;color:#aaa;font-weight:400">— 직접 수정 가능</span></div>'+
       df('유형','<span class="tp '+(d.bizType==='B2B'?'b2b':d.bizType==='UNIFORM'?'uni':'b2e')+'">'+esc(d.bizType)+'</span>')+
-      df('선택 상품',esc(d.product||d.selectedPackage))+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">선택 상품</label><input type="text" class="dd-edit-in" id="ddpr-'+id+'" value="'+esc(d.product||d.selectedPackage||'')+'"></div>'+
       df('목적',esc(d.purpose))+df('대상',esc(d.target))+
-      df('수량',(d.qty||'—')+'개')+df('단가',d.unitPrice?fmt(d.unitPrice):'—')+df('할인율',esc(d.discountRate))+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">수량</label><input type="number" class="dd-edit-in" id="ddqt-'+id+'" value="'+(d.qty||'')+'" min="0"></div>'+
+      '<div class="dd-edit-row"><label class="dd-edit-lb">단가 (원)</label><input type="number" class="dd-edit-in" id="ddup-'+id+'" value="'+(d.unitPrice||'')+'" min="0"></div>'+
+      df('할인율',esc(d.discountRate))+
+      '<button class="dd-save" onclick="saveEditInfo('+id+')">고객·큐레이션 정보 저장</button>'+
       '<div class="dd-totbox"><div style="font-size:10px;color:#555">예상 총 금액</div><div style="font-size:20px;font-weight:700;color:#fff;margin-top:2px">'+(d.total?fmt(d.total):'미입력')+'</div></div></div>'+
     '<div class="dd-sec"><div class="dd-st">상태</div>'+
       '<select class="dd-sel" onchange="updStatus('+id+',this.value)">'+
@@ -1881,7 +1886,10 @@ function openDD(id) {
       '</select></div>'+
     '<div class="dd-sec"><div class="dd-st">내부 메모</div>'+
       '<textarea class="dd-ta" id="ddta-'+id+'" placeholder="내부 메모를 입력하세요">'+esc(d.adminMemo||'')+'</textarea>'+
-      '<button class="dd-save" onclick="saveMemo('+id+')">메모 저장</button></div>';
+      '<button class="dd-save" onclick="saveMemo('+id+')">메모 저장</button></div>'+
+    '<div class="dd-sec"><div class="dd-st">관리</div>'+
+      '<button class="dd-del" onclick="crmDelete('+id+')">이 상담 신청 삭제</button>'+
+      '<div style="font-size:10px;color:#aaa;margin-top:8px">삭제 시 목록·캘린더·예측 데이터에서 모두 제거되며 되돌릴 수 없습니다.</div></div>';
   var dd=document.getElementById('dd'); if(dd) dd.classList.add('open');
 }
 function closeDD() { var dd=document.getElementById('dd'); if(dd) dd.classList.remove('open'); }
@@ -1899,6 +1907,27 @@ function saveCalInfo(id) {
   d.eventDate = dt?dt.value:d.eventDate;
   localStorage.setItem('lotteCrm',JSON.stringify(CRM));
   refreshAP(); showToast('일정 정보가 저장됐습니다');
+}
+function saveEditInfo(id) {
+  loadCRM();
+  var d=CRM.find(function(r){ return r.id===id; }); if(!d) return;
+  var v=function(p){ var el=document.getElementById(p+'-'+id); return el?el.value.trim():null; };
+  d.company=v('ddco'); d.contactName=v('ddcn'); d.phone=v('ddph'); d.email=v('ddem');
+  d.product=v('ddpr');
+  var qty=parseInt(v('ddqt'),10), up=parseInt(v('ddup'),10);
+  d.qty=isNaN(qty)?d.qty:qty;
+  d.unitPrice=isNaN(up)?d.unitPrice:up;
+  if (d.qty && d.unitPrice) d.total=d.qty*d.unitPrice;
+  localStorage.setItem('lotteCrm',JSON.stringify(CRM));
+  refreshAP(); openDD(id); showToast('상담 정보가 수정됐습니다');
+}
+function crmDelete(id) {
+  loadCRM();
+  var d=CRM.find(function(r){ return r.id===id; }); if(!d) return;
+  if (!confirm('['+(d.company||'무명')+'] 상담 신청을 삭제할까요?\n삭제 후 되돌릴 수 없습니다.')) return;
+  CRM=CRM.filter(function(r){ return r.id!==id; });
+  localStorage.setItem('lotteCrm',JSON.stringify(CRM));
+  closeDD(); refreshAP(); showToast('상담 신청이 삭제됐습니다');
 }
 function saveMemo(id) {
   loadCRM();

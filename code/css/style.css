@@ -722,6 +722,12 @@ footer{background:#111;padding:60px 40px 36px}
 .dd-ta{width:100%;border:1px solid #e8e8e8;padding:10px 12px;font-size:12px;font-family:inherit;resize:vertical;min-height:80px;margin-top:8px}
 .dd-ta:focus{outline:none;border-color:#111}
 .dd-save{width:100%;background:#111;color:#fff;border:none;padding:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-top:10px;font-family:inherit}
+.dd-del{width:100%;background:#fff1f3;color:#ff5c7c;border:1px solid #ffd4dc;border-radius:8px;padding:12px;font-size:11px;letter-spacing:.08em;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s}
+.dd-del:hover{background:#ff5c7c;color:#fff;border-color:#ff5c7c}
+.row-act{font-size:10px;background:#f7f8fb;color:#555b6e;border:1px solid #eef0f5;border-radius:6px;padding:4px 10px;font-family:inherit;cursor:pointer;transition:all .15s}
+.row-act:hover{border-color:#4263eb;color:#4263eb;background:#eef2ff}
+.row-act.del{color:#ff5c7c}
+.row-act.del:hover{border-color:#ff5c7c;background:#fff1f3;color:#ff5c7c}
 .dd-totbox{background:#111;color:#fff;padding:14px 16px;margin-top:12px}
 /* Visit Modal */
 #vm{display:none;position:fixed;inset:0;z-index:820;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:20px}
