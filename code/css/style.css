@@ -934,6 +934,17 @@ footer{background:#111;padding:60px 40px 36px}
 .pri-sendall-btn{background:#4263eb;color:#fff;border:none;border-radius:10px;padding:12px 26px;font-size:12px;font-weight:700;letter-spacing:.04em;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(66,99,235,.3);transition:all .15s}
 .pri-sendall-btn:hover{background:#3651d4;transform:translateY(-1px)}
 .pri-sendall-done{font-size:11px;font-weight:700;color:#1cbf85;padding:2px 0}
+.ret-segs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:4px 16px 18px}
+@media(max-width:1100px){.ret-segs{grid-template-columns:1fr}}
+.ret-seg{background:#f7f8fb;border:1px solid #eef0f5;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ret-seg-hd{display:flex;align-items:center;gap:8px;font-size:13px;color:#1a1d29}
+.ret-seg-cnt{margin-left:auto;font-size:11px;font-weight:700;color:#4263eb}
+.ret-seg-desc{font-size:11px;color:#9aa0b4;line-height:1.6}
+.ret-seg-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:24px}
+.ret-chip{font-size:10px;background:#fff;border:1px solid #eef0f5;border-radius:20px;padding:3px 10px;color:#555b6e}
+.ret-chip.more{background:#eef2ff;color:#4263eb;border-color:#dbe3ff;font-weight:700}
+.ret-seg .lms-btn{width:100%;padding:10px}
+.ret-seg .lms-btn[disabled]{cursor:default}
 #lms-modal{display:none;position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
 #lms-modal.open{display:flex;animation:fi .2s ease}
 .lms-meta{background:#f9f9f9;border:1px solid #eee;border-left:3px solid #111;padding:12px 14px;margin-bottom:14px;font-size:11px;color:#555;line-height:1.8}

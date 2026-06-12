@@ -367,6 +367,7 @@
         <button class="ap-ni" onclick="exportCSV()"><span class="ap-ni-ico">↓</span> CSV 내보내기</button>
         <div class="ap-sst">분석</div>
         <button class="ap-ni" onclick="apPage('pg-cal',this)"><span class="ap-ni-ico">▣</span> 기업 캘린더</button>
+        <button class="ap-ni" onclick="apPage('pg-ret',this)"><span class="ap-ni-ico">◷</span> LMS 반응 · 리텐션</button>
       </div>
       <div class="ap-cont">
         <!-- 대시보드 -->
@@ -467,6 +468,27 @@
               </table>
             </div>
             <div class="pri-sendall-bar" id="pri-sendall-bar"></div>
+          </div>
+          </div>
+        </div>
+        <!-- LMS 반응 분석 & 리텐션 마케팅 -->
+        <div class="ap-pg" id="pg-ret">
+          <div class="cal-dark">
+          <div class="cal-stats" id="ret-stats"></div>
+          <div class="ap-tcard">
+            <div class="ap-thd"><div class="ap-thtl">예측 LMS 반응률 분석</div></div>
+            <div style="padding:0 16px 10px;font-size:11px;color:#888;line-height:1.6">발송한 예측 LMS의 열람·링크 클릭·상담 전환 반응을 기업별로 추적합니다. 반응 등급에 따라 아래 리텐션 마케팅 세그먼트로 자동 분류됩니다.</div>
+            <div class="tbl-w" style="max-height:420px;overflow-y:auto">
+              <table class="atbl">
+                <thead><tr><th>기업명</th><th>발송 행사</th><th>발송일</th><th>열람</th><th>링크 클릭</th><th>상담 전환</th><th>반응 등급</th></tr></thead>
+                <tbody id="ret-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="ap-tcard" style="margin-top:16px">
+            <div class="ap-thd"><div class="ap-thtl">리텐션 마케팅 · 세그먼트별 후속 액션</div></div>
+            <div style="padding:0 16px 10px;font-size:11px;color:#888;line-height:1.6">반응 데이터를 기반으로 기업을 3개 세그먼트로 분류해 맞춤 후속 LMS를 발송합니다. 반응이 높은 기업은 상담 확정을, 무반응 기업은 리마인드로 재접점을 만듭니다.</div>
+            <div class="ret-segs" id="ret-segs"></div>
           </div>
           </div>
         </div>

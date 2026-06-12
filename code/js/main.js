@@ -1376,7 +1376,7 @@ function refreshAP() {
     '<div class="ap-sc"><div class="ap-sv">'+b2b+'</div><div class="ap-sl">B2B 거래처</div></div>'+
     '<div class="ap-sc"><div class="ap-sv">'+b2e+'</div><div class="ap-sl">B2E 임직원</div></div>'+
     '<div class="ap-sc"><div class="ap-sv" style="font-size:18px">'+fmt(tot)+'</div><div class="ap-sl">누적 총액</div></div>';
-  renderApDash(); renderApTable(); renderApCal();
+  renderApDash(); renderApTable(); renderApCal(); renderRetention();
 }
 
 /* ══════════════════════════════════════════════════
@@ -1656,6 +1656,99 @@ function priSendAll() {
   });
   showToast('LMS '+_priPending.length+'건 일괄 발송 완료');
   renderPriority();
+}
+/* ══════════════════════════════════════════════════
+   예측 LMS 반응률 분석 & 리텐션 마케팅
+   발송 이력(LOTTE_LMS_SENT) 기반으로 열람/클릭/전환 반응을 추적(데모: 결정적 시뮬레이션)
+   ══════════════════════════════════════════════════ */
+function retHash(s){ var h=0; for(var i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))>>>0; } return h; }
+function retSentKey(){ try{ return JSON.parse(localStorage.getItem('LOTTE_RET_SENT')||'{}'); }catch(e){ return {}; } }
+function retMarkSent(k){ var s=retSentKey(); s[k]=Date.now(); localStorage.setItem('LOTTE_RET_SENT',JSON.stringify(s)); }
+function getRetData() {
+  var sent = lmsSentKey(); loadCRM();
+  var cos = []; CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+  var rows = [];
+  Object.keys(sent).forEach(function(k){
+    var sentAt = new Date(sent[k]);
+    var sp = k.split(':'), co = sp[0], evt = sp.slice(1).join(':');
+    var targets = co==='common' ? cos : [co];
+    targets.forEach(function(c){
+      var h = retHash(c+'|'+evt);
+      var opened = (h%100) < 68;
+      var clicked = opened && (((h>>3)%100) < 42);
+      var converted = clicked && (((h>>7)%100) < 30);
+      rows.push({co:c, evt:evt, sentAt:sentAt, opened:opened, clicked:clicked, converted:converted,
+        grade: converted?'전환':clicked?'관심':opened?'열람':'무반응'});
+    });
+  });
+  return rows;
+}
+function renderRetention() {
+  var st = document.getElementById('ret-stats'), tb = document.getElementById('ret-tbody'), sg = document.getElementById('ret-segs');
+  if (!st || !tb || !sg) return;
+  var rows = getRetData();
+  if (!rows.length) {
+    st.innerHTML = '';
+    tb.innerHTML = '<tr class="er"><td colspan="7">아직 발송한 예측 LMS가 없습니다. [기업 캘린더] 탭에서 LMS를 발송하면 반응 데이터가 집계됩니다.</td></tr>';
+    sg.innerHTML = '';
+    return;
+  }
+  var n = rows.length;
+  var op = rows.filter(function(r){ return r.opened; }).length;
+  var cl = rows.filter(function(r){ return r.clicked; }).length;
+  var cv = rows.filter(function(r){ return r.converted; }).length;
+  var pct = function(a,b){ return b ? Math.round(a*100/b) : 0; };
+  st.innerHTML = [
+    {lb:'총 발송', val:n, unit:'건', sub:'예측 LMS 누적 발송'},
+    {lb:'열람률', val:pct(op,n)+'%', sub:op+'건 열람', cls:'up'},
+    {lb:'링크 클릭률', val:pct(cl,n)+'%', sub:cl+'건 클릭', cls:'up'},
+    {lb:'상담 전환', val:cv, unit:'건', sub:'전환율 '+pct(cv,n)+'%', cls:cv?'up':''}
+  ].map(function(s){
+    return '<div class="cal-stat-card"><div class="cal-stat-lb">'+s.lb+'</div>'+
+      '<div class="cal-stat-val">'+s.val+(s.unit?' <span class="unit">'+s.unit+'</span>':'')+'</div>'+
+      '<div class="cal-stat-sub'+(s.cls?' '+s.cls:'')+'">'+s.sub+'</div></div>';
+  }).join('');
+  var gcls = {'전환':'con','관심':'rev','열람':'new','무반응':'com'};
+  var mark = function(ok){ return ok?'<span style="color:#1cbf85;font-weight:700">●</span>':'<span style="color:#d8dbe6">—</span>'; };
+  var order = {'전환':0,'관심':1,'열람':2,'무반응':3};
+  tb.innerHTML = rows.slice().sort(function(a,b){ return order[a.grade]-order[b.grade] || a.co.localeCompare(b.co,'ko'); })
+    .map(function(r){
+      return '<tr><td><strong>'+esc(r.co)+'</strong></td><td>'+esc(r.evt)+'</td>'+
+        '<td style="font-size:11px;white-space:nowrap">'+r.sentAt.toLocaleDateString('ko-KR')+'</td>'+
+        '<td>'+mark(r.opened)+'</td><td>'+mark(r.clicked)+'</td><td>'+mark(r.converted)+'</td>'+
+        '<td><span class="sp '+gcls[r.grade]+'">'+r.grade+'</span></td></tr>';
+    }).join('');
+  /* 세그먼트: 동일 기업이 여러 행이면 가장 높은 반응 기준 */
+  var best = {};
+  rows.forEach(function(r){ if(!(r.co in best) || order[r.grade] < order[best[r.co]]) best[r.co]=r.grade; });
+  var seg = function(g){ return Object.keys(best).filter(function(c){ return best[c]===g; }); };
+  var rsent = retSentKey();
+  var segs = [
+    {id:'hot',  title:'상담 확정 유도', grade:'관심', cls:'rev',
+     desc:'링크까지 클릭했지만 아직 상담 전환 전 — 견적·혜택 제안 LMS로 확정을 유도합니다.', cos:seg('관심')},
+    {id:'warm', title:'재접점 리마인드', grade:'열람', cls:'new',
+     desc:'열람 후 이탈한 기업 — 행사 임박 리마인드 LMS로 재접점을 만듭니다.', cos:seg('열람')},
+    {id:'cold', title:'무반응 재발송', grade:'무반응', cls:'com',
+     desc:'미열람 기업 — 발송 시간대와 문안을 바꿔 AI가 재작성한 LMS를 다시 발송합니다.', cos:seg('무반응')}
+  ];
+  sg.innerHTML = segs.map(function(s){
+    var chips = s.cos.slice(0,6).map(function(c){ return '<span class="ret-chip">'+esc(c)+'</span>'; }).join('')+
+      (s.cos.length>6 ? '<span class="ret-chip more">+'+(s.cos.length-6)+'</span>' : '');
+    var done = rsent[s.id];
+    return '<div class="ret-seg"><div class="ret-seg-hd">'+
+        '<span class="sp '+s.cls+'">'+s.grade+'</span><strong>'+s.title+'</strong>'+
+        '<span class="ret-seg-cnt">'+s.cos.length+'개사</span></div>'+
+      '<div class="ret-seg-desc">'+s.desc+'</div>'+
+      '<div class="ret-seg-chips">'+(chips||'<span style="font-size:11px;color:#b3b8cc">대상 기업 없음</span>')+'</div>'+
+      '<button class="lms-btn'+((done||!s.cos.length)?' sent':'')+'" '+((done||!s.cos.length)?'disabled':'onclick="retSendSeg(\''+s.id+'\','+s.cos.length+')"')+'>'+
+        (done?'발송완료':'⚡ 세그먼트 LMS 일괄 발송')+'</button></div>';
+  }).join('');
+}
+function retSendSeg(id, cnt) {
+  if (!confirm('해당 세그먼트 '+cnt+'개사에 AI 자동 문안으로 후속 LMS를 일괄 발송할까요?')) return;
+  retMarkSent(id);
+  showToast('리텐션 LMS '+cnt+'개사 발송 완료');
+  renderRetention();
 }
 /* AI 자동 문안 생성 — 기존 주문 데이터를 녹여 작성 */
 /* 행사별 동탄점 프로모션 콘텐츠 — 실제 매장 LMS 포맷에 맞춘 시즌별 혜택 정보 */
