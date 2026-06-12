@@ -1494,6 +1494,24 @@ footer{background:#111;padding:60px 40px 36px}
 .cal-dark .atbl .er td{color:#b3b8cc}
 .cal-dark .atbl strong{color:#1a1d29}
 .cal-dark div[style*="color:#888"]{color:#9aa0b4!important}
+.cal-dark .ap-sc{background:#fff;border:1px solid #eef0f5;border-radius:16px;box-shadow:0 2px 10px rgba(30,40,80,.04)}
+.cal-dark .ap-sc:hover{border-color:#4263eb}
+.cal-dark .ap-sv{color:#1a1d29}
+.cal-dark .ap-sl{color:#a4a9bd}
+.cal-dark .ap-ab.pri{background:#4263eb;border-color:#4263eb;color:#fff}
+.cal-dark .ap-ab.pri:hover{background:#3651d4;color:#fff}
+.cal-dark .ap-sb-bar{border-bottom:1px solid #f0f2f7}
+.cal-dark .ap-si{background:#f7f8fb;border:1px solid #eef0f5;border-radius:8px}
+.cal-dark .ap-si:focus{border-color:#4263eb}
+.cal-dark .sp{border-radius:20px}
+.cal-dark .sp.new{background:#fff8e6;color:#e8a317}
+.cal-dark .sp.rev{background:#eef2ff;color:#4263eb}
+.cal-dark .sp.con{background:#eafbf3;color:#1cbf85}
+.cal-dark .sp.com{background:#f0f1f5;color:#9aa0b4}
+.cal-dark .tp{border-radius:20px}
+.cal-dark .tp.b2b{background:#1a1d29;color:#fff}
+.cal-dark .tp.b2e{background:#f0f1f5;color:#555b6e}
+.cal-dark .tp.uni{background:#4263eb;color:#fff}
 /* 상단 요약 스탯 카드 */
 .cal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
 .cal-stat-card{background:#fff;border:1px solid #eef0f5;border-radius:16px;padding:18px 20px;box-shadow:0 2px 10px rgba(30,40,80,.04);display:flex;flex-direction:column;gap:2px}
@@ -1509,8 +1527,9 @@ footer{background:#111;padding:60px 40px 36px}
 .cal-stat-sub.warn{color:#ff5c7c;font-weight:700}
 @media(max-width:1100px){.cal-stats{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.cal-stats{grid-template-columns:1fr}}
-.cal-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
-.cal-pred-w{max-height:560px;overflow-y:auto}
+.cal-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:stretch}
+.cal-layout .ap-tcard{display:flex;flex-direction:column}
+.cal-pred-w{flex:1;overflow-y:auto}
 .cal-grid-head{
   display:grid;grid-template-columns:repeat(7,1fr);
   font-size:10px;font-weight:700;color:#a4a9bd;text-align:center;
