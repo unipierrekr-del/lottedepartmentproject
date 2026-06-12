@@ -24,6 +24,9 @@
       <button class="wstep" id="wd-5" onclick="wizGoStep(5)"><span class="wstep-n">6</span><span class="wstep-lbl">조건</span></button>
     </div>
 
+    <!-- 모든 단계 패널을 감싸는 컨테이너: 단계 전환 시 사이즈 고정 -->
+    <div class="wiz-panels" id="wiz-panels">
+
     <!-- STEP 0: TYPE -->
     <div class="wpanel active" id="wp-0">
       <h3 class="wp-title">어떤 분께 드리는 선물인가요?</h3>
@@ -261,6 +264,8 @@
         <button class="wbtn-next" style="padding:14px 48px;letter-spacing:0.15em" onclick="genResult()">선물 큐레이션 완성하기</button>
         <button class="wbtn-back" style="margin-top:12px" onclick="backFromSum()">이전</button>
       </div>
+    </div>
+
     </div>
   </div>
 </section>

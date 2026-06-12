@@ -203,6 +203,9 @@ function scrollToWiz() {
   var p0 = document.getElementById('wp-0');
   if (p0) p0.classList.add('active');
   updDots(0,'wd','wf',5);
+  var wrap = document.getElementById('wiz-panels');
+  if (wrap) wrap.style.minHeight = '';
+  requestAnimationFrame(wizFitHeight);
 }
 function openMob()  { var n=document.getElementById('mobNav'); if(n){n.classList.add('open');document.body.style.overflow='hidden';} }
 function closeMob() { var n=document.getElementById('mobNav'); if(n){n.classList.remove('open');document.body.style.overflow='';} }
@@ -230,6 +233,17 @@ function updDots(step, dp, fp, max) {
   }
 }
 
+/* 단계 전환 시 패널 높이가 변하지 않도록 가장 큰 높이로 고정 */
+function wizFitHeight() {
+  var wrap = document.getElementById('wiz-panels');
+  var active = document.querySelector('#wizard .wpanel.active');
+  if (!wrap || !active) return;
+  var prevMin = parseFloat(wrap.style.minHeight) || 0;
+  wrap.style.minHeight = '';
+  var h = active.offsetHeight;
+  wrap.style.minHeight = Math.max(h, prevMin) + 'px';
+}
+
 function gp(id, dot) {
   document.querySelectorAll('#wizard .wpanel').forEach(function(p){ p.classList.remove('active'); });
   var el = document.getElementById(id);
@@ -237,6 +251,7 @@ function gp(id, dot) {
   updDots(dot,'wd','wf',5);
   var w = document.getElementById('wizard');
   if (w) w.scrollIntoView({ behavior:'smooth', block:'start' });
+  requestAnimationFrame(wizFitHeight);
 }
 
 /* 번호형 진행 단계 — 클릭 시 해당 단계로 자유 이동 */
@@ -2055,5 +2070,8 @@ function scrollToWizard() {
   var p0 = document.getElementById('wp-0');
   if (p0) p0.classList.add('active');
   updDots(0,'wd','wf',5);
+  var wrap = document.getElementById('wiz-panels');
+  if (wrap) wrap.style.minHeight = '';
+  requestAnimationFrame(wizFitHeight);
 }
 </script>

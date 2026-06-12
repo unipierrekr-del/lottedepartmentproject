@@ -398,6 +398,7 @@ section{border-bottom:1px solid var(--gray-mid)}
   .wstep-n{width:27px;height:27px;font-size:11px}
   .wstep-line{margin-top:13px}
 }
+.wiz-panels{position:relative;transition:min-height .25s ease}
 .wpanel{display:none;width:100%}
 .wpanel.active{display:block;animation:wSlide .35s ease forwards}
 @keyframes wSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
