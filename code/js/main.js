@@ -1418,6 +1418,28 @@ function renderApCal() {
   grid.innerHTML = html;
   renderCalPrediction();
   renderPriority();
+  renderCalStats();
+}
+function renderCalStats() {
+  var el = document.getElementById('cal-stats'); if (!el) return;
+  var cos = []; CRM.forEach(function(d){ if(d.company && cos.indexOf(d.company)===-1) cos.push(d.company); });
+  var preds = getPriPredictions();
+  var d30 = preds.filter(function(p){ return p.dday>=0 && p.dday<=30; }).length;
+  var d7  = preds.filter(function(p){ return p.dday>=0 && p.dday<=7; }).length;
+  var nextCommon = COMMON_EVENTS.map(function(ev){
+    var p = ev.date.split('-').map(Number);
+    return {name:ev.name, dday: priDday(new Date(p[0],p[1]-1,p[2]))};
+  }).filter(function(e){ return e.dday>=0; }).sort(function(a,b){ return a.dday-b.dday; })[0];
+  el.innerHTML = [
+    {lb:'보유 기업', val:cos.length, unit:'개사', sub:'상담 신청 이력 기준'},
+    {lb:'전체 상담 신청', val:CRM.length, unit:'건', sub:'캘린더 누적 데이터'},
+    {lb:'D-30 이내 임박 행사', val:d30, unit:'개사', sub:(d7?'D-7 이내 '+d7+'개사 포함':'D-7 이내 행사 없음'), cls:d7?'warn':''},
+    {lb:'다음 공통 행사', val:nextCommon?('D-'+nextCommon.dday):'-', unit:'', sub:nextCommon?(nextCommon.name+' · 전체 '+cos.length+'개사 발송 대상'):'', cls:'up'}
+  ].map(function(s){
+    return '<div class="cal-stat-card"><div class="cal-stat-lb">'+esc(s.lb)+'</div>'+
+      '<div class="cal-stat-val">'+esc(String(s.val))+(s.unit?' <span class="unit">'+esc(s.unit)+'</span>':'')+'</div>'+
+      '<div class="cal-stat-sub'+(s.cls?' '+s.cls:'')+'">'+esc(s.sub)+'</div></div>';
+  }).join('');
 }
 function renderCalPrediction() {
   var tb = document.getElementById('cal-pred-tbody'); if (!tb) return;

@@ -909,17 +909,17 @@ footer{background:#111;padding:60px 40px 36px}
 @media(max-width:768px){.cm-row{flex-direction:column;gap:8px}.cm-row-lb{width:auto;padding-top:0}}
 /* 우선순위 타겟 마케팅 (LMS) */
 .pri-tabs{display:flex;gap:6px;padding:0 16px 12px;flex-wrap:wrap}
-.pri-tab{background:#fff;border:1px solid #e8e8e8;color:#888;padding:7px 18px;font-size:11px;font-weight:700;letter-spacing:.04em;font-family:inherit;transition:all .15s;cursor:pointer}
-.pri-tab:hover{border-color:#111;color:#111}
-.pri-tab.on{background:#111;border-color:#111;color:#fff}
+.pri-tab{background:#10121a;border:1px solid #2c3142;border-radius:8px;color:#9aa0b4;padding:7px 18px;font-size:11px;font-weight:700;letter-spacing:.04em;font-family:inherit;transition:all .15s;cursor:pointer}
+.pri-tab:hover{border-color:#4263eb;color:#7c9bff}
+.pri-tab.on{background:#2dd4a8;border-color:#2dd4a8;color:#0d1117}
 .pri-cnt{display:inline-block;min-width:16px;padding:1px 5px;margin-left:4px;border-radius:9px;background:#d6336c;color:#fff;font-size:9px;font-weight:700;text-align:center}
-.dday-bdg{display:inline-block;padding:3px 8px;font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
-.dday-bdg.d7{background:#fff0f0;color:#d6336c}
-.dday-bdg.d15{background:#fff6e6;color:#e8590c}
-.dday-bdg.d30{background:#eef2ff;color:#4263eb}
-.lms-btn{font-size:10px;background:#111;color:#fff;border:none;padding:5px 12px;font-family:inherit;font-weight:700;letter-spacing:.04em;white-space:nowrap;cursor:pointer;transition:background .2s}
-.lms-btn:hover{background:#444}
-.lms-btn.sent{background:#e8e8e8;color:#999;cursor:default}
+.dday-bdg{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.dday-bdg.d7{background:#3a1c28;color:#ff7b9c}
+.dday-bdg.d15{background:#3a2c14;color:#ffb84d}
+.dday-bdg.d30{background:#1c2a44;color:#7c9bff}
+.lms-btn{font-size:10px;background:#2dd4a8;color:#0d1117;border:none;border-radius:6px;padding:6px 14px;font-family:inherit;font-weight:700;letter-spacing:.04em;white-space:nowrap;cursor:pointer;transition:opacity .2s}
+.lms-btn:hover{opacity:.8}
+.lms-btn.sent{background:#262b3a;color:#5a6075;cursor:default}
 #lms-modal{display:none;position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
 #lms-modal.open{display:flex;animation:fi .2s ease}
 .lms-meta{background:#f9f9f9;border:1px solid #eee;border-left:3px solid #111;padding:12px 14px;margin-bottom:14px;font-size:11px;color:#555;line-height:1.8}
@@ -1480,24 +1480,47 @@ footer{background:#111;padding:60px 40px 36px}
 }
 .sg-note strong{color:#111;font-weight:800}
 
-/* ═══════ 관리자 기업 캘린더 ═══════ */
+/* ═══════ 관리자 기업 캘린더 (다크 대시보드 테마) ═══════ */
+.cal-dark{background:#10121a;border-radius:18px;padding:22px;margin:-4px}
+.cal-dark .ap-tcard{background:#181b25;border:1px solid #262b3a;border-radius:14px;overflow:hidden}
+.cal-dark .ap-thd{background:transparent;border-bottom:1px solid #262b3a;padding:18px 20px}
+.cal-dark .ap-thtl{color:#f0f1f5;font-size:13px;font-weight:700;letter-spacing:.02em}
+.cal-dark .ap-sf,.cal-dark .ap-ab{background:#10121a;border:1px solid #2c3142;color:#c8cad4}
+.cal-dark .ap-ab:hover{border-color:#4263eb;color:#7c9bff}
+.cal-dark .atbl th{background:#181b25;color:#666c80;border-bottom:1px solid #262b3a}
+.cal-dark .atbl td{color:#c8cad4;border-bottom:1px solid #20232e}
+.cal-dark .atbl tr:hover td{background:#1e2230}
+.cal-dark .atbl .er td{color:#5a6075}
+.cal-dark .atbl strong{color:#f0f1f5}
+.cal-dark div[style*="color:#888"]{color:#7d8398!important}
+/* 상단 요약 스탯 카드 */
+.cal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.cal-stat-card{background:#181b25;border:1px solid #262b3a;border-radius:14px;padding:18px 20px}
+.cal-stat-lb{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#666c80;margin-bottom:10px}
+.cal-stat-val{font-size:24px;font-weight:800;color:#f0f1f5;letter-spacing:-.01em}
+.cal-stat-val .unit{font-size:12px;font-weight:700;color:#7d8398;margin-left:3px}
+.cal-stat-sub{font-size:11px;color:#7d8398;margin-top:6px}
+.cal-stat-sub.up{color:#2dd4a8}
+.cal-stat-sub.warn{color:#ff7b7b}
+@media(max-width:1100px){.cal-stats{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.cal-stats{grid-template-columns:1fr}}
 .cal-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
 .cal-pred-w{max-height:560px;overflow-y:auto}
 .cal-grid-head{
   display:grid;grid-template-columns:repeat(7,1fr);
-  font-size:10px;font-weight:700;color:#888;text-align:center;
-  padding:10px 0 8px;border-bottom:1px solid #eee;
+  font-size:10px;font-weight:700;color:#666c80;text-align:center;
+  padding:10px 0 8px;border-bottom:1px solid #262b3a;
 }
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
 .cal-cell{
-  min-height:60px;border-bottom:1px solid #f0f0f0;border-right:1px solid #f0f0f0;
+  min-height:60px;border-bottom:1px solid #20232e;border-right:1px solid #20232e;
   padding:4px;font-size:10px;overflow:hidden;
 }
 .cal-cell:nth-child(7n){border-right:none}
-.cal-cell.empty{background:#fafafa}
-.cal-cell.today{background:#f4f7ff}
-.cal-day{font-size:10px;font-weight:700;color:#999;margin-bottom:3px}
-.cal-cell.today .cal-day{color:#4263eb}
+.cal-cell.empty{background:#13151d}
+.cal-cell.today{background:#1c2438}
+.cal-day{font-size:10px;font-weight:700;color:#666c80;margin-bottom:3px}
+.cal-cell.today .cal-day{color:#7c9bff}
 .cal-evt{
   color:#fff;border-radius:2px;padding:2px 5px;margin-bottom:2px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
