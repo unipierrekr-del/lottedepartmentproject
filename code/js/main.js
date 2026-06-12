@@ -273,7 +273,7 @@ var PANEL_AUTO_NEXT = {
 };
 
 function selectBiz(el, type) {
-  document.querySelectorAll('#wizard .type-card, #wizard .tc').forEach(function(c){ c.classList.remove('sel'); });
+  document.querySelectorAll('#wizard .type-card, #wizard .tc, #wizard .pconf-card').forEach(function(c){ c.classList.remove('sel'); });
   el.classList.add('sel');
   wState.bizType = type;
   setTimeout(wStep1, 250);
@@ -579,7 +579,7 @@ function genResult() {
 
 function wizRestart() {
   wState = { bizType:null, unitPrice:0, unitLabel:'', qty:0, b2b_purpose:[], b2b_target:null, b2b_value:[], b2b_cat:[], b2b_custom:[], b2b_comp:[], b2e_purpose:[], b2e_target:null, b2e_mood:[], b2e_extra:[] };
-  document.querySelectorAll('#wizard .chip.sel,#wizard .tc.sel,#wizard .type-card.sel,#wizard .bc.sel,#wizard .bud-card.sel').forEach(function(e){ e.classList.remove('sel'); });
+  document.querySelectorAll('#wizard .chip.sel,#wizard .tc.sel,#wizard .type-card.sel,#wizard .pconf-card.sel,#wizard .bc.sel,#wizard .bud-card.sel').forEach(function(e){ e.classList.remove('sel'); });
   ['gift-tprev','b2e-tprev'].forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove('show'); });
   var rs = document.getElementById('result-section');
   if (rs) rs.classList.remove('visible');

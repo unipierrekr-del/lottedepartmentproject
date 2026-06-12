@@ -254,6 +254,9 @@ img{display:block;max-width:100%}
   display:flex;flex-direction:column;
 }
 .pconf-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
+.pconf-grid-2{grid-template-columns:1fr 1fr}
+.pconf-card.sel{box-shadow:0 0 0 2px #111,0 12px 40px rgba(0,0,0,.12);transform:translateY(-4px)}
+@media(max-width:768px){.pconf-grid-2{grid-template-columns:1fr}}
 
 /* 카드 이미지 영역 */
 .pconf-card-img{

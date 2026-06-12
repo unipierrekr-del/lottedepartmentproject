@@ -21,7 +21,6 @@ js_content    = read('js/main.js')
 sections = [
     'sections/nav.html',
     'sections/hero.html',
-    'sections/configurator.html',
     'sections/wizard.html',
     'sections/result.html',
     'sections/summer-pick.html',
