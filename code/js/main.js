@@ -264,16 +264,6 @@ function wizGoStep(n) {
   gp(pre + n, n);
 }
 
-// 패널별 자동 다음 단계 매핑 (복수 섹션 패널은 제외)
-var PANEL_AUTO_NEXT = {
-  'wp-b2b-1': function(){ gp('wp-b2b-2',2); },
-  'wp-b2b-3': function(){ gp('wp-b2b-4',4); },
-  'wp-b2e-1': function(){ gp('wp-b2e-2',2); },
-  'wp-b2e-3': function(){ gp('wp-b2e-4',4); },
-  'wp-b2e-4': function(){ gp('wp-b2e-5',5); },
-  'wp-b2e-5': function(){ showSum('b2e'); }
-};
-
 function selectBiz(el, type) {
   document.querySelectorAll('#wizard .type-card, #wizard .tc, #wizard .pconf-card').forEach(function(c){ c.classList.remove('sel'); });
   el.classList.add('sel');
@@ -291,12 +281,6 @@ function tChip(el, cat, val) {
   if (!wState[cat]) wState[cat] = [];
   var a = wState[cat], i = a.indexOf(val);
   if (i === -1) a.push(val); else a.splice(i,1);
-  // 복수 선택 가능: 500ms 후 자동 다음 단계 (재클릭 시 타이머 리셋)
-  var panel = el.closest('.wpanel');
-  if (panel && PANEL_AUTO_NEXT[panel.id]) {
-    clearTimeout(window._chipTimer);
-    window._chipTimer = setTimeout(PANEL_AUTO_NEXT[panel.id], 500);
-  }
 }
 function sChip(el, cat, val) {
   var panel = el.closest('.wpanel');
@@ -312,11 +296,6 @@ function sBud(el, price, label) {
   wState.unitPrice = parseInt(price);
   wState.unitLabel = label || price;
   calcTot();
-  // 예산 선택 즉시 다음 단계
-  var panel = el.closest('.wpanel');
-  if (panel && PANEL_AUTO_NEXT[panel.id]) {
-    setTimeout(PANEL_AUTO_NEXT[panel.id], 300);
-  }
 }
 
 function calcTot() {
@@ -409,13 +388,18 @@ var pkgItems = {
   default:       { std:'g7', prem:'g4', sig:'g1' }
 };
 
+var EXTRA_PKG_KEYS = ['g3','g6','s1'];
+
 function buildPackages(bp, qty, colKey) {
   var d   = getDisc(qty);
   var its = pkgItems[colKey] || pkgItems.default;
   var defs = [
     { tier:'STANDARD',  badge:null,            feat:false, key:its.std,  tag:'가성비 추천', discAdj:0 },
     { tier:'PREMIUM',   badge:'큐레이터 추천', feat:true,  key:its.prem, tag:'베스트셀러', discAdj:0 },
-    { tier:'SIGNATURE', badge:null,            feat:false, key:its.sig,  tag:'프레스티지', discAdj:0.02 }
+    { tier:'SIGNATURE', badge:null,            feat:false, key:its.sig,  tag:'프레스티지', discAdj:0.02 },
+    { tier:'CHOICE 4',  badge:null,            feat:false, key:EXTRA_PKG_KEYS[0], tag:'추가 추천', discAdj:0 },
+    { tier:'CHOICE 5',  badge:null,            feat:false, key:EXTRA_PKG_KEYS[1], tag:'추가 추천', discAdj:0 },
+    { tier:'CHOICE 6',  badge:null,            feat:false, key:EXTRA_PKG_KEYS[2], tag:'추가 추천', discAdj:0.02 }
   ];
   return defs.map(function(def){
     var item = giftCatalog[def.key];
@@ -424,10 +408,10 @@ function buildPackages(bp, qty, colKey) {
   });
 }
 
-function renderPkgCard(pk, i) {
+function renderPkgCard(pk, i, hidden) {
   var sub = pk.price*pk.qty, da = Math.round(sub*pk.disc), tot = sub - da;
   var it = pk.item;
-  return '<div class="pkg-c'+(pk.feat?' feat':'')+'" id="pkc-'+i+'">' +
+  return '<div class="pkg-c'+(pk.feat?' feat':'')+(hidden?' pkg-c-more':'')+'"'+(hidden?' style="display:none"':'')+' id="pkc-'+i+'" onclick="markPkgSelected('+i+')">' +
     (pk.badge ? '<div class="pkg-bdg">'+pk.badge+'</div>' : '') +
     '<div class="pkg-tier">'+pk.tier+'</div>'+
     '<div class="pkg-prod-img"><img src="'+it.img+'" alt="'+it.n+'" style="width:100%;height:100%;object-fit:cover;display:block;"></div>'+
@@ -453,7 +437,7 @@ function renderPkgCard(pk, i) {
 
 function markPkgSelected(i) {
   window._selectedPkg = i;
-  for (var j = 0; j < 3; j++) {
+  for (var j = 0; j < 6; j++) {
     var card = document.getElementById('pkc-'+j);
     if (!card) continue;
     card.style.outline = 'none';
@@ -463,6 +447,12 @@ function markPkgSelected(i) {
   var pk = (window._genPkgs||[])[i];
   window._selectedPkgName = pk ? pk.tier+' · '+pk.item.n : ['STANDARD','PREMIUM','SIGNATURE'][i];
   return pk;
+}
+
+function showMorePkgs() {
+  document.querySelectorAll('.pkg-c-more').forEach(function(c){ c.style.display = ''; });
+  var btn = document.getElementById('pkg-more-btn');
+  if (btn) btn.style.display = 'none';
 }
 
 function pkgConsult(i) {
@@ -534,7 +524,11 @@ function genResult() {
   window._selectedPkg = 1;
   _pkgs = pkgs;
   var pg = $('pkg-grid');
-  if (pg) pg.innerHTML = pkgs.map(function(pk,i){ return renderPkgCard(pk,i); }).join('');
+  if (pg) {
+    var html = pkgs.map(function(pk,i){ return renderPkgCard(pk,i,i>=3); }).join('');
+    html += '<button class="pkg-more-btn" id="pkg-more-btn" onclick="showMorePkgs()">더 많은 큐레이션 보기 +3</button>';
+    pg.innerHTML = html;
+  }
 
   /* 큐레이터 코멘트 */
   var comments = {

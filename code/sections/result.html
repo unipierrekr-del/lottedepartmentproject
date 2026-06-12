@@ -37,36 +37,10 @@
       <div class="curator-name">&#8212; 롯데백화점 동탄점 선물 큐레이터 팀</div>
     </div>
 
-    <!-- 품의서 & 견적서 -->
-    <div class="report-section">
-      <div class="report-header">
-        <div>
-          <div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-bottom:3px">Internal Document</div>
-          <div style="font-size:13px;font-weight:700;letter-spacing:.04em">품의서 &amp; 견적서 생성</div>
-        </div>
-        <div style="font-size:11px;color:#aaa">내부 보고용 자료를 자동으로 생성합니다</div>
-      </div>
-      <div class="report-body">
-        <div class="report-input-row">
-          <input class="report-input" id="rpt-company" placeholder="회사명 (예: 삼성전자)">
-          <input class="report-input" id="rpt-dept"    placeholder="부서명 (예: 총무팀)">
-          <input class="report-input" id="rpt-name"    placeholder="담당자명 (예: 김지은 대리)">
-        </div>
-        <div class="report-checklist">
-          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>표지 (회사명 / 부서 / 품의일 / 담당자)</div>
-          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>선정 배경 및 큐레이터 코멘트</div>
-          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>3가지 패키지 비교 견적표 (Standard / Premium / Signature)</div>
-          <div class="report-check"><div class="report-check-icon"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>예상 납기 일정 및 세금계산서 발행 안내</div>
-        </div>
-        <div class="report-btns">
-          <button class="btn btn-d btn-s" onclick="addToCompare()">비교 목록에 추가하기</button>
-        </div>
-      </div>
-    </div>
-
     <!-- 하단 액션 -->
     <div class="res-bottom-actions">
       <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-d btn-s" onclick="addToCompare()">비교 목록에 추가하기</button>
         <button class="btn btn-o btn-s" onclick="wizRestart()">처음부터 다시하기</button>
         <button class="btn btn-o btn-s" onclick="toggleCompare()" id="btn-cmp">비교 보기 (0/3)</button>
       </div>
