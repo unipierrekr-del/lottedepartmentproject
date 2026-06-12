@@ -233,11 +233,13 @@ function updDots(step, dp, fp, max) {
   }
 }
 
-/* 단계 전환 시 패널 높이가 변하지 않도록 가장 큰 높이로 고정 */
+/* 단계 전환 시 패널 높이가 변하지 않도록 가장 큰 높이로 고정
+   (단, 이미지 카드가 있는 1단계 '유형' 화면은 제외 — 자체 크기 유지) */
 function wizFitHeight() {
   var wrap = document.getElementById('wiz-panels');
   var active = document.querySelector('#wizard .wpanel.active');
   if (!wrap || !active) return;
+  if (active.id === 'wp-0') { wrap.style.minHeight = ''; return; }
   var prevMin = parseFloat(wrap.style.minHeight) || 0;
   wrap.style.minHeight = '';
   var h = active.offsetHeight;
