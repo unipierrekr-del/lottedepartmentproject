@@ -412,7 +412,32 @@ var giftCatalog = {
   h1:{n:'송산포도 프리미엄 선물세트', d:'화성 송산 청정 포도 · 화성시 특별관', img:'images/h1.png', price:32300},
   h2:{n:'송산농협 경기미 햅쌀 선물세트', d:'화성 송산농협 경기미 · 화성시 특별관', img:'images/h2.png', price:36900},
   h3:{n:'화성 도예명장 블루 과반접시 세트', d:'도예명장 수제 도자기 · 화성시 특별관', img:'images/h3.png', price:28800},
-  h4:{n:'화성 도예명장 찻잔세트', d:'도예명장 수제 찻잔세트 · 화성시 특별관', img:'images/h4.png', price:48380}
+  h4:{n:'화성 도예명장 찻잔세트', d:'도예명장 수제 찻잔세트 · 화성시 특별관', img:'images/h4.png', price:48380},
+  /* 3만원대~15만원대 추가 큐레이션 품목 (사진 추후 교체 예정 — 임시 이미지) */
+  g9:{n:'한우 사골곰탕 선물세트(6팩)', d:'간편 조리 한우 곰탕 · 식품·F&B', img:'images/placeholder.png', price:79000},
+  g10:{n:'제주 흑돼지 선물세트(1.2kg)', d:'제주 직송 흑돼지 · 식품·F&B', img:'images/placeholder.png', price:89000},
+  g11:{n:'강원 더덕 산양삼 선물세트', d:'강원 청정 산양삼 · 식품·F&B', img:'images/placeholder.png', price:65000},
+  g12:{n:'행복한콩 국산콩 두유 선물세트', d:'국산콩 건강 두유 · 식품·F&B', img:'images/placeholder.png', price:33000},
+  g13:{n:'천호엔케어 프리미엄 흑마늘진액', d:'면역력 강화 흑마늘진액 · 건강·웰니스', img:'images/placeholder.png', price:55000},
+  g14:{n:'정관장 홍삼톤 에브리진生 세트', d:'휴대용 홍삼 농축액 · 건강·웰니스', img:'images/placeholder.png', price:79000},
+  g15:{n:'종근당건강 락토핏 생유산균 골드 기획세트', d:'프로바이오틱스 건강 선물 · 건강·웰니스', img:'images/placeholder.png', price:42000},
+  g16:{n:'일동제약 셀파렉스 면역 비타민 세트', d:'고함량 면역 비타민 · 건강·웰니스', img:'images/placeholder.png', price:68000},
+  g17:{n:'휘슬러 프리미엄 냄비 세트', d:'독일 프리미엄 주방용품 · 리빙·홈', img:'images/placeholder.png', price:138000},
+  g18:{n:'락앤락 모던하우스 보관용기 선물세트', d:'실용적인 주방 보관함 · 리빙·홈', img:'images/placeholder.png', price:39000},
+  g19:{n:'코렐 디너웨어 6인 세트', d:'내구성 강한 식기 세트 · 리빙·홈', img:'images/placeholder.png', price:99000},
+  g20:{n:'쿠첸 미니 전기밥솥 선물세트', d:'1인 가구를 위한 미니 밥솥 · 리빙·홈', img:'images/placeholder.png', price:119000},
+  g21:{n:'설화수 자음 2종 세트', d:'프리미엄 한방 스킨케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:135000},
+  g22:{n:'헤라 블랙 쿠션 기프트 세트', d:'베스트셀러 쿠션 기프트 · 뷰티·스킨케어', img:'images/placeholder.png', price:98000},
+  g23:{n:'이니스프리 그린티 스킨케어 3종 세트', d:'대표 그린티 스킨케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:45000},
+  g24:{n:'닥터지 더마 모이스처 기프트 세트', d:'더마 모이스처 케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:58000},
+  g25:{n:'MLB 캠퍼스 백팩', d:'캐주얼 브랜드 백팩 · 패션·잡화', img:'images/placeholder.png', price:89000},
+  g26:{n:'헤지스 넥타이 + 머플러 세트', d:'비즈니스 패션 세트 · 패션·잡화', img:'images/placeholder.png', price:79000},
+  g27:{n:'닥스 카드지갑 선물세트', d:'정장용 가죽 카드지갑 · 패션·잡화', img:'images/placeholder.png', price:69000},
+  g28:{n:'로지텍 무선 마우스+키보드 세트', d:'업무용 무선 입력장치 · IT·사무용품', img:'images/placeholder.png', price:79000},
+  g29:{n:'삼성 보조배터리 선물세트', d:'고속충전 보조배터리 · IT·사무용품', img:'images/placeholder.png', price:45000},
+  g30:{n:'모나미 프리미엄 필기구 세트', d:'고급 필기구 선물세트 · IT·사무용품', img:'images/placeholder.png', price:38000},
+  g31:{n:'한산모시 손수건 선물세트', d:'전통 공예 손수건 · 전통·한국적', img:'images/placeholder.png', price:35000},
+  g32:{n:'안동 한지 다이어리 세트', d:'전통 한지 공예 다이어리 · 전통·한국적', img:'images/placeholder.png', price:42000}
 };
 /* 상품명으로 카탈로그 항목 찾기 (완전 일치 → 접두 일치) */
 function findGiftByName(name) {
@@ -423,13 +448,13 @@ function findGiftByName(name) {
   return null;
 }
 var pkgItems = {
-  beauty_female: { std:'g7', prem:'g4', sig:'g1' },
-  beauty_male:   { std:'g8', prem:'g2', sig:'g1' },
-  gourmet:       { std:'g8', prem:'g2', sig:'g1' },
-  wellness:      { std:'g7', prem:'g5', sig:'g1' },
-  premium:       { std:'g8', prem:'g2', sig:'g1' },
-  practical:     { std:'g7', prem:'g4', sig:'g1' },
-  default:       { std:'g7', prem:'g4', sig:'g1' }
+  beauty_female: { std:'g7', prem:'g4', sig:'g1', ext1:'g22', ext2:'g23', ext3:'g24' },
+  beauty_male:   { std:'g8', prem:'g2', sig:'g1', ext1:'g25', ext2:'g26', ext3:'g28' },
+  gourmet:       { std:'g8', prem:'g2', sig:'g1', ext1:'g9',  ext2:'g10', ext3:'g11' },
+  wellness:      { std:'g7', prem:'g5', sig:'g1', ext1:'g13', ext2:'g14', ext3:'g16' },
+  premium:       { std:'g8', prem:'g2', sig:'g1', ext1:'g17', ext2:'g21', ext3:'g20' },
+  practical:     { std:'g7', prem:'g4', sig:'g1', ext1:'g18', ext2:'g29', ext3:'g30' },
+  default:       { std:'g7', prem:'g4', sig:'g1', ext1:'g12', ext2:'g31', ext3:'g32' }
 };
 
 var EXTRA_PKG_KEYS = ['g3','g6','s1'];
@@ -441,9 +466,9 @@ function buildPackages(bp, qty, colKey) {
     { tier:'STANDARD',  badge:null,            feat:false, key:its.std,  tag:'가성비 추천', discAdj:0 },
     { tier:'PREMIUM',   badge:'큐레이터 추천', feat:true,  key:its.prem, tag:'베스트셀러', discAdj:0 },
     { tier:'SIGNATURE', badge:null,            feat:false, key:its.sig,  tag:'프레스티지', discAdj:0.02 },
-    { tier:'CHOICE 4',  badge:null,            feat:false, key:EXTRA_PKG_KEYS[0], tag:'추가 추천', discAdj:0 },
-    { tier:'CHOICE 5',  badge:null,            feat:false, key:EXTRA_PKG_KEYS[1], tag:'추가 추천', discAdj:0 },
-    { tier:'CHOICE 6',  badge:null,            feat:false, key:EXTRA_PKG_KEYS[2], tag:'추가 추천', discAdj:0.02 }
+    { tier:'CHOICE 4',  badge:null,            feat:false, key:its.ext1||EXTRA_PKG_KEYS[0], tag:'추가 추천', discAdj:0 },
+    { tier:'CHOICE 5',  badge:null,            feat:false, key:its.ext2||EXTRA_PKG_KEYS[1], tag:'추가 추천', discAdj:0 },
+    { tier:'CHOICE 6',  badge:null,            feat:false, key:its.ext3||EXTRA_PKG_KEYS[2], tag:'추가 추천', discAdj:0.02 }
   ];
   return defs.map(function(def){
     var item = giftCatalog[def.key];
