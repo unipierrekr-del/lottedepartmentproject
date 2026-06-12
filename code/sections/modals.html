@@ -435,7 +435,10 @@
               <div class="cal-grid" id="cal-grid"></div>
             </div>
             <div class="ap-tcard">
-              <div class="ap-thd"><div class="ap-thtl">기업 연중행사 예측</div></div>
+              <div class="ap-thd">
+                <div class="ap-thtl">기업 연중행사 예측</div>
+                <button class="ap-ab" id="cal-pred-more" onclick="openCalPredAll()">전체 보기</button>
+              </div>
               <div style="padding:0 16px 10px;font-size:11px;color:#888;line-height:1.6">기업별 상담 신청 이력을 월 단위로 데이터화하여, 명절·창립기념일 등 각 기업의 연중행사 시기를 예측합니다. 신청 데이터가 쌓일수록 예측 신뢰도가 올라갑니다.</div>
               <div class="tbl-w cal-pred-w">
                 <table class="atbl">
@@ -492,6 +495,21 @@
     <div class="cm-ft">
       <button class="cm-can" onclick="closeLMS()">취소</button>
       <button class="cm-sub" onclick="sendLMS()">LMS 발송하기</button>
+    </div>
+  </div>
+</div>
+<!-- 연중행사 예측 전체 보기 Modal -->
+<div id="calpred-modal">
+  <div class="cm-box" style="max-width:760px">
+    <div class="cm-hd">
+      <div><div class="cm-hdk">Annual Event Prediction</div><div class="cm-hdt">기업 연중행사 예측 — 전체 <span style="font-size:11px;color:#aaa;font-weight:400" id="calpred-all-cnt"></span></div></div>
+      <button class="cm-hx" onclick="closeCalPredAll()">✕</button>
+    </div>
+    <div class="cm-bd" style="padding:0;max-height:62vh;overflow-y:auto">
+      <table class="atbl">
+        <thead><tr><th>기업명</th><th>신청 건수</th><th>주요 신청 시기</th><th>최근 신청일</th><th>다음 예상 행사 시기</th></tr></thead>
+        <tbody id="cal-pred-all-tbody"></tbody>
+      </table>
     </div>
   </div>
 </div>

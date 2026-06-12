@@ -1529,7 +1529,9 @@ footer{background:#111;padding:60px 40px 36px}
 @media(max-width:600px){.cal-stats{grid-template-columns:1fr}}
 .cal-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:stretch}
 .cal-layout .ap-tcard{display:flex;flex-direction:column}
-.cal-pred-w{flex:1;overflow-y:auto}
+.cal-pred-w{flex:1;min-height:0;overflow:hidden}
+#calpred-modal{display:none;position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
+#calpred-modal.open{display:flex;animation:fi .2s ease}
 .cal-grid-head{
   display:grid;grid-template-columns:repeat(7,1fr);
   font-size:10px;font-weight:700;color:#a4a9bd;text-align:center;

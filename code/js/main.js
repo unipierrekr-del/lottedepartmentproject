@@ -1441,6 +1441,7 @@ function renderCalStats() {
       '<div class="cal-stat-sub'+(s.cls?' '+s.cls:'')+'">'+esc(s.sub)+'</div></div>';
   }).join('');
 }
+var CAL_PRED_PREVIEW = 7; // 캘린더 카드 높이에 맞춰 노출할 행 수 (나머지는 전체 보기)
 function renderCalPrediction() {
   var tb = document.getElementById('cal-pred-tbody'); if (!tb) return;
   var byCo = {};
@@ -1450,9 +1451,16 @@ function renderCalPrediction() {
     (byCo[d.company]=byCo[d.company]||[]).push(t);
   });
   var names = Object.keys(byCo);
-  if (!names.length) { tb.innerHTML='<tr class="er"><td colspan="5">상담 신청 데이터가 쌓이면 자동으로 연중행사를 예측합니다</td></tr>'; return; }
+  var moreBtn = document.getElementById('cal-pred-more');
+  if (!names.length) {
+    tb.innerHTML='<tr class="er"><td colspan="5">상담 신청 데이터가 쌓이면 자동으로 연중행사를 예측합니다</td></tr>';
+    if (moreBtn) moreBtn.style.display='none';
+    return;
+  }
+  // 신청 건수 많은 기업 우선 노출
+  names.sort(function(a,b){ return byCo[b].length - byCo[a].length || a.localeCompare(b,'ko'); });
   var now = new Date();
-  tb.innerHTML = names.map(function(co){
+  var rows = names.map(function(co){
     var dates = byCo[co].sort(function(a,b){ return a-b; });
     var mc = {};
     dates.forEach(function(t){ mc[t.getMonth()]=(mc[t.getMonth()]||0)+1; });
@@ -1465,7 +1473,27 @@ function renderCalPrediction() {
     return '<tr><td><strong>'+esc(co)+'</strong></td><td>'+dates.length+'건</td><td>'+main+'</td>'+
       '<td style="font-size:11px;white-space:nowrap">'+last.toLocaleDateString('ko-KR')+'</td>'+
       '<td><strong>'+py+'년 '+(pm+1)+'월</strong> <span style="font-size:10px;color:#888">신뢰도 '+conf+'%</span></td></tr>';
-  }).join('');
+  });
+  tb.innerHTML = rows.slice(0, CAL_PRED_PREVIEW).join('');
+  CAL_PRED_ALL_ROWS = rows;
+  if (moreBtn) {
+    var rest = rows.length - CAL_PRED_PREVIEW;
+    moreBtn.style.display = '';
+    moreBtn.textContent = rest > 0 ? '전체 보기 +'+rest : '전체 보기';
+  }
+}
+var CAL_PRED_ALL_ROWS = [];
+function openCalPredAll() {
+  var tb = document.getElementById('cal-pred-all-tbody');
+  if (tb) tb.innerHTML = CAL_PRED_ALL_ROWS.join('') || '<tr class="er"><td colspan="5">데이터가 없습니다</td></tr>';
+  var c = document.getElementById('calpred-all-cnt');
+  if (c) c.textContent = CAL_PRED_ALL_ROWS.length + '개 기업';
+  var m = document.getElementById('calpred-modal');
+  if (m) m.classList.add('open');
+}
+function closeCalPredAll() {
+  var m = document.getElementById('calpred-modal');
+  if (m) m.classList.remove('open');
 }
 /* ══════════════════════════════════════════════════
    우선순위 타겟 마케팅 (LMS)
