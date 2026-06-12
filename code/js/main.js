@@ -40,7 +40,7 @@ loadCRM();
 
 /* 데모용 샘플 CRM 데이터 — 최초 1회만 시딩 (캘린더 / 연중행사 예측 시연용) */
 function seedCRMDemo() {
-  if (CRM.length >= 150) return;
+  if (CRM.length >= 250) return;
   CRM = [];
   var now = new Date();
   var Y = now.getFullYear();
@@ -160,6 +160,50 @@ function seedCRMDemo() {
       bizType:'B2B', purpose: title2, target:'',
       qty: qty3, unitPrice: prod2.unit, total: total3, discountRate: Math.round(disc3*100)+'%',
       category:'', status:'신규', adminMemo:''
+    });
+  }
+
+  /* B2E(임직원 선물) 데모 데이터 100건 — 1년 전체 분산 */
+  var b2eCo = ['(주)삼성전자','LG전자','현대자동차','SK하이닉스','네이버','카카오','포스코','CJ제일제당','롯데케미칼','기아',
+    '한화솔루션','신한은행','KB금융','두산에너빌리티','LS일렉트릭','코오롱인더스트리','아모레퍼시픽','한국타이어','GS리테일','삼성SDI',
+    'LG에너지솔루션','한미약품','유한양행','종근당','대웅제약','셀트리온','SK텔레콤','KT','LG유플러스','한진'];
+  var b2eEvt = [
+    {title:'설 명절 임직원 선물',     month:1,  product:'썬키스트 캘리포니아 오렌지 세트(3kg)', img:'images/pr6.png', unit:89000,  mood:'실용성 최우선', target:'전 직원 일괄'},
+    {title:'창립기념일 단체 선물',     month:2,  product:'정관장 홍삼정 240g (80일분, 스푼제거)', img:'images/pr5.png', unit:220000, mood:'건강·웰니스', target:'전 직원 일괄'},
+    {title:'신입사원 환영 선물',       month:3,  product:'종근당건강 락토핏 골드 + 비타민C 세트', img:'images/pr7.png', unit:65000,  mood:'실용성 최우선', target:'신입·인턴'},
+    {title:'승진 축하 선물',           month:4,  product:'오쏘몰 이뮨 30일분', img:'images/summer3.png', unit:109800, mood:'프리미엄·격식', target:'파트장·부서장'},
+    {title:'가정의 달 임직원 선물',    month:5,  product:'동탄정밀 스테인리스 텀블러 선물세트', img:'images/h1.png', unit:32300, mood:'실용성 최우선', target:'일반 직원'},
+    {title:'여름 보양식 단체 선물',    month:6,  product:'맛있는날 완도 활전복 정성 세트(160g내외 9미)', img:'images/summer1.png', unit:114000, mood:'건강·웰니스', target:'경영진·임원'},
+    {title:'장기 근속 기념 선물',      month:7,  product:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', img:'images/summer2.png', unit:118800, mood:'미식·구르메', target:'경영진·임원'},
+    {title:'성과 보상 선물',           month:8,  product:'1++한우 갈비탕 6팩 실속세트', img:'images/pr8.png', unit:98000, mood:'미식·구르메', target:'일반 직원'},
+    {title:'추석 명절 임직원 선물',    month:9,  product:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', img:'images/pr2.png', unit:324360, mood:'프리미엄·격식', target:'전 직원 일괄'},
+    {title:'임직원 격려 선물',         month:10, product:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', img:'images/pr4.png', unit:173850, mood:'미식·구르메', target:'일반 직원'},
+    {title:'연말 감사 선물',           month:11, product:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', img:'images/pr3.png', unit:205660, mood:'프리미엄·격식', target:'파트장·부서장'},
+    {title:'송년회 단체 선물',         month:12, product:'청풍명월 1++ 한우 명작로스1호(2.4kg)', img:'images/pr1.png', unit:499500, mood:'프리미엄·격식', target:'경영진·임원'}
+  ];
+  var b2eStatuses = ['확정','완료','검토중','신규'];
+  var b2eDepts = ['인사팀','복지팀','HR팀','경영지원팀','총무팀'];
+  var b2eContacts = ['김지은 대리','박민수 과장','이수진 차장','정우영 대리','최하늘 매니저','한소희 매니저','강민호 부장','윤서연 대리','오태경 국장','서지훈 과장'];
+  var B2E_N = 100;
+  for (var b=0; b<B2E_N; b++) {
+    var co3 = b2eCo[b % b2eCo.length];
+    var ev3 = b2eEvt[b % b2eEvt.length];
+    var day3 = 2 + ((b*5) % 26);
+    var qty4 = 30 + ((b*7) % 220);
+    var disc4 = getDisc(qty4), total4 = Math.round(qty4*ev3.unit*(1-disc4));
+    var evtY4 = (now.getMonth()+1) > ev3.month ? Y+1 : Y;
+    CRM.push({
+      id: Date.now() - (samples.length+EXTRA_N+DDAY_N+B2E_N-b)*1000 - 1300000,
+      time: new Date().toLocaleString('ko-KR'),
+      title: ev3.title,
+      eventDate: dstr(evtY4, ev3.month, day3),
+      company: co3, dept: b2eDepts[b % b2eDepts.length], contactName: b2eContacts[b % b2eContacts.length],
+      phone: '010-'+String(5000+b).slice(-4)+'-'+String(6000+b).slice(-4),
+      email:'', datetime:'', memo:'',
+      selectedPackage: ev3.product, product: ev3.product,
+      bizType:'B2E', purpose: ev3.title, target: ev3.target,
+      qty: qty4, unitPrice: ev3.unit, total: total4, discountRate: Math.round(disc4*100)+'%',
+      category: ev3.mood, status: b2eStatuses[b % b2eStatuses.length], adminMemo:''
     });
   }
 
@@ -1519,6 +1563,14 @@ var COMMON_EVENTS = [
 ];
 function lmsSentKey(){ try{ return JSON.parse(localStorage.getItem('LOTTE_LMS_SENT')||'{}'); }catch(e){ return {}; } }
 function lmsMarkSent(k){ var s=lmsSentKey(); s[k]=Date.now(); localStorage.setItem('LOTTE_LMS_SENT',JSON.stringify(s)); }
+function resetLmsSent(){
+  if (!confirm('발송완료 처리된 모든 LMS 상태를 초기화할까요? (예측 LMS · 리텐션 LMS 모두 초기화됩니다)')) return;
+  localStorage.removeItem('LOTTE_LMS_SENT');
+  localStorage.removeItem('LOTTE_RET_SENT');
+  renderPriority();
+  renderRetention();
+  showToast('LMS 발송완료 상태가 초기화되었습니다');
+}
 function priDday(dateObj){ var now=new Date(); now.setHours(0,0,0,0); return Math.ceil((dateObj-now)/86400000); }
 /* 기업별 다음 예상 행사 목록 (예측 로직은 renderCalPrediction과 동일 기준) */
 function getPriPredictions() {
