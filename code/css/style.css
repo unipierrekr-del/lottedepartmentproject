@@ -989,41 +989,42 @@ footer{background:#111;padding:60px 40px 36px}
 /* ════════════════════════════════
    오피스클럽 (office-club)
 ═══════════════════════════════════ */
+.oc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.oc-head-btns{display:flex;gap:10px;flex-shrink:0}
 .oc-tabs{display:flex;gap:4px;margin-bottom:32px;border-bottom:1px solid #e8e8e8;overflow-x:auto}
 .oc-tab{padding:14px 20px;font-size:13px;font-weight:700;color:#999;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
 .oc-tab.active{color:#111;border-bottom-color:#111}
 .oc-panel{display:none}
 .oc-panel.active{display:block}
-.oc-home-banner{display:flex;justify-content:space-between;align-items:center;background:#111;color:#fff;padding:40px;gap:24px;flex-wrap:wrap;margin-bottom:32px}
-.oc-home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
-.oc-stat{border:1px solid #e8e8e8;padding:24px 16px;text-align:center}
-.oc-stat-num{font-size:24px;font-weight:700;color:#111}
-.oc-stat-lbl{font-size:12px;color:#888;margin-top:6px}
 .oc-news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .oc-news-card{border:1px solid #e8e8e8;overflow:hidden}
 .oc-news-img{aspect-ratio:1;background:#f4f4f4;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:13px}
 .oc-news-body{padding:14px}
 .oc-news-tag{font-size:10px;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
 .oc-news-title{font-size:14px;font-weight:700;line-height:1.4;color:#111}
-.oc-benefit-list{display:flex;flex-direction:column;border:1px solid #e8e8e8}
-.oc-benefit{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:#fff;gap:16px}
-.oc-benefit+.oc-benefit{border-top:1px solid #e8e8e8}
-.oc-benefit-name{font-weight:700;font-size:14px;color:#111}
-.oc-benefit-desc{font-size:12px;color:#888;margin-top:4px}
-.oc-benefit-btn{font-size:12px;padding:8px 16px;border:1.5px solid #111;background:#fff;cursor:pointer;white-space:nowrap;color:#111}
+.oc-benefit-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.oc-benefit-group{border:1px solid #e8e8e8;padding:24px;display:flex;flex-direction:column}
+.oc-benefit-group-hd{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #f0f0f0}
+.oc-benefit-group-title{font-size:14px;font-weight:700;color:#111}
+.oc-benefit-ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.oc-benefit-ul li{font-size:13px;color:#333;line-height:1.6}
+.oc-benefit-note{display:block;font-size:12px;color:#888;margin-top:3px}
+.oc-benefit-btn{font-size:12px;padding:8px 16px;border:1.5px solid #111;background:#fff;cursor:pointer;white-space:nowrap;color:#111;flex-shrink:0}
 .oc-benefit-btn.claimed{background:#111;color:#fff}
 .oc-post-form{display:flex;gap:8px;margin-bottom:24px}
 .oc-post-input{flex:1;border:1px solid #ddd;padding:12px 14px;font-size:13px;font-family:inherit}
-.oc-post-list{display:flex;flex-direction:column;border:1px solid #e8e8e8}
-.oc-post{padding:18px 20px;background:#fff}
-.oc-post+.oc-post{border-top:1px solid #e8e8e8}
-.oc-post-meta{font-size:12px;color:#999;margin-bottom:6px;display:flex;gap:8px;align-items:center}
-.oc-post-tag{background:#f4f4f4;padding:2px 8px;border-radius:2px;font-size:11px}
-.oc-post-text{font-size:13px;line-height:1.6;color:#333}
-.oc-post-like{margin-top:8px;font-size:12px;color:#888;cursor:pointer;background:none;border:none;padding:0}
-.oc-post-like.liked{color:#e6432f;font-weight:700}
-@media(max-width:900px){ .oc-news-grid{grid-template-columns:1fr 1fr} .oc-home-stats{grid-template-columns:1fr 1fr} .oc-home-banner{padding:28px} }
-@media(max-width:600px){ .oc-news-grid,.oc-home-stats{grid-template-columns:1fr} .oc-post-form{flex-direction:column} }
+.oc-post-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.oc-post{padding:20px;background:#fafafa;border:1px solid #f0f0f0;display:flex;gap:14px;border-radius:6px}
+.oc-post-avatar{width:38px;height:38px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.oc-post-body{flex:1;min-width:0}
+.oc-post-meta{font-size:13px;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
+.oc-post-meta strong{color:#111}
+.oc-post-date{font-size:11px;color:#aaa}
+.oc-post-text{font-size:13px;line-height:1.65;color:#444}
+.oc-post-like{margin-top:10px;font-size:12px;color:#aaa;cursor:pointer;background:none;border:none;padding:0;font-weight:600}
+.oc-post-like.liked{color:#e6432f}
+@media(max-width:900px){ .oc-news-grid,.oc-benefit-groups{grid-template-columns:1fr 1fr} }
+@media(max-width:600px){ .oc-news-grid,.oc-benefit-groups,.oc-post-list{grid-template-columns:1fr} .oc-post-form{flex-direction:column} .oc-head{align-items:flex-start} }
 
 /* ════════════════════════════════
    얼리썸머 기프트 추천 섹션

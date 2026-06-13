@@ -1,14 +1,20 @@
 <!-- ═══════════════════════════════════════════════════════════
    office-club.html — 오피스클럽 (롯데백화점 앱 연동)
    - 홈 / 클럽뉴스 / 혜택함 / 커뮤니티 탭 구성
-   - 가입하기 / 문의하기 CTA
+   - 가입하기 / 문의하기 CTA (헤더 우측)
 ═══════════════════════════════════════════════════════════════ -->
 <section id="office-club">
   <div class="pconf-wrap">
-    <div class="sec-head">
-      <div class="sec-kicker">OFFICE CLUB · 롯데백화점 비즈니스 멤버십</div>
-      <h2 class="sec-title">오피스클럽</h2>
-      <p class="sec-desc">롯데백화점 앱 오피스클럽이 동탄점 웹에도 연동되었습니다.<br>클럽뉴스, 혜택함, 커뮤니티까지 — 기업 담당자를 위한 전용 라운지를 이용해 보세요.</p>
+    <div class="sec-head oc-head">
+      <div>
+        <div class="sec-kicker">OFFICE CLUB · 롯데백화점 비즈니스 멤버십</div>
+        <h2 class="sec-title">오피스클럽</h2>
+        <p class="sec-desc">롯데백화점 앱 오피스클럽이 동탄점 웹에도 연동되었습니다.<br>클럽뉴스, 혜택함, 커뮤니티까지 — 기업 담당자를 위한 전용 라운지를 이용해 보세요.</p>
+      </div>
+      <div class="oc-head-btns">
+        <button class="btn btn-dark" id="oc-join-btn" onclick="ocJoin()">오피스클럽 가입하기</button>
+        <button class="btn btn-outline" onclick="openCM('consult')">문의하기</button>
+      </div>
     </div>
 
     <div class="oc-tabs">
@@ -20,23 +26,6 @@
 
     <!-- 홈 -->
     <div class="oc-panel active" id="oc-home">
-      <div class="oc-home-banner">
-        <div>
-          <div style="font-size:11px;letter-spacing:.15em;color:#999;text-transform:uppercase;margin-bottom:8px">동탄점 · OFFICE CLUB</div>
-          <h3 style="font-size:24px;font-weight:700;line-height:1.4;margin-bottom:8px">기업 담당자를 위한<br>전용 멤버십 라운지</h3>
-          <p style="font-size:13px;color:#bbb;line-height:1.7">가입 즉시 큐레이션 신상 소식, 임직원 선물 혜택, 담당자 커뮤니티를 한곳에서 확인하세요.</p>
-        </div>
-        <div style="display:flex;gap:10px;flex-shrink:0">
-          <button class="btn btn-outline" id="oc-join-btn" onclick="ocJoin()" style="background:#fff;color:#111;border:none">오피스클럽 가입하기</button>
-          <button class="btn btn-outline" onclick="openCM('consult')" style="border-color:rgba(255,255,255,.3);color:#fff">문의하기</button>
-        </div>
-      </div>
-      <div class="oc-home-stats">
-        <div class="oc-stat"><div class="oc-stat-num">12,400<span style="font-size:13px">+</span></div><div class="oc-stat-lbl">오피스클럽 회원사</div></div>
-        <div class="oc-stat"><div class="oc-stat-num">매주</div><div class="oc-stat-lbl">신규 큐레이션 업데이트</div></div>
-        <div class="oc-stat"><div class="oc-stat-num">최대 10%</div><div class="oc-stat-lbl">회원 전용 추가 혜택</div></div>
-        <div class="oc-stat"><div class="oc-stat-num">1:1</div><div class="oc-stat-lbl">담당 컨시어지 상담</div></div>
-      </div>
       <div class="oc-news-grid">
         <div class="oc-news-card">
           <div class="oc-news-img">서비스 오픈</div>
@@ -67,23 +56,43 @@
 
     <!-- 혜택함 -->
     <div class="oc-panel" id="oc-benefit">
-      <div class="oc-benefit-list">
-        <div class="oc-benefit">
-          <div><div class="oc-benefit-name">오피스클럽 가입 축하 5% 할인 쿠폰</div><div class="oc-benefit-desc">전 품목 1회 사용 가능 · 발급일로부터 30일</div></div>
-          <button class="oc-benefit-btn" data-bid="b1" onclick="ocClaim(this)">받기</button>
+      <div class="oc-benefit-groups">
+
+        <div class="oc-benefit-group">
+          <div class="oc-benefit-group-hd">
+            <div class="oc-benefit-group-title">베네핏 1 · 클럽 신규 혜택</div>
+            <button class="oc-benefit-btn" data-bid="g1" onclick="ocClaim(this)">받기</button>
+          </div>
+          <ul class="oc-benefit-ul">
+            <li><strong>패션잡화군 10% 할인</strong></li>
+            <li><strong>패션잡화 상품군 10% 사은</strong><span class="oc-benefit-note">월 1매 · 30/60/100만원 이상 구매 시 3/6/10만원 증정</span></li>
+            <li><strong>F&amp;B 5천원 할인</strong><span class="oc-benefit-note">2만원 이상 구매 시</span></li>
+          </ul>
         </div>
-        <div class="oc-benefit">
-          <div><div class="oc-benefit-name">대량 주문 추가 2% 할인 쿠폰</div><div class="oc-benefit-desc">30개 이상 주문 시 기존 할인에 중복 적용</div></div>
-          <button class="oc-benefit-btn" data-bid="b2" onclick="ocClaim(this)">받기</button>
+
+        <div class="oc-benefit-group">
+          <div class="oc-benefit-group-hd">
+            <div class="oc-benefit-group-title">베네핏 2 · 클럽 월 정기혜택</div>
+            <button class="oc-benefit-btn" data-bid="g2" onclick="ocClaim(this)">받기</button>
+          </div>
+          <ul class="oc-benefit-ul">
+            <li><strong>헤어샵 10% 할인</strong></li>
+            <li><strong>영풍문고 도서 10% 할인</strong></li>
+          </ul>
         </div>
-        <div class="oc-benefit">
-          <div><div class="oc-benefit-name">신상 큐레이션 우선 알림</div><div class="oc-benefit-desc">새로운 명절·시즌 큐레이션을 가장 먼저 안내받습니다</div></div>
-          <button class="oc-benefit-btn" data-bid="b3" onclick="ocClaim(this)">받기</button>
+
+        <div class="oc-benefit-group">
+          <div class="oc-benefit-group-hd">
+            <div class="oc-benefit-group-title">베네핏 3 · 구매 고객 혜택</div>
+            <button class="oc-benefit-btn" data-bid="g3" onclick="ocClaim(this)">받기</button>
+          </div>
+          <ul class="oc-benefit-ul">
+            <li><strong>패션잡화군 7% 할인</strong></li>
+            <li><strong>단일 5% 사은</strong><span class="oc-benefit-note">월 30/60만원 이상 구매 시 1.5/3만원 증정</span></li>
+            <li><strong>단일 7% 사은</strong><span class="oc-benefit-note">월 100/200만원 구매 시 롯데백화점상품권 7/14만원 증정</span></li>
+          </ul>
         </div>
-        <div class="oc-benefit">
-          <div><div class="oc-benefit-name">전담 컨시어지 1:1 매칭권</div><div class="oc-benefit-desc">큐레이터와 1:1 상담으로 맞춤 선물 기획</div></div>
-          <button class="oc-benefit-btn" data-bid="b4" onclick="ocClaim(this)">받기</button>
-        </div>
+
       </div>
     </div>
 
@@ -129,9 +138,31 @@ function ocClaim(btn) {
 }
 function ocPostsDefault() {
   return [
-    { tag:'세일후기', name:'엄제이장', date:'2026.05.20', text:'온라인 큐레이션 받고 임직원 취향저격 선물했어요!!', likes:4 },
-    { tag:'세일후기', name:'얄란님', date:'2026.04.21', text:'화성 반도체 사장님 최고! 직원들에게 꽃 선물을 주셨어요', likes:2 }
+    { name:'엄제이장', date:'2026.05.20', text:'온라인 큐레이션 받고 임직원 취향저격 선물했어요!! 패키징도 고급스러워서 만족도가 높았습니다.', likes:14 },
+    { name:'얄란님', date:'2026.04.21', text:'화성 반도체 사장님 선물로 한우 세트 보냈는데 반응이 정말 좋았어요. 직원분들께도 감사 인사 받았습니다.', likes:9 },
+    { name:'총무팀_박과장', date:'2026.04.18', text:'명절 선물 100개 주문했는데 대량 할인까지 적용돼서 예산 절감에 큰 도움이 됐습니다. 다음에도 이용할게요.', likes:12 },
+    { name:'HR매니저K', date:'2026.04.10', text:'신입사원 웰컴 키트로 활용했는데 구성이 알차서 좋았어요. 추천드립니다.', likes:7 },
+    { name:'동탄직장인', date:'2026.04.03', text:'세금계산서 발행도 빠르고 법인카드 결제까지 한 번에 처리돼서 업무가 편해졌습니다.', likes:6 },
+    { name:'기획팀_이대리', date:'2026.03.28', text:'거래처 명절 선물로 과일세트 보냈는데 신선도가 정말 좋았다는 피드백을 받았습니다.', likes:11 },
+    { name:'경영지원_정주임', date:'2026.03.22', text:'1:1 큐레이터 상담 덕분에 예산에 딱 맞는 패키지를 빠르게 결정할 수 있었어요.', likes:8 },
+    { name:'영업1팀장', date:'2026.03.15', text:'VIP 거래처 선물로 한우 갈비탕 세트 보냈는데 다들 좋아하셨습니다. 재구매 의사 있어요.', likes:10 },
+    { name:'스타트업대표', date:'2026.03.09', text:'소량 주문도 친절하게 응대해주셔서 좋았습니다. 다음 명절에도 이용하겠습니다.', likes:5 },
+    { name:'홍보팀_최사원', date:'2026.03.02', text:'브랜드 로고 각인 패키징 옵션이 있어서 회사 이미지에 맞는 선물을 보낼 수 있었어요.', likes:9 },
+    { name:'재무팀_한과장', date:'2026.02.24', text:'견적서와 품의 자료를 빠르게 받을 수 있어서 결재 프로세스가 단축됐습니다.', likes:4 },
+    { name:'동탄맘기업가', date:'2026.02.18', text:'건강 선물 세트로 홍삼정 주문했는데 가격 대비 구성이 알차서 만족합니다.', likes:6 },
+    { name:'IT팀_서팀장', date:'2026.02.10', text:'임직원 단체 선물로 락토핏 세트 주문했어요. 다들 실용적이라고 좋아하네요.', likes:7 },
+    { name:'제조업_김부장', date:'2026.02.03', text:'화성시 특별관 제품도 함께 큐레이션 받아서 지역 상생 취지에 맞게 선물할 수 있었습니다.', likes:13 },
+    { name:'마케팅_윤매니저', date:'2026.01.27', text:'커뮤니티에서 다른 회사 후기 보고 참고해서 주문했는데 정말 도움이 많이 됐어요.', likes:8 },
+    { name:'영업지원_조사원', date:'2026.01.20', text:'배송 추적이 실시간으로 가능해서 수신자별 전달 현황을 바로 확인할 수 있었습니다.', likes:5 },
+    { name:'법무팀_신변호사', date:'2026.01.14', text:'청탁금지법 기준에 맞는 선물 가이드 덕분에 안심하고 진행할 수 있었습니다.', likes:6 },
+    { name:'중소기업대표A', date:'2026.01.08', text:'창립기념일 선물로 전 직원에게 보냈는데 다들 고급스럽다고 칭찬해주셨어요.', likes:10 },
+    { name:'동탄거주민', date:'2025.12.30', text:'오피스클럽 가입 혜택으로 첫 주문 할인 받았어요. 다음 구매도 기대됩니다.', likes:3 },
+    { name:'구매팀_장책임', date:'2025.12.22', text:'정기 발주로 전담 매니저 배정받아서 매달 편하게 진행하고 있습니다. 추천합니다.', likes:9 }
   ];
+}
+function ocAvatarColor(i) {
+  var colors = ['#111','#444','#777','#2a7a4f','#a85d2a','#3a5a8c'];
+  return colors[i % colors.length];
 }
 function ocRenderPosts() {
   var posts = JSON.parse(localStorage.getItem('oc_posts') || 'null') || ocPostsDefault();
@@ -140,10 +171,14 @@ function ocRenderPosts() {
   if (!list) return;
   list.innerHTML = posts.map(function(p, i) {
     var liked = likes.indexOf(i) !== -1;
+    var initial = p.name.charAt(0);
     return '<div class="oc-post">' +
-      '<div class="oc-post-meta"><span class="oc-post-tag">' + p.tag + '</span><strong>' + p.name + '</strong><span>' + p.date + '</span></div>' +
-      '<div class="oc-post-text">' + p.text + '</div>' +
-      '<button class="oc-post-like' + (liked?' liked':'') + '" onclick="ocToggleLike(' + i + ')">❤ ' + (p.likes + (liked?1:0)) + '</button>' +
+      '<div class="oc-post-avatar" style="background:' + ocAvatarColor(i) + '">' + initial + '</div>' +
+      '<div class="oc-post-body">' +
+        '<div class="oc-post-meta"><strong>' + p.name + '</strong><span class="oc-post-date">' + p.date + '</span></div>' +
+        '<div class="oc-post-text">' + p.text + '</div>' +
+        '<button class="oc-post-like' + (liked?' liked':'') + '" onclick="ocToggleLike(' + i + ')">♥ ' + (p.likes + (liked?1:0)) + '</button>' +
+      '</div>' +
       '</div>';
   }).join('');
 }
@@ -154,7 +189,7 @@ function ocAddPost() {
   var posts = JSON.parse(localStorage.getItem('oc_posts') || 'null') || ocPostsDefault();
   var today = new Date();
   var date = today.getFullYear() + '.' + String(today.getMonth()+1).padStart(2,'0') + '.' + String(today.getDate()).padStart(2,'0');
-  posts.unshift({ tag:'새 글', name:'담당자', date:date, text:text, likes:0 });
+  posts.unshift({ name:'담당자', date:date, text:text, likes:0 });
   localStorage.setItem('oc_posts', JSON.stringify(posts));
   input.value = '';
   ocRenderPosts();
