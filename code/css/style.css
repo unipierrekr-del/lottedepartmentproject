@@ -94,7 +94,7 @@ img{display:block;max-width:100%}
 /* ═══════ OVERLAY MENU ═══════ */
 .pnav-overlay{
   display:none;position:fixed;inset:0;z-index:900;
-  background:var(--black);
+  background:linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.82)),url('images/hf_20260609_051707_35ea425c-19d4-46da-ad07-db23896df9e9.png') center/cover no-repeat;
 }
 .pnav-overlay.open{display:flex;animation:pnavIn .35s ease}
 @keyframes pnavIn{from{opacity:0}to{opacity:1}}
