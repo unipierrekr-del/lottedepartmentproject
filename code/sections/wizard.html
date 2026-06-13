@@ -28,8 +28,8 @@
     <!-- STEP 0: TYPE -->
     <div class="wpanel active" id="wp-0">
       <h3 class="wp-title">어떤 분께 드리는 선물인가요?</h3>
-      <p class="wp-hint">받는 분에 따라 큐레이션 방향이 달라집니다 · 선택하면 바로 다음 질문으로 이동합니다</p>
-      <div class="pconf-grid pconf-grid-2">
+      <p class="wp-hint" style="margin-bottom:16px">받는 분에 따라 큐레이션 방향이 달라집니다 · 선택하면 바로 다음 질문으로 이동합니다</p>
+      <div class="pconf-grid pconf-grid-2 pconf-grid-compact">
         <div class="pconf-card" onclick="selectBiz(this,'B2B')">
           <!-- 이미지를 바꾸려면 images/beef.png 파일을 교체하세요 -->
           <div class="pconf-card-img pconf-img-b2b">
@@ -86,9 +86,18 @@
 
     <!-- B2B 2: 대상·수량 (양자택일 + 수량) -->
     <div class="wpanel" id="wp-b2b-2">
-      <h3 class="wp-title">누구에게, 몇 분께 전달하나요?</h3>
-      <p class="wp-hint">받는 분의 격에 맞춰 상품을 추천합니다</p>
-      <div class="pconf-grid pconf-grid-2" style="margin-bottom:32px">
+      <div class="wp-title-row">
+        <div>
+          <h3 class="wp-title">누구에게, 몇 분께 전달하나요?</h3>
+          <p class="wp-hint" style="margin-bottom:0">받는 분의 격에 맞춰 상품을 추천합니다</p>
+        </div>
+        <div class="qty-input-wrap qty-inline">
+          <span class="qty-label">총 수량</span>
+          <input type="number" class="qty-input" id="gift-qty" min="1" value="50" oninput="calcTot()">
+          <span class="qty-unit">개</span>
+        </div>
+      </div>
+      <div class="pconf-grid pconf-grid-2 pconf-grid-compact" style="margin-bottom:20px">
         <div class="pconf-card" onclick="wizPickStay(this,{b2b_target:'VIP 고객사'})">
           <!-- 이미지를 바꾸려면 images/conf-vip.png 파일을 교체하세요 -->
           <div class="pconf-card-img"><img src="images/conf-vip.png" alt="VIP·임원급" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
@@ -108,13 +117,7 @@
           </div>
         </div>
       </div>
-      <div class="wp-divider">수량</div>
-      <div class="qty-input-wrap">
-        <span class="qty-label">총 수량</span>
-        <input type="number" class="qty-input" id="gift-qty" min="1" value="50" oninput="calcTot()">
-        <span class="qty-unit">개</span>
-      </div>
-      <p style="font-size:12px;color:#555;margin-top:10px;line-height:1.6">30개 이상부터 대량 할인이 단계별로 적용됩니다.</p>
+      <p style="font-size:12px;color:#555;margin-top:0;line-height:1.6">30개 이상부터 대량 할인이 단계별로 적용됩니다.</p>
       <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2b-1',1)">이전</button><button class="wbtn-next" onclick="gp('wp-b2b-3',3)">다음</button></div>
     </div>
 
@@ -194,9 +197,18 @@
 
     <!-- B2E 2: 대상·인원 (양자택일 + 인원) -->
     <div class="wpanel" id="wp-b2e-2">
-      <h3 class="wp-title">누구에게, 몇 분께 전달하나요?</h3>
-      <p class="wp-hint">대상 직급에 맞춰 상품을 추천합니다</p>
-      <div class="pconf-grid pconf-grid-2" style="margin-bottom:32px">
+      <div class="wp-title-row">
+        <div>
+          <h3 class="wp-title">누구에게, 몇 분께 전달하나요?</h3>
+          <p class="wp-hint" style="margin-bottom:0">대상 직급에 맞춰 상품을 추천합니다</p>
+        </div>
+        <div class="qty-input-wrap qty-inline">
+          <span class="qty-label">총 인원</span>
+          <input type="number" class="qty-input" id="b2e-qty" min="1" value="30" oninput="calcTot()">
+          <span class="qty-unit">명</span>
+        </div>
+      </div>
+      <div class="pconf-grid pconf-grid-2 pconf-grid-compact" style="margin-bottom:20px">
         <div class="pconf-card" onclick="wizPickStay(this,{b2e_target:'경영진·임원'})">
           <!-- 이미지를 바꾸려면 images/conf-vip.png 파일을 교체하세요 -->
           <div class="pconf-card-img"><img src="images/conf-vip.png" alt="경영진·임원" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
@@ -216,13 +228,7 @@
           </div>
         </div>
       </div>
-      <div class="wp-divider">인원</div>
-      <div class="qty-input-wrap">
-        <span class="qty-label">총 인원</span>
-        <input type="number" class="qty-input" id="b2e-qty" min="1" value="30" oninput="calcTot()">
-        <span class="qty-unit">명</span>
-      </div>
-      <p style="font-size:12px;color:#555;margin-top:10px;line-height:1.6">30명 이상부터 대량 할인이 단계별로 적용됩니다.</p>
+      <p style="font-size:12px;color:#555;margin-top:0;line-height:1.6">30명 이상부터 대량 할인이 단계별로 적용됩니다.</p>
       <div class="wnav"><button class="wbtn-back" onclick="gp('wp-b2e-1',1)">이전</button><button class="wbtn-next" onclick="gp('wp-b2e-3',3)">다음</button></div>
     </div>
 
