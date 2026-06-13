@@ -1,0 +1,182 @@
+<!-- ═══════════════════════════════════════════════════════════
+   office-club.html — 오피스클럽 (롯데백화점 앱 연동)
+   - 홈 / 클럽뉴스 / 혜택함 / 커뮤니티 탭 구성
+   - 가입하기 / 문의하기 CTA
+═══════════════════════════════════════════════════════════════ -->
+<section id="office-club">
+  <div class="pconf-wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">OFFICE CLUB · 롯데백화점 비즈니스 멤버십</div>
+      <h2 class="sec-title">오피스클럽</h2>
+      <p class="sec-desc">롯데백화점 앱 오피스클럽이 동탄점 웹에도 연동되었습니다.<br>클럽뉴스, 혜택함, 커뮤니티까지 — 기업 담당자를 위한 전용 라운지를 이용해 보세요.</p>
+    </div>
+
+    <div class="oc-tabs">
+      <button class="oc-tab active" onclick="switchOcTab(this,'oc-home')">홈</button>
+      <button class="oc-tab" onclick="switchOcTab(this,'oc-news')">클럽뉴스</button>
+      <button class="oc-tab" onclick="switchOcTab(this,'oc-benefit')">혜택함</button>
+      <button class="oc-tab" onclick="switchOcTab(this,'oc-community')">커뮤니티</button>
+    </div>
+
+    <!-- 홈 -->
+    <div class="oc-panel active" id="oc-home">
+      <div class="oc-home-banner">
+        <div>
+          <div style="font-size:11px;letter-spacing:.15em;color:#999;text-transform:uppercase;margin-bottom:8px">동탄점 · OFFICE CLUB</div>
+          <h3 style="font-size:24px;font-weight:700;line-height:1.4;margin-bottom:8px">기업 담당자를 위한<br>전용 멤버십 라운지</h3>
+          <p style="font-size:13px;color:#bbb;line-height:1.7">가입 즉시 큐레이션 신상 소식, 임직원 선물 혜택, 담당자 커뮤니티를 한곳에서 확인하세요.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-shrink:0">
+          <button class="btn btn-outline" id="oc-join-btn" onclick="ocJoin()" style="background:#fff;color:#111;border:none">오피스클럽 가입하기</button>
+          <button class="btn btn-outline" onclick="openCM('consult')" style="border-color:rgba(255,255,255,.3);color:#fff">문의하기</button>
+        </div>
+      </div>
+      <div class="oc-home-stats">
+        <div class="oc-stat"><div class="oc-stat-num">12,400<span style="font-size:13px">+</span></div><div class="oc-stat-lbl">오피스클럽 회원사</div></div>
+        <div class="oc-stat"><div class="oc-stat-num">매주</div><div class="oc-stat-lbl">신규 큐레이션 업데이트</div></div>
+        <div class="oc-stat"><div class="oc-stat-num">최대 10%</div><div class="oc-stat-lbl">회원 전용 추가 혜택</div></div>
+        <div class="oc-stat"><div class="oc-stat-num">1:1</div><div class="oc-stat-lbl">담당 컨시어지 상담</div></div>
+      </div>
+      <div class="oc-news-grid">
+        <div class="oc-news-card">
+          <div class="oc-news-img">서비스 오픈</div>
+          <div class="oc-news-body"><div class="oc-news-tag">CLUB NEWS</div><div class="oc-news-title">[서비스 온라인] 큐레이션 서비스 오픈</div></div>
+        </div>
+        <div class="oc-news-card">
+          <div class="oc-news-img">백화점</div>
+          <div class="oc-news-body"><div class="oc-news-tag">CLUB NEWS</div><div class="oc-news-title">[백화점 빔며] 큐레이션 시즌 한정 특가</div></div>
+        </div>
+        <div class="oc-news-card">
+          <div class="oc-news-img">커뮤니티</div>
+          <div class="oc-news-body"><div class="oc-news-tag">COMMUNITY</div><div class="oc-news-title">온라인 큐레이션 받고 임직원 취향저격 선물했어요!!</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 클럽뉴스 -->
+    <div class="oc-panel" id="oc-news">
+      <div class="oc-news-grid">
+        <div class="oc-news-card"><div class="oc-news-img">서비스</div><div class="oc-news-body"><div class="oc-news-tag">동탄점</div><div class="oc-news-title">[서비스온라인 큐레이션] 서비스 오픈</div></div></div>
+        <div class="oc-news-card"><div class="oc-news-img">백화점</div><div class="oc-news-body"><div class="oc-news-tag">동탄점</div><div class="oc-news-title">[백화점뼘며 큐레이션 시즌] 시즌 한정 큐레이션</div></div></div>
+        <div class="oc-news-card"><div class="oc-news-img">바샤커피</div><div class="oc-news-body"><div class="oc-news-tag">동탄점</div><div class="oc-news-title">[바샤커피 큐레이션 시즌] 프리미엄 원두 세트</div></div></div>
+        <div class="oc-news-card"><div class="oc-news-img">콘란샵</div><div class="oc-news-body"><div class="oc-news-tag">동탄점</div><div class="oc-news-title">[콘란샵며 큐레이션 시즌] 리빙 큐레이션 신상</div></div></div>
+        <div class="oc-news-card"><div class="oc-news-img">명절</div><div class="oc-news-body"><div class="oc-news-tag">동탄점</div><div class="oc-news-title">프리미엄 명절 선물 컬렉션 오픈</div></div></div>
+        <div class="oc-news-card"><div class="oc-news-img">화성특별관</div><div class="oc-news-body"><div class="oc-news-tag">동탄점</div><div class="oc-news-title">화성시 특별관 입점 안내</div></div></div>
+      </div>
+    </div>
+
+    <!-- 혜택함 -->
+    <div class="oc-panel" id="oc-benefit">
+      <div class="oc-benefit-list">
+        <div class="oc-benefit">
+          <div><div class="oc-benefit-name">오피스클럽 가입 축하 5% 할인 쿠폰</div><div class="oc-benefit-desc">전 품목 1회 사용 가능 · 발급일로부터 30일</div></div>
+          <button class="oc-benefit-btn" data-bid="b1" onclick="ocClaim(this)">받기</button>
+        </div>
+        <div class="oc-benefit">
+          <div><div class="oc-benefit-name">대량 주문 추가 2% 할인 쿠폰</div><div class="oc-benefit-desc">30개 이상 주문 시 기존 할인에 중복 적용</div></div>
+          <button class="oc-benefit-btn" data-bid="b2" onclick="ocClaim(this)">받기</button>
+        </div>
+        <div class="oc-benefit">
+          <div><div class="oc-benefit-name">신상 큐레이션 우선 알림</div><div class="oc-benefit-desc">새로운 명절·시즌 큐레이션을 가장 먼저 안내받습니다</div></div>
+          <button class="oc-benefit-btn" data-bid="b3" onclick="ocClaim(this)">받기</button>
+        </div>
+        <div class="oc-benefit">
+          <div><div class="oc-benefit-name">전담 컨시어지 1:1 매칭권</div><div class="oc-benefit-desc">큐레이터와 1:1 상담으로 맞춤 선물 기획</div></div>
+          <button class="oc-benefit-btn" data-bid="b4" onclick="ocClaim(this)">받기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 커뮤니티 -->
+    <div class="oc-panel" id="oc-community">
+      <div class="oc-post-form">
+        <input class="oc-post-input" id="oc-post-input" placeholder="오피스클럽 커뮤니티에 글을 남겨보세요" maxlength="200">
+        <button class="btn btn-dark" onclick="ocAddPost()">게시글 등록</button>
+      </div>
+      <div class="oc-post-list" id="oc-post-list"></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function switchOcTab(btn, id) {
+  var tabs = document.querySelectorAll('.oc-tab');
+  for (var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
+  btn.classList.add('active');
+  var panels = document.querySelectorAll('.oc-panel');
+  for (var i=0;i<panels.length;i++) panels[i].classList.remove('active');
+  var p = document.getElementById(id);
+  if (p) p.classList.add('active');
+}
+function ocJoin() {
+  var joined = localStorage.getItem('oc_member') === '1';
+  if (joined) { showToast('이미 오피스클럽에 가입되어 있습니다.'); return; }
+  localStorage.setItem('oc_member', '1');
+  var btn = document.getElementById('oc-join-btn');
+  if (btn) { btn.textContent = '가입 완료'; btn.disabled = true; }
+  showToast('오피스클럽 가입이 완료되었습니다.');
+}
+function ocClaim(btn) {
+  var id = btn.getAttribute('data-bid');
+  var claimed = JSON.parse(localStorage.getItem('oc_claimed') || '[]');
+  if (claimed.indexOf(id) !== -1) { showToast('이미 받은 혜택입니다.'); return; }
+  claimed.push(id);
+  localStorage.setItem('oc_claimed', JSON.stringify(claimed));
+  btn.textContent = '받음';
+  btn.classList.add('claimed');
+  showToast('혜택이 등록되었습니다.');
+}
+function ocPostsDefault() {
+  return [
+    { tag:'세일후기', name:'엄제이장', date:'2026.05.20', text:'온라인 큐레이션 받고 임직원 취향저격 선물했어요!!', likes:4 },
+    { tag:'세일후기', name:'얄란님', date:'2026.04.21', text:'화성 반도체 사장님 최고! 직원들에게 꽃 선물을 주셨어요', likes:2 }
+  ];
+}
+function ocRenderPosts() {
+  var posts = JSON.parse(localStorage.getItem('oc_posts') || 'null') || ocPostsDefault();
+  var likes = JSON.parse(localStorage.getItem('oc_likes') || '[]');
+  var list = document.getElementById('oc-post-list');
+  if (!list) return;
+  list.innerHTML = posts.map(function(p, i) {
+    var liked = likes.indexOf(i) !== -1;
+    return '<div class="oc-post">' +
+      '<div class="oc-post-meta"><span class="oc-post-tag">' + p.tag + '</span><strong>' + p.name + '</strong><span>' + p.date + '</span></div>' +
+      '<div class="oc-post-text">' + p.text + '</div>' +
+      '<button class="oc-post-like' + (liked?' liked':'') + '" onclick="ocToggleLike(' + i + ')">❤ ' + (p.likes + (liked?1:0)) + '</button>' +
+      '</div>';
+  }).join('');
+}
+function ocAddPost() {
+  var input = document.getElementById('oc-post-input');
+  var text = input.value.trim();
+  if (!text) { showToast('내용을 입력해 주세요.'); return; }
+  var posts = JSON.parse(localStorage.getItem('oc_posts') || 'null') || ocPostsDefault();
+  var today = new Date();
+  var date = today.getFullYear() + '.' + String(today.getMonth()+1).padStart(2,'0') + '.' + String(today.getDate()).padStart(2,'0');
+  posts.unshift({ tag:'새 글', name:'담당자', date:date, text:text, likes:0 });
+  localStorage.setItem('oc_posts', JSON.stringify(posts));
+  input.value = '';
+  ocRenderPosts();
+  showToast('게시글이 등록되었습니다.');
+}
+function ocToggleLike(i) {
+  var likes = JSON.parse(localStorage.getItem('oc_likes') || '[]');
+  var idx = likes.indexOf(i);
+  if (idx === -1) likes.push(i); else likes.splice(idx,1);
+  localStorage.setItem('oc_likes', JSON.stringify(likes));
+  ocRenderPosts();
+}
+document.addEventListener('DOMContentLoaded', function() {
+  ocRenderPosts();
+  if (localStorage.getItem('oc_member') === '1') {
+    var btn = document.getElementById('oc-join-btn');
+    if (btn) { btn.textContent = '가입 완료'; btn.disabled = true; }
+  }
+  var claimed = JSON.parse(localStorage.getItem('oc_claimed') || '[]');
+  claimed.forEach(function(id) {
+    var b = document.querySelector('.oc-benefit-btn[data-bid="' + id + '"]');
+    if (b) { b.textContent = '받음'; b.classList.add('claimed'); }
+  });
+});
+</script>

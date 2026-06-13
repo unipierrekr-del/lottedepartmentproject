@@ -25,6 +25,7 @@ sections = [
     'sections/result.html',
     'sections/summer-pick.html',
     'sections/season.html',
+    'sections/office-club.html',
     'sections/hwaseong.html',
     'sections/intro.html',
     'sections/footer.html',
