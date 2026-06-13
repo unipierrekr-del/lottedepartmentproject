@@ -348,7 +348,8 @@ img{display:block;max-width:100%}
 
 /* SECTIONS */
 section{border-bottom:1px solid var(--gray-mid)}
-.sec-head{margin-bottom:48px}
+.sec-head{margin-bottom:32px}
+#wizard .sec-head{margin-bottom:24px}
 .sec-kicker{font-size:10px;letter-spacing:0.2em;color:#888;text-transform:uppercase;margin-bottom:14px}
 .sec-title{font-size:clamp(26px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;color:#111;line-height:1.1}
 .sec-desc{font-size:14px;color:#666;line-height:1.75;margin-top:12px}
@@ -369,10 +370,10 @@ section{border-bottom:1px solid var(--gray-mid)}
 .intro-image img{width:100%;height:100%;object-fit:cover}
 
 /* ===== WIZARD ===== */
-#wizard{padding:100px 40px;background:#fff;position:relative;overflow:hidden}
+#wizard{padding:48px 40px;background:#fff;position:relative;overflow:hidden}
 .wiz-wrap{max-width:720px;margin:0 auto;position:relative;z-index:1}
 #wizard .sec-title{font-size:clamp(22px,2.6vw,32px)}
-.wiz-prog{display:flex;align-items:flex-start;margin-bottom:52px}
+.wiz-prog{display:flex;align-items:flex-start;margin-bottom:36px}
 .wstep{display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;flex-shrink:0;cursor:pointer;padding:0;font-family:inherit}
 .wstep-n{width:30px;height:30px;border-radius:50%;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#bbb;background:#fff;transition:all .3s}
 .wstep-lbl{font-size:10px;color:#bbb;letter-spacing:.02em;transition:color .3s;white-space:nowrap}
