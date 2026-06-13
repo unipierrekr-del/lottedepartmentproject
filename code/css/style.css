@@ -482,6 +482,13 @@ section{border-bottom:1px solid var(--gray-mid)}
 /* WNAV */
 .wnav{display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid #e8e8e8;gap:16px}
 .wnav-c{justify-content:center;border-top:none;padding-top:0;margin-top:28px}
+.wpanel{position:relative}
+.wnav:not(.wnav-sum){position:absolute;top:42%;left:-72px;right:-72px;transform:translateY(-50%);margin:0;padding:0;border:none;pointer-events:none;justify-content:space-between;z-index:5}
+.wnav:not(.wnav-sum) button{pointer-events:auto;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+@media(max-width:1180px){
+  .wnav:not(.wnav-sum){position:static;transform:none;left:0;right:0;margin-top:24px;padding-top:20px;border-top:1px solid #e8e8e8}
+  .wnav:not(.wnav-sum) button{box-shadow:none}
+}
 .wbtn-back{background:none;border:none;font-size:11px;color:#888;letter-spacing:0.1em;text-transform:uppercase;transition:color .2s}
 .wbtn-back:hover{color:#111}
 .wbtn-next{background:#111;border:none;color:#fff;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:13px 32px;transition:background .2s}
