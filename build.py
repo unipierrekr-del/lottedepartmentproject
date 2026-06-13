@@ -26,10 +26,7 @@ sections = [
     'sections/summer-pick.html',
     'sections/season.html',
     'sections/hwaseong.html',
-    'sections/guide.html',
     'sections/intro.html',
-    'sections/b2b.html',
-    'sections/cta.html',
     'sections/footer.html',
     'sections/modals.html',
 ]
