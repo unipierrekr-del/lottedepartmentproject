@@ -248,6 +248,12 @@ img{display:block;max-width:100%}
 
 /* 카드 그리드 */
 .pconf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
+.pconf-grid-2.pconf-grid-compact{margin-bottom:20px}
+.pconf-grid-2.pconf-grid-compact .pconf-card-img{aspect-ratio:16/9}
+.pconf-grid-2.pconf-grid-compact .pconf-card-body{padding:14px 18px}
+.pconf-grid-2.pconf-grid-compact .pconf-card-badge{margin-bottom:4px}
+.pconf-grid-2.pconf-grid-compact .pconf-card-name{margin-bottom:6px}
+.pconf-grid-2.pconf-grid-compact .pconf-card-desc{margin-bottom:0;font-size:12px;line-height:1.6}
 .pconf-card{
   background:var(--white);cursor:pointer;
   transition:transform .25s,box-shadow .25s;
