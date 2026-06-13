@@ -28,10 +28,8 @@ sections = [
     'sections/hwaseong.html',
     'sections/guide.html',
     'sections/intro.html',
-    'sections/clients.html',
     'sections/b2b.html',
     'sections/cta.html',
-    'sections/events.html',
     'sections/footer.html',
     'sections/modals.html',
 ]
