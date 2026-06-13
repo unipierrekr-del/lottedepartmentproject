@@ -326,6 +326,22 @@ function tChip(el, cat, val) {
   var a = wState[cat], i = a.indexOf(val);
   if (i === -1) a.push(val); else a.splice(i,1);
 }
+/* 양자택일 카드: 선택 즉시 다음 단계(또는 요약)로 이동 */
+function wizPick(el, assign, nextId, nextDot, sumTypeArg) {
+  el.closest('.pconf-grid').querySelectorAll('.pconf-card').forEach(function(c){ c.classList.remove('sel'); });
+  el.classList.add('sel');
+  Object.keys(assign).forEach(function(k){ wState[k] = assign[k]; });
+  setTimeout(function(){
+    if (nextId === 'sum') showSum(sumTypeArg);
+    else gp(nextId, nextDot);
+  }, 250);
+}
+/* 양자택일 카드: 선택만 하고 현재 단계에 머무름 (수량 입력 등 추가 입력이 있는 단계) */
+function wizPickStay(el, assign) {
+  el.closest('.pconf-grid').querySelectorAll('.pconf-card').forEach(function(c){ c.classList.remove('sel'); });
+  el.classList.add('sel');
+  Object.keys(assign).forEach(function(k){ wState[k] = assign[k]; });
+}
 function sChip(el, cat, val) {
   var panel = el.closest('.wpanel');
   panel.querySelectorAll('.chip, .bud-card').forEach(function(c){
@@ -390,7 +406,7 @@ function showSum(type) {
   document.querySelectorAll('#wizard .wd').forEach(function(d){ d.classList.add('done'); d.classList.remove('active'); });
 }
 function backFromSum() {
-  sumType === 'b2b' ? gp('wp-b2b-5',4) : gp('wp-b2e-5',4);
+  sumType === 'b2b' ? gp('wp-b2b-4',4) : gp('wp-b2e-4',4);
 }
 
 /* ══════════════════════════════════════════════════

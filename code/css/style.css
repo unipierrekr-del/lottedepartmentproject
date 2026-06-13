@@ -297,7 +297,7 @@ img{display:block;max-width:100%}
   font-size:clamp(20px,2.5vw,28px);font-weight:800;letter-spacing:-.02em;
   color:var(--text);margin-bottom:10px;line-height:1.1;
 }
-.pconf-card-desc{font-size:13px;color:var(--text-sub);line-height:1.75;margin-bottom:20px;font-weight:300;flex:1}
+.pconf-card-desc{font-size:13px;color:#333;line-height:1.75;margin-bottom:20px;font-weight:300;flex:1}
 .pconf-card-specs{
   display:grid;grid-template-columns:1fr 1fr 1fr;
   gap:0;border-top:1px solid var(--gray-mid);border-left:1px solid var(--gray-mid);
@@ -394,8 +394,8 @@ section{border-bottom:1px solid var(--gray-mid)}
 .wpanel.active{display:block;animation:wSlide .35s ease forwards}
 @keyframes wSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .wp-title{font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px}
-.wp-hint{font-size:11px;color:#888;letter-spacing:0.06em;margin-bottom:32px}
-.wp-divider{font-size:10px;letter-spacing:0.15em;color:#aaa;text-transform:uppercase;margin-bottom:12px;margin-top:6px}
+.wp-hint{font-size:11px;color:#444;letter-spacing:0.06em;margin-bottom:32px}
+.wp-divider{font-size:10px;letter-spacing:0.15em;color:#555;text-transform:uppercase;margin-bottom:12px;margin-top:6px}
 
 /* TYPE SELECT */
 .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e8e8e8;margin-bottom:8px}
@@ -409,7 +409,7 @@ section{border-bottom:1px solid var(--gray-mid)}
 .type-card.sel .tc-label{color:rgba(255,255,255,.5)}
 .tc-title{font-size:18px;font-weight:700;color:#111;margin-bottom:6px;transition:color .2s}
 .type-card.sel .tc-title{color:#fff}
-.tc-desc{font-size:12px;color:#666;line-height:1.65;transition:color .2s}
+.tc-desc{font-size:12px;color:#333;line-height:1.65;transition:color .2s}
 .type-card.sel .tc-desc{color:rgba(255,255,255,.6)}
 
 /* CHIPS */
@@ -438,7 +438,7 @@ section{border-bottom:1px solid var(--gray-mid)}
 .bud-card.sel{background:#111;border-bottom-color:#111}
 .bud-amt{font-size:17px;font-weight:700;color:#111;margin-bottom:4px;transition:color .2s}
 .bud-card.sel .bud-amt{color:#fff}
-.bud-sub{font-size:11px;color:#888;transition:color .2s}
+.bud-sub{font-size:11px;color:#555;transition:color .2s}
 .bud-card.sel .bud-sub{color:rgba(255,255,255,.5)}
 
 /* QUANTITY INPUT */
@@ -998,7 +998,8 @@ footer{background:#111;padding:60px 40px 36px}
 .oc-panel.active{display:block}
 .oc-news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .oc-news-card{border:1px solid #e8e8e8;overflow:hidden}
-.oc-news-img{aspect-ratio:1;background:#f4f4f4;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:13px}
+.oc-news-img{aspect-ratio:1;background:#f4f4f4;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:13px;position:relative;overflow:hidden}
+.oc-news-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .oc-news-body{padding:14px}
 .oc-news-tag{font-size:10px;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
 .oc-news-title{font-size:14px;font-weight:700;line-height:1.4;color:#111}
@@ -1021,6 +1022,7 @@ footer{background:#111;padding:60px 40px 36px}
 .oc-post-meta strong{color:#111}
 .oc-post-date{font-size:11px;color:#aaa}
 .oc-post-text{font-size:13px;line-height:1.65;color:#444}
+.oc-post-thumb{display:block;width:100%;max-width:160px;height:90px;object-fit:cover;border-radius:4px;margin-top:10px;border:1px solid #eee}
 .oc-post-like{margin-top:10px;font-size:12px;color:#aaa;cursor:pointer;background:none;border:none;padding:0;font-weight:600}
 .oc-post-like.liked{color:#e6432f}
 @media(max-width:900px){ .oc-news-grid,.oc-benefit-groups{grid-template-columns:1fr 1fr} }
