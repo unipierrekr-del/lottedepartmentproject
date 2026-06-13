@@ -109,6 +109,7 @@
         <button class="btn btn-dark" onclick="ocAddPost()">게시글 등록</button>
       </div>
       <div class="oc-post-list" id="oc-post-list"></div>
+      <button class="oc-post-more" id="oc-post-more" onclick="ocShowMorePosts()">더보기</button>
     </div>
 
   </div>
@@ -170,12 +171,20 @@ function ocAvatarColor(i) {
   var colors = ['#111','#444','#777','#2a7a4f','#a85d2a','#3a5a8c'];
   return colors[i % colors.length];
 }
+var ocPostShowCount = 2;
+function ocShowMorePosts() {
+  ocPostShowCount += 5;
+  ocRenderPosts();
+}
 function ocRenderPosts() {
   var posts = JSON.parse(localStorage.getItem('oc_posts') || 'null') || ocPostsDefault();
   var likes = JSON.parse(localStorage.getItem('oc_likes') || '[]');
   var list = document.getElementById('oc-post-list');
   if (!list) return;
-  list.innerHTML = posts.map(function(p, i) {
+  var moreBtn = document.getElementById('oc-post-more');
+  var visible = posts.slice(0, ocPostShowCount);
+  if (moreBtn) moreBtn.style.display = (visible.length < posts.length) ? '' : 'none';
+  list.innerHTML = visible.map(function(p, i) {
     var liked = likes.indexOf(i) !== -1;
     var initial = p.name.charAt(0);
     /* 후기 썸네일: 게시글 데이터의 img 필드(images/xxx.png)를 교체하면 해당 후기의 사진이 바뀝니다 */

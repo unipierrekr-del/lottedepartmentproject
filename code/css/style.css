@@ -1023,6 +1023,8 @@ footer{background:#111;padding:60px 40px 36px}
 .oc-post-date{font-size:11px;color:#aaa}
 .oc-post-text{font-size:13px;line-height:1.65;color:#444}
 .oc-post-thumb{display:block;width:100%;max-width:160px;height:90px;object-fit:cover;border-radius:4px;margin-top:10px;border:1px solid #eee}
+.oc-post-more{display:block;margin:20px auto 0;padding:10px 28px;font-size:13px;border:1px solid #ddd;border-radius:24px;background:#fff;color:#333;cursor:pointer;transition:all .2s}
+.oc-post-more:hover{background:#111;color:#fff;border-color:#111}
 .oc-post-like{margin-top:10px;font-size:12px;color:#aaa;cursor:pointer;background:none;border:none;padding:0;font-weight:600}
 .oc-post-like.liked{color:#e6432f}
 @media(max-width:900px){ .oc-news-grid,.oc-benefit-groups{grid-template-columns:1fr 1fr} }
