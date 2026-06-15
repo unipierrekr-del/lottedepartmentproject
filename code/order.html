@@ -100,6 +100,39 @@
     .btn-o-outline { border: 1px solid #ddd; background: #fff; border-radius: 4px; padding: 11px 22px; font-size: 13px; cursor: pointer; }
     .btn-o-dark { border: none; background: #111; color: #fff; border-radius: 4px; padding: 11px 22px; font-size: 13px; cursor: pointer; }
 
+    /* 주소 모름 토글 (수령인 직접 입력 시스템) */
+    .addr-unknown-box { background: #fffbe6; border: 1px solid #ffe58f; border-radius: 4px; padding: 12px 14px; margin-bottom: 14px; font-size: 12px; color: #876800; display: flex; gap: 10px; align-items: flex-start; line-height: 1.6; }
+    .addr-unknown-box input { margin-top: 2px; flex-shrink: 0; accent-color: #111; }
+
+    /* 임직원/거래처 목록 관리 */
+    .recip-btn-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+    .btn-recip { border: 1px solid #ddd; background: #fff; border-radius: 4px; padding: 8px 14px; font-size: 12px; cursor: pointer; color: #555; }
+    .btn-recip:hover { border-color: #111; color: #111; }
+    .o-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 1000; align-items: center; justify-content: center; }
+    .o-modal-overlay.show { display: flex; }
+    .o-modal { background: #fff; border-radius: 8px; width: 600px; max-width: 92vw; max-height: 82vh; display: flex; flex-direction: column; }
+    .o-modal-hd { padding: 18px 22px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .o-modal-hd-t { font-size: 15px; font-weight: 800; }
+    .o-modal-sub { font-size: 12px; color: #888; margin-top: 4px; }
+    .o-modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #888; }
+    .o-modal-bd { padding: 14px 22px; overflow-y: auto; flex: 1; }
+    .recip-row { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid #f4f4f4; }
+    .recip-row input[type=text] { border: 1px solid #ddd; border-radius: 3px; padding: 7px 10px; font-size: 12px; min-width: 0; }
+    .recip-name { flex: 1.2; }
+    .recip-phone { flex: 1.2; }
+    .recip-tag { flex: 1; }
+    .recip-pick { background: #111; color: #fff; border: none; border-radius: 3px; padding: 7px 10px; font-size: 11px; cursor: pointer; flex-shrink: 0; }
+    .recip-del { background: none; border: none; color: #c00; font-size: 16px; cursor: pointer; flex-shrink: 0; line-height: 1; }
+    .recip-add-btn { margin-top: 10px; border: 1px dashed #ccc; background: #fafafa; border-radius: 4px; padding: 9px; width: 100%; font-size: 12px; cursor: pointer; color: #666; }
+    .o-modal-ft { padding: 14px 22px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 8px; }
+
+    /* 비즈캐시 */
+    .bizcash-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f4f4f4; font-size: 12px; color: #666; }
+    .bizcash-bal { font-weight: 800; color: #111; }
+    .bizcash-use { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; padding: 8px 0; cursor: pointer; }
+    .bizcash-use input { accent-color: #111; }
+    .bizcash-note { font-size: 10.5px; color: #aaa; line-height: 1.6; margin-top: 4px; }
+
     @media (max-width: 768px) {
       .order-layout { flex-direction: column; }
       .order-right { width: 100%; position: static; }
@@ -194,6 +227,9 @@
         <div class="o-card-hd-t">배송지 정보</div>
       </div>
       <div class="o-card-bd">
+        <div class="recip-btn-row">
+          <button class="btn-recip" onclick="openRecipModal()">📋 임직원/거래처 목록 관리하기</button>
+        </div>
         <div class="o-form-row">
           <div class="o-field">
             <label class="o-label">수령인 <span class="req">*</span></label>
@@ -204,23 +240,34 @@
             <input class="o-input" id="o-recv-phone" placeholder="010-0000-0000" type="tel">
           </div>
         </div>
-        <div class="o-form-row">
-          <div class="o-field full">
-            <label class="o-label">주소 <span class="req">*</span></label>
-            <input class="o-input" id="o-addr" placeholder="배송지 주소를 입력해 주세요" style="margin-bottom:6px">
-            <input class="o-input" id="o-addr2" placeholder="상세 주소">
+
+        <div class="addr-unknown-box">
+          <input type="checkbox" id="o-no-addr" onchange="toggleAddrUnknown(this)">
+          <div>
+            <strong>수령인 주소를 몰라요 — 수령인이 직접 입력하게 할게요</strong><br>
+            체크하면 주소 입력 없이 주문이 진행됩니다. 결제 완료 후 수령인 전용 링크가 발급되며, 수령인이 동탄점 웹사이트(<b>recv.html</b>)에 접속해 본인의 배송지 정보를 직접 입력하면 자동으로 배송이 시작됩니다. (롯데백화점 앱 &quot;선물하기 for Biz&quot; 방식과 동일)
           </div>
         </div>
-        <div class="o-form-row">
-          <div class="o-field">
-            <label class="o-label">배송 메모</label>
-            <select class="o-select" id="o-memo">
-              <option value="">선택해 주세요</option>
-              <option>부재시 문 앞에 놓아주세요</option>
-              <option>부재시 경비실에 맡겨주세요</option>
-              <option>배송 전 연락 주세요</option>
-              <option>직접 입력</option>
-            </select>
+
+        <div id="addr-fields">
+          <div class="o-form-row">
+            <div class="o-field full">
+              <label class="o-label">주소 <span class="req">*</span></label>
+              <input class="o-input" id="o-addr" placeholder="배송지 주소를 입력해 주세요" style="margin-bottom:6px">
+              <input class="o-input" id="o-addr2" placeholder="상세 주소">
+            </div>
+          </div>
+          <div class="o-form-row">
+            <div class="o-field">
+              <label class="o-label">배송 메모</label>
+              <select class="o-select" id="o-memo">
+                <option value="">선택해 주세요</option>
+                <option>부재시 문 앞에 놓아주세요</option>
+                <option>부재시 경비실에 맡겨주세요</option>
+                <option>배송 전 연락 주세요</option>
+                <option>직접 입력</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -298,11 +345,20 @@
         <div class="o-card-hd-t">결제 정보</div>
       </div>
       <div class="o-card-bd">
+        <div class="bizcash-row">
+          <span>보유 비즈캐시</span><span class="bizcash-bal" id="bizcash-bal">—</span>
+        </div>
+        <label class="bizcash-use">
+          <input type="checkbox" id="use-bizcash" onchange="recalcTotal()">
+          비즈캐시 사용하기 (보유 한도 내 자동 차감)
+        </label>
         <div class="price-row"><span class="label">상품 금액</span><span class="value" id="pr-subtotal">—</span></div>
         <div class="price-row discount"><span class="label">대량 할인</span><span class="value" id="pr-discount">—</span></div>
+        <div class="price-row discount" id="pr-bizcash-row" style="display:none"><span class="label">비즈캐시 사용</span><span class="value" id="pr-bizcash">—</span></div>
         <div class="price-row"><span class="label">배송비</span><span class="value">무료</span></div>
         <div class="price-row total"><span class="label">최종 결제금액</span><span class="value" id="pr-total">—</span></div>
         <button class="btn-pay" onclick="submitOrder()">결제하기</button>
+        <div class="bizcash-note">· 미사용/배송지 미입력으로 환불되는 경우, 결제 캐시로 100% 환불되거나 비즈캐시(선물 금액의 100%)로 적립할 수 있습니다.</div>
         <p class="agree-box">주문 내용을 확인하였으며 <a href="#">이용약관</a> 및<br><a href="#">개인정보 처리방침</a>에 동의합니다.</p>
       </div>
     </div>
@@ -327,6 +383,7 @@
     <div class="order-complete-title">주문이 완료됐습니다!</div>
     <div class="order-complete-desc">담당 MD가 확인 후 24시간 내 연락드립니다.<br>세금계산서 및 납기 일정은 별도 안내됩니다.</div>
     <div class="order-complete-no" id="order-no">주문번호: LDT-B2B-000000</div>
+    <div class="order-complete-no" id="order-recv-link" style="display:none;text-align:left;line-height:1.7"></div>
     <div class="order-complete-btns">
       <button class="btn-o-outline" onclick="goBack()">메인으로</button>
       <button class="btn-o-dark" onclick="window.print()">주문서 인쇄</button>
@@ -334,22 +391,44 @@
   </div>
 </div>
 
-<script>
-(function(){
-  function fmt(n){ return '₩'+(Math.round(n)||0).toLocaleString(); }
+<!-- 임직원/거래처 목록 관리 모달 -->
+<div class="o-modal-overlay" id="recip-modal">
+  <div class="o-modal">
+    <div class="o-modal-hd">
+      <div>
+        <div class="o-modal-hd-t">임직원 / 거래처 목록 관리하기</div>
+        <div class="o-modal-sub">선물을 자주 발송하는 대상을 태그와 함께 등록하고, 클릭 한 번으로 수령인 정보를 채워보세요.</div>
+      </div>
+      <button class="o-modal-close" onclick="closeRecipModal()">✕</button>
+    </div>
+    <div class="o-modal-bd" id="recip-list"></div>
+    <div class="o-modal-ft">
+      <button class="btn-recip" style="margin-right:auto" onclick="addRecipRow()">+ 대상 추가</button>
+      <button class="btn-o-dark" onclick="closeRecipModal()">닫기</button>
+    </div>
+  </div>
+</div>
 
-  // localStorage에서 주문 데이터 읽기
+<script>
+function fmt(n){ return '₩'+(Math.round(n)||0).toLocaleString(); }
+
+var subtotal = 0, discAmt = 0, total = 0;
+var orderData = {};
+
+(function(){
   var d = {};
+  // localStorage에서 주문 데이터 읽기
   try { d = JSON.parse(localStorage.getItem('lotteOrderData')||'{}'); } catch(e){}
+  orderData = d;
 
   // 상품 정보 채우기
   var pkgName = d.packageName || '맞춤 선물 패키지 (PREMIUM)';
   var qty = d.qty || 0;
   var unitPrice = d.unitPrice || 0;
   var discRate = d.discountRate || 0;
-  var subtotal = unitPrice * qty;
-  var discAmt = Math.round(subtotal * discRate / 100);
-  var total = subtotal - discAmt;
+  subtotal = unitPrice * qty;
+  discAmt = Math.round(subtotal * discRate / 100);
+  total = subtotal - discAmt;
 
   document.getElementById('op-name').textContent = pkgName;
   document.getElementById('op-opt').textContent =
@@ -371,6 +450,10 @@
   if (d.name)    document.getElementById('o-name').value    = d.name;
   if (d.phone)   document.getElementById('o-phone').value   = d.phone;
   if (d.email)   document.getElementById('o-email').value   = d.email;
+
+  // 비즈캐시 잔액 표시
+  document.getElementById('bizcash-bal').textContent = fmt(getBizCash());
+  recalcTotal();
 })();
 
 function selectOpt(el) {
@@ -382,18 +465,126 @@ function selectPay(el) {
   el.classList.add('selected');
 }
 
+/* ===== 주소 모름 → 수령인 직접 입력 토글 ===== */
+function toggleAddrUnknown(el) {
+  document.getElementById('addr-fields').style.display = el.checked ? 'none' : '';
+}
+
+/* ===== 비즈캐시 ===== */
+var BIZCASH_KEY = 'lotteBizCash';
+function getBizCash() {
+  var v = localStorage.getItem(BIZCASH_KEY);
+  if (v === null) { v = '50000'; localStorage.setItem(BIZCASH_KEY, v); }
+  return parseInt(v, 10) || 0;
+}
+function recalcTotal() {
+  var useBC = document.getElementById('use-bizcash').checked;
+  var bc = getBizCash();
+  var bcUsed = useBC ? Math.min(bc, total) : 0;
+  document.getElementById('pr-bizcash-row').style.display = bcUsed ? '' : 'none';
+  document.getElementById('pr-bizcash').textContent = bcUsed ? '-' + fmt(bcUsed) : '—';
+  document.getElementById('pr-total').textContent = total ? fmt(total - bcUsed) : '—';
+  window._bcUsed = bcUsed;
+}
+
+/* ===== 임직원/거래처 목록 관리 ===== */
+var RECIP_KEY = 'lotteRecipients';
+function getRecipients() {
+  try { return JSON.parse(localStorage.getItem(RECIP_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveRecipients(list) {
+  localStorage.setItem(RECIP_KEY, JSON.stringify(list));
+}
+function renderRecipients() {
+  var list = getRecipients();
+  var box = document.getElementById('recip-list');
+  if (!list.length) {
+    box.innerHTML = '<p style="font-size:12px;color:#aaa;text-align:center;padding:24px 0">등록된 대상이 없습니다. &quot;+ 대상 추가&quot;로 시작해 보세요.</p>';
+    return;
+  }
+  box.innerHTML = list.map(function(r, i){
+    return '<div class="recip-row">' +
+      '<input type="text" class="recip-name" placeholder="이름" value="' + esc(r.name) + '" onchange="updateRecip(' + i + ',\'name\',this.value)">' +
+      '<input type="text" class="recip-phone" placeholder="연락처" value="' + esc(r.phone) + '" onchange="updateRecip(' + i + ',\'phone\',this.value)">' +
+      '<input type="text" class="recip-tag" placeholder="태그 (예: 선물하기, 기획팀)" value="' + esc(r.tag) + '" onchange="updateRecip(' + i + ',\'tag\',this.value)">' +
+      '<button class="recip-pick" onclick="pickRecip(' + i + ')">선택</button>' +
+      '<button class="recip-del" onclick="delRecip(' + i + ')">×</button>' +
+      '</div>';
+  }).join('');
+}
+function esc(s) { return (s||'').replace(/"/g,'&quot;'); }
+function openRecipModal() { renderRecipients(); document.getElementById('recip-modal').classList.add('show'); }
+function closeRecipModal() { document.getElementById('recip-modal').classList.remove('show'); }
+function addRecipRow() {
+  var list = getRecipients();
+  list.push({ name: '', phone: '', tag: '' });
+  saveRecipients(list);
+  renderRecipients();
+}
+function updateRecip(i, key, val) {
+  var list = getRecipients();
+  if (!list[i]) return;
+  list[i][key] = val;
+  saveRecipients(list);
+}
+function delRecip(i) {
+  var list = getRecipients();
+  list.splice(i, 1);
+  saveRecipients(list);
+  renderRecipients();
+}
+function pickRecip(i) {
+  var list = getRecipients();
+  var r = list[i];
+  if (!r) return;
+  document.getElementById('o-recv').value = r.name || '';
+  document.getElementById('o-recv-phone').value = r.phone || '';
+  closeRecipModal();
+}
+
 function submitOrder() {
   var co = document.getElementById('o-company').value.trim();
   var nm = document.getElementById('o-name').value.trim();
   var ph = document.getElementById('o-phone').value.trim();
   var recv = document.getElementById('o-recv').value.trim();
+  var recvPhone = document.getElementById('o-recv-phone').value.trim();
+  var noAddr = document.getElementById('o-no-addr').checked;
   var addr = document.getElementById('o-addr').value.trim();
-  if (!co || !nm || !ph || !recv || !addr) {
+  if (!co || !nm || !ph || !recv || (!noAddr && !addr)) {
     alert('필수 항목(회사명, 담당자, 연락처, 수령인, 주소)을 입력해 주세요.');
     return;
   }
   var no = 'LDT-B2B-' + Date.now().toString().slice(-6);
   document.getElementById('order-no').textContent = '주문번호: ' + no;
+
+  // 수령인 주소를 모르는 경우 → 수령인 전용 입력 링크 발급
+  var recvLinkEl = document.getElementById('order-recv-link');
+  if (noAddr) {
+    var code = Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase();
+    var link = location.href.replace(/order\.html.*$/, 'recv.html') + '?code=' + code;
+    try {
+      var recvLinks = JSON.parse(localStorage.getItem('lotteRecvLinks') || '[]');
+      recvLinks.push({
+        code: code, orderNo: no, company: co,
+        packageName: orderData.packageName || '',
+        recvName: recv, recvPhone: recvPhone,
+        status: '배송지 입력 대기', addr: '', addr2: '', memo: '',
+        createdAt: Date.now()
+      });
+      localStorage.setItem('lotteRecvLinks', JSON.stringify(recvLinks));
+    } catch(e){}
+    recvLinkEl.style.display = '';
+    recvLinkEl.innerHTML = '<strong>수령인 배송지 입력 링크</strong><br>' +
+      '아래 링크를 수령인에게 전달해 주세요. 수령인이 직접 배송지를 입력하면 발송이 시작됩니다.<br>' +
+      '<a href="' + link + '" target="_blank" style="color:#06c;word-break:break-all">' + link + '</a>';
+  } else {
+    recvLinkEl.style.display = 'none';
+  }
+
+  // 비즈캐시 사용분 차감
+  if (window._bcUsed) {
+    localStorage.setItem(BIZCASH_KEY, String(getBizCash() - window._bcUsed));
+  }
 
   // CRM에 주문 저장
   try {
@@ -408,8 +599,10 @@ function submitOrder() {
       product: d.packageName || '',
       bizType: d.bizType || 'B2B', purpose: d.purpose || '',
       qty: d.qty || 0, unitPrice: d.unitPrice || 0,
-      total: (d.unitPrice||0)*(d.qty||0)*(1-(d.discountRate||0)/100),
+      total: total - (window._bcUsed||0),
       discountRate: (d.discountRate||0) + '%',
+      bizcashUsed: window._bcUsed||0,
+      recvByLink: noAddr,
       status: '주문접수', adminMemo: '', orderNo: no
     });
     localStorage.setItem('lotteCrm', JSON.stringify(crm));

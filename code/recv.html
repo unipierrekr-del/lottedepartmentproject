@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>배송지 입력 — 롯데백화점 동탄점 B2B 선물</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Barun+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nanum Barun Gothic','Apple SD Gothic Neo',sans-serif;background:#f4f4f4;color:#111;line-height:1.6;word-break:keep-all}
+a{text-decoration:none;color:inherit}
+
+nav{height:56px;background:#fff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;padding:0 24px;font-size:14px;font-weight:800;letter-spacing:.06em}
+
+.wrap{max-width:480px;margin:0 auto;padding:48px 20px 80px}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:32px 28px;margin-bottom:16px}
+.gift-icon{font-size:36px;text-align:center;margin-bottom:14px}
+.gift-title{font-size:18px;font-weight:800;text-align:center;margin-bottom:6px}
+.gift-sub{font-size:13px;color:#888;text-align:center;margin-bottom:24px}
+.gift-pkg{background:#f8f8f8;border-radius:4px;padding:14px 16px;font-size:13px;margin-bottom:24px}
+.gift-pkg b{display:block;font-size:14px;margin-bottom:2px}
+
+.f-row{margin-bottom:14px}
+.f-label{font-size:11px;font-weight:700;color:#555;margin-bottom:5px;display:block}
+.f-input{border:1px solid #ddd;border-radius:3px;padding:10px 12px;font-size:13px;width:100%;outline:none}
+.f-input:focus{border-color:#111}
+
+.btn-submit{width:100%;background:#111;color:#fff;border:none;border-radius:4px;padding:15px;font-size:14px;font-weight:700;letter-spacing:.04em;cursor:pointer;margin-top:8px}
+.btn-submit:hover{background:#333}
+
+.done-icon{width:52px;height:52px;border-radius:50%;background:#111;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.done-title{font-size:18px;font-weight:800;text-align:center;margin-bottom:8px}
+.done-desc{font-size:13px;color:#666;text-align:center;line-height:1.7;margin-bottom:24px}
+
+.promo{background:#111;color:#fff;border-radius:6px;padding:24px 22px;text-align:center;margin-top:8px}
+.promo-kicker{font-size:10px;letter-spacing:.2em;color:#aaa;text-transform:uppercase;margin-bottom:8px}
+.promo-title{font-size:16px;font-weight:800;margin-bottom:8px}
+.promo-desc{font-size:12px;color:#ccc;line-height:1.7;margin-bottom:18px}
+.promo-btns{display:flex;flex-direction:column;gap:8px}
+.btn-promo{display:block;border-radius:4px;padding:12px;font-size:13px;font-weight:700;text-align:center}
+.btn-promo.primary{background:#fff;color:#111}
+.btn-promo.outline{border:1px solid rgba(255,255,255,.3);color:#fff}
+
+.error-box{text-align:center;padding:60px 20px;color:#888;font-size:13px}
+</style>
+</head>
+<body>
+
+<nav>LOTTE department · B2B</nav>
+
+<div class="wrap">
+
+  <!-- 유효하지 않은 링크 -->
+  <div class="card" id="invalid-box" style="display:none">
+    <div class="error-box">
+      유효하지 않거나 만료된 링크입니다.<br>선물을 보내주신 분께 다시 확인해 주세요.
+    </div>
+  </div>
+
+  <!-- 입력 폼 -->
+  <div id="form-box" style="display:none">
+    <div class="card">
+      <div class="gift-icon">🎁</div>
+      <div class="gift-title"><span id="gift-company"></span>에서 선물을 보내드렸어요</div>
+      <div class="gift-sub">배송을 위해 받으실 분의 정보를 입력해 주세요</div>
+      <div class="gift-pkg">
+        <b id="gift-pkg-name"></b>
+        롯데백화점 동탄점 B2B 큐레이션을 통해 준비된 선물입니다.
+      </div>
+
+      <div class="f-row">
+        <label class="f-label">받는 분 성함 *</label>
+        <input class="f-input" id="r-name" placeholder="성함을 입력해 주세요">
+      </div>
+      <div class="f-row">
+        <label class="f-label">연락처 *</label>
+        <input class="f-input" id="r-phone" placeholder="010-0000-0000" type="tel">
+      </div>
+      <div class="f-row">
+        <label class="f-label">배송지 주소 *</label>
+        <input class="f-input" id="r-addr" placeholder="주소를 입력해 주세요" style="margin-bottom:8px">
+        <input class="f-input" id="r-addr2" placeholder="상세 주소 (동/호수 등)">
+      </div>
+      <div class="f-row">
+        <label class="f-label">배송 메모</label>
+        <input class="f-input" id="r-memo" placeholder="예: 부재시 경비실에 맡겨주세요">
+      </div>
+
+      <button class="btn-submit" onclick="submitRecv()">배송지 등록 완료</button>
+    </div>
+  </div>
+
+  <!-- 완료 화면 -->
+  <div id="done-box" style="display:none">
+    <div class="card">
+      <div class="done-icon">✓</div>
+      <div class="done-title">배송지 등록이 완료됐어요!</div>
+      <div class="done-desc">입력해주신 주소로 곧 선물이 배송됩니다.<br>배송 현황은 입력하신 연락처로 안내드려요.</div>
+    </div>
+    <div class="promo">
+      <div class="promo-kicker">Office Club</div>
+      <div class="promo-title">롯데백화점 동탄점 오피스클럽</div>
+      <div class="promo-desc">선물 받으신 김에, 오피스클럽에 가입하고<br>클럽 전용 혜택과 다양한 큐레이션을 만나보세요.</div>
+      <div class="promo-btns">
+        <a class="btn-promo primary" href="index.html#office-club">오피스클럽 가입하고 혜택 받기 →</a>
+        <a class="btn-promo outline" href="index.html#wizard">나도 선물 큐레이션 받아보기</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function getParam(name){
+  var m = new RegExp('[?&]'+name+'=([^&]*)').exec(location.search);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+var code = getParam('code');
+var links = [];
+try { links = JSON.parse(localStorage.getItem('lotteRecvLinks')||'[]'); } catch(e){}
+var idx = -1;
+for (var i=0;i<links.length;i++){ if (links[i].code === code) { idx = i; break; } }
+
+if (!code || idx === -1) {
+  document.getElementById('invalid-box').style.display = '';
+} else {
+  var entry = links[idx];
+  if (entry.status === '배송지 입력 완료') {
+    document.getElementById('done-box').style.display = '';
+  } else {
+    document.getElementById('form-box').style.display = '';
+    document.getElementById('gift-company').textContent = entry.company || '발송 기업';
+    document.getElementById('gift-pkg-name').textContent = entry.packageName || '맞춤 선물 패키지';
+    if (entry.recvName) document.getElementById('r-name').value = entry.recvName;
+    if (entry.recvPhone) document.getElementById('r-phone').value = entry.recvPhone;
+  }
+}
+
+function submitRecv(){
+  var name = document.getElementById('r-name').value.trim();
+  var phone = document.getElementById('r-phone').value.trim();
+  var addr = document.getElementById('r-addr').value.trim();
+  if (!name || !phone || !addr) {
+    alert('성함, 연락처, 주소를 입력해 주세요.');
+    return;
+  }
+  entry.recvName = name;
+  entry.recvPhone = phone;
+  entry.addr = addr;
+  entry.addr2 = document.getElementById('r-addr2').value.trim();
+  entry.memo = document.getElementById('r-memo').value.trim();
+  entry.status = '배송지 입력 완료';
+  entry.completedAt = Date.now();
+  links[idx] = entry;
+  localStorage.setItem('lotteRecvLinks', JSON.stringify(links));
+
+  document.getElementById('form-box').style.display = 'none';
+  document.getElementById('done-box').style.display = '';
+}
+</script>
+
+</body>
+</html>
