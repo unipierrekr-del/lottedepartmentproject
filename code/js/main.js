@@ -177,7 +177,7 @@ function seedCRMDemo() {
     {title:'장기 근속 기념 선물',      month:7,  product:'맛딜 국내산 자포니카 민물장어 4-5인 선물세트', img:'images/summer2.png', unit:118800, mood:'미식·구르메', target:'경영진·임원'},
     {title:'성과 보상 선물',           month:8,  product:'1++한우 갈비탕 6팩 실속세트', img:'images/pr8.png', unit:98000, mood:'미식·구르메', target:'일반 직원'},
     {title:'추석 명절 임직원 선물',    month:9,  product:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', img:'images/pr2.png', unit:324360, mood:'프리미엄·격식', target:'전 직원 일괄'},
-    {title:'임직원 격려 선물',         month:10, product:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', img:'images/pr4.png', unit:173850, mood:'미식·구르메', target:'일반 직원'},
+    {title:'임직원 격려 선물',         month:10, product:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', img:'images/hf_20260616_004518_ab9630f6-430b-4ee6-88cc-85889956e610.png', unit:173850, mood:'미식·구르메', target:'일반 직원'},
     {title:'연말 감사 선물',           month:11, product:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', img:'images/pr3.png', unit:205660, mood:'프리미엄·격식', target:'파트장·부서장'},
     {title:'송년회 단체 선물',         month:12, product:'청풍명월 1++ 한우 명작로스1호(2.4kg)', img:'images/pr1.png', unit:499500, mood:'프리미엄·격식', target:'경영진·임원'}
   ];
@@ -419,7 +419,7 @@ var giftCatalog = {
   g1:{n:'청풍명월 1++ 한우 명작로스1호(2.4kg)', d:'1++ 등급 최상급 한우 · 프리미엄 명절 선물 컬렉션', img:'images/pr1.png', price:499500, cat:'gourmet'},
   g2:{n:'동양축산 1++등급 한우마을 신선5호세트(2.0kg)', d:'냉장 직송 1++ 한우 부위별 구성 · 프리미엄 명절 선물 컬렉션', img:'images/pr2.png', price:324360, cat:'gourmet'},
   g3:{n:'안성마춤농협 1+등급 한우 친환경 패키지 명품세트(1kg)', d:'친환경 패키지 한우 · 프리미엄 명절 선물 컬렉션', img:'images/pr3.png', price:205660, cat:'gourmet'},
-  g4:{n:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', d:'프리미엄 배 선물세트 · 프리미엄 명절 선물 컬렉션', img:'images/pr4.png', price:173850, cat:'gourmet'},
+  g4:{n:'일품채 엘프르미에 배 세트(7.5kg / 배 9입)', d:'프리미엄 배 선물세트 · 프리미엄 명절 선물 컬렉션', img:'images/hf_20260616_004518_ab9630f6-430b-4ee6-88cc-85889956e610.png', price:173850, cat:'gourmet'},
   g5:{n:'정관장 홍삼정 240g (80일분, 스푼제거)', d:'대표 홍삼 농축액 · 프리미엄 명절 선물 컬렉션', img:'images/pr5.png', price:220000, cat:'wellness'},
   g6:{n:'썬키스트 캘리포니아 오렌지 세트(3kg)', d:'실속형 프리미엄 과일 · 프리미엄 명절 선물 컬렉션', img:'images/hf_20260616_004506_fb92bc46-4128-4fda-8f1e-e436550d8de3.png', price:89000, cat:'gourmet'},
   g7:{n:'종근당건강 락토핏 골드 + 비타민C 세트', d:'실속형 건강 선물 · 프리미엄 명절 선물 컬렉션', img:'images/pr7.png', price:65000, cat:'wellness'},
