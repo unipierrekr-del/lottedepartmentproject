@@ -246,7 +246,7 @@ function scrollToWiz() {
   document.querySelectorAll('#wizard .wpanel').forEach(function(p){ p.classList.remove('active'); });
   var p0 = document.getElementById('wp-0');
   if (p0) p0.classList.add('active');
-  updDots(0,'wd','wf',5);
+  updDots(0,'wd','wf',4);
   var wrap = document.getElementById('wiz-panels');
   if (wrap) wrap.style.minHeight = '';
   requestAnimationFrame(wizFitHeight);
@@ -294,18 +294,20 @@ function gp(id, dot) {
   document.querySelectorAll('#wizard .wpanel').forEach(function(p){ p.classList.remove('active'); });
   var el = document.getElementById(id);
   if (el) el.classList.add('active');
-  updDots(dot,'wd','wf',5);
+  updDots(dot,'wd','wf',4);
   var w = document.getElementById('wizard');
   if (w) w.scrollIntoView({ behavior:'smooth', block:'start' });
   requestAnimationFrame(wizFitHeight);
 }
 
 /* 번호형 진행 단계 — 클릭 시 해당 단계로 자유 이동 */
+/* 4단계: 0=유형, 1=목적, 2=예산(-3), 3=취향(-4) */
+var WIZ_MAP = {B2B:{1:'wp-b2b-1',2:'wp-b2b-3',3:'wp-b2b-4'}, B2E:{1:'wp-b2e-1',2:'wp-b2e-3',3:'wp-b2e-4'}};
 function wizGoStep(n) {
   if (n === 0) { gp('wp-0', 0); return; }
   if (!wState.bizType) { showToast('먼저 선물 유형을 선택해 주세요'); gp('wp-0', 0); return; }
-  var pre = wState.bizType === 'B2B' ? 'wp-b2b-' : 'wp-b2e-';
-  gp(pre + n, n);
+  var panelId = WIZ_MAP[wState.bizType][n];
+  if (panelId) gp(panelId, n);
 }
 
 function selectBiz(el, type) {
@@ -406,7 +408,7 @@ function showSum(type) {
   document.querySelectorAll('#wizard .wd').forEach(function(d){ d.classList.add('done'); d.classList.remove('active'); });
 }
 function backFromSum() {
-  sumType === 'b2b' ? gp('wp-b2b-4',4) : gp('wp-b2e-4',4);
+  sumType === 'b2b' ? gp('wp-b2b-4',3) : gp('wp-b2e-4',3);
 }
 
 /* ══════════════════════════════════════════════════
@@ -2330,7 +2332,7 @@ function scrollToWizard() {
   document.querySelectorAll('#wizard .wpanel').forEach(function(p){ p.classList.remove('active'); });
   var p0 = document.getElementById('wp-0');
   if (p0) p0.classList.add('active');
-  updDots(0,'wd','wf',5);
+  updDots(0,'wd','wf',4);
   var wrap = document.getElementById('wiz-panels');
   if (wrap) wrap.style.minHeight = '';
   requestAnimationFrame(wizFitHeight);
