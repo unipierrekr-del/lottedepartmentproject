@@ -435,10 +435,10 @@ var giftCatalog = {
   g9:{n:'한우 사골곰탕 선물세트(6팩)', d:'간편 조리 한우 곰탕 · 식품·F&B', img:'images/hf_20260616_004419_e5ceabbc-d72a-4b14-991e-96d21a0d7bbd.png', price:79000, cat:'gourmet'},
   g10:{n:'제주 흑돼지 선물세트(1.2kg)', d:'제주 직송 흑돼지 · 식품·F&B', img:'images/hf_20260616_004427_6067cd16-43f9-4367-937b-53fbaee42562.png', price:89000, cat:'gourmet'},
   g11:{n:'강원 더덕 산양삼 선물세트', d:'강원 청정 산양삼 · 식품·F&B', img:'images/hf_20260616_004357_1454dfd9-aeba-4713-ba28-985d8b261875.png', price:65000, cat:'gourmet'},
-  g12:{n:'행복한콩 국산콩 두유 선물세트', d:'국산콩 건강 두유 · 식품·F&B', img:'images/placeholder.png', price:33000, cat:'gourmet'},
+  g12:{n:'행복한콩 국산콩 두유 선물세트', d:'국산콩 건강 두유 · 식품·F&B', img:'images/hf_20260616_005222_e194ec14-a086-467b-b914-b33b518b8a5d.png', price:33000, cat:'gourmet'},
   g13:{n:'천호엔케어 프리미엄 흑마늘진액', d:'면역력 강화 흑마늘진액 · 건강·웰니스', img:'images/placeholder.png', price:55000, cat:'wellness'},
   g14:{n:'정관장 홍삼톤 에브리진生 세트', d:'휴대용 홍삼 농축액 · 건강·웰니스', img:'images/placeholder.png', price:79000, cat:'wellness'},
-  g15:{n:'종근당건강 락토핏 생유산균 골드 기획세트', d:'프로바이오틱스 건강 선물 · 건강·웰니스', img:'images/placeholder.png', price:42000, cat:'wellness'},
+  g15:{n:'종근당건강 락토핏 생유산균 골드 기획세트', d:'프로바이오틱스 건강 선물 · 건강·웰니스', img:'images/hf_20260616_005228_b9123448-55a1-49b8-b94c-1d9677529a62.png', price:42000, cat:'wellness'},
   g16:{n:'일동제약 셀파렉스 면역 비타민 세트', d:'고함량 면역 비타민 · 건강·웰니스', img:'images/placeholder.png', price:68000, cat:'wellness'},
   g17:{n:'휘슬러 프리미엄 냄비 세트', d:'독일 프리미엄 주방용품 · 리빙·홈', img:'images/hf_20260616_010115_055537eb-bff0-414f-b023-9032552d7ca2.png', price:138000, cat:'living'},
   g18:{n:'락앤락 모던하우스 보관용기 선물세트', d:'실용적인 주방 보관함 · 리빙·홈', img:'images/placeholder.png', price:39000, cat:'living'},
@@ -446,16 +446,16 @@ var giftCatalog = {
   g20:{n:'쿠첸 미니 전기밥솥 선물세트', d:'1인 가구를 위한 미니 밥솥 · 리빙·홈', img:'images/hf_20260616_010108_3df6ef2c-c8fb-41c7-a898-5dda7740541f.png', price:119000, cat:'living'},
   g21:{n:'설화수 자음 2종 세트', d:'프리미엄 한방 스킨케어 · 뷰티·스킨케어', img:'images/hf_20260616_010057_b399d905-0584-457f-b21f-bba04c18ba84.png', price:135000, cat:'beauty'},
   g22:{n:'헤라 블랙 쿠션 기프트 세트', d:'베스트셀러 쿠션 기프트 · 뷰티·스킨케어', img:'images/hf_20260616_010932_afa8f93d-9a6b-412d-adbf-9d1f3fea7b9b.png', price:98000, cat:'beauty'},
-  g23:{n:'이니스프리 그린티 스킨케어 3종 세트', d:'대표 그린티 스킨케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:45000, cat:'beauty'},
+  g23:{n:'이니스프리 그린티 스킨케어 3종 세트', d:'대표 그린티 스킨케어 · 뷰티·스킨케어', img:'images/hf_20260616_005235_c8ff2927-521f-4716-8073-7d65543b01aa.png', price:45000, cat:'beauty'},
   g24:{n:'닥터지 더마 모이스처 기프트 세트', d:'더마 모이스처 케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:58000, cat:'beauty'},
-  g25:{n:'MLB 캠퍼스 백팩', d:'캐주얼 브랜드 백팩 · 패션·잡화', img:'images/placeholder.png', price:89000, cat:'fashion'},
-  g26:{n:'헤지스 넥타이 + 머플러 세트', d:'비즈니스 패션 세트 · 패션·잡화', img:'images/placeholder.png', price:79000, cat:'fashion'},
-  g27:{n:'닥스 카드지갑 선물세트', d:'정장용 가죽 카드지갑 · 패션·잡화', img:'images/placeholder.png', price:69000, cat:'fashion'},
-  g28:{n:'로지텍 무선 마우스+키보드 세트', d:'업무용 무선 입력장치 · IT·사무용품', img:'images/placeholder.png', price:79000, cat:'it'},
+  g25:{n:'MLB 캠퍼스 백팩', d:'캐주얼 브랜드 백팩 · 패션·잡화', img:'images/hf_20260616_023458_8b85c693-dbe3-41f0-b225-2c8faa7391c0.png', price:89000, cat:'fashion'},
+  g26:{n:'헤지스 넥타이 + 머플러 세트', d:'비즈니스 패션 세트 · 패션·잡화', img:'images/hf_20260616_023504_1a505781-f5c9-4576-bcde-6ba681eb1f49.png', price:79000, cat:'fashion'},
+  g27:{n:'닥스 카드지갑 선물세트', d:'정장용 가죽 카드지갑 · 패션·잡화', img:'images/hf_20260616_023509_425d1f7f-1e69-4bed-8385-5d1c9d52276d.png', price:69000, cat:'fashion'},
+  g28:{n:'로지텍 무선 마우스+키보드 세트', d:'업무용 무선 입력장치 · IT·사무용품', img:'images/hf_20260616_023513_f5dcb120-adfb-4ddc-9c62-4560a58fc4e1.png', price:79000, cat:'it'},
   g29:{n:'삼성 보조배터리 선물세트', d:'고속충전 보조배터리 · IT·사무용품', img:'images/hf_20260616_005240_7e2c8d64-9939-418d-aacc-d38289368501.png', price:45000, cat:'it'},
-  g30:{n:'모나미 프리미엄 필기구 세트', d:'고급 필기구 선물세트 · IT·사무용품', img:'images/placeholder.png', price:38000, cat:'it'},
-  g31:{n:'한산모시 손수건 선물세트', d:'전통 공예 손수건 · 전통·한국적', img:'images/placeholder.png', price:35000, cat:'traditional'},
-  g32:{n:'안동 한지 다이어리 세트', d:'전통 한지 공예 다이어리 · 전통·한국적', img:'images/placeholder.png', price:42000, cat:'traditional'}
+  g30:{n:'모나미 프리미엄 필기구 세트', d:'고급 필기구 선물세트 · IT·사무용품', img:'images/hf_20260616_023540_8e9e03b3-079d-4000-b394-8db9be7186c3.png', price:38000, cat:'it'},
+  g31:{n:'한산모시 손수건 선물세트', d:'전통 공예 손수건 · 전통·한국적', img:'images/hf_20260616_023551_51fbf4d9-69af-41fa-a636-738638a91326.png', price:35000, cat:'traditional'},
+  g32:{n:'안동 한지 다이어리 세트', d:'전통 한지 공예 다이어리 · 전통·한국적', img:'images/hf_20260616_023557_45369453-d6cb-4131-890e-e70aa7cd72d4.png', price:42000, cat:'traditional'}
 };
 /* 상품명으로 카탈로그 항목 찾기 (완전 일치 → 접두 일치) */
 function findGiftByName(name) {
