@@ -1520,8 +1520,9 @@ footer{background:#111;padding:60px 40px 36px}
    - 섹션 좌우 패딩 축소
    - 카드형 그리드 → 세로 2열 그리드 (한눈에 보기, 가로 스와이프 제거)
 ═══════════════════════════════════════════════════════════════ */
+@media(max-width:768px){#intro{display:none!important}}
 @media(max-width:600px){
-  #intro,#wizard,#clients,#b2b,#events,footer,#result-section,#compare-section{padding-left:18px;padding-right:18px}
+  #wizard,#clients,#b2b,#events,footer,#result-section,#compare-section{padding-left:18px;padding-right:18px}
   .container{padding:0 18px}
   .pconf-wrap{padding:0 18px}
   .sec-title{font-size:clamp(22px,7vw,30px)}
