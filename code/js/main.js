@@ -445,7 +445,7 @@ var giftCatalog = {
   g19:{n:'코렐 디너웨어 6인 세트', d:'내구성 강한 식기 세트 · 리빙·홈', img:'images/hf_20260616_004430_85e6ec99-fd3b-44a5-9c26-edc7857694ce.png', price:99000, cat:'living'},
   g20:{n:'쿠첸 미니 전기밥솥 선물세트', d:'1인 가구를 위한 미니 밥솥 · 리빙·홈', img:'images/hf_20260616_010108_3df6ef2c-c8fb-41c7-a898-5dda7740541f.png', price:119000, cat:'living'},
   g21:{n:'설화수 자음 2종 세트', d:'프리미엄 한방 스킨케어 · 뷰티·스킨케어', img:'images/hf_20260616_010057_b399d905-0584-457f-b21f-bba04c18ba84.png', price:135000, cat:'beauty'},
-  g22:{n:'헤라 블랙 쿠션 기프트 세트', d:'베스트셀러 쿠션 기프트 · 뷰티·스킨케어', img:'images/placeholder.png', price:98000, cat:'beauty'},
+  g22:{n:'헤라 블랙 쿠션 기프트 세트', d:'베스트셀러 쿠션 기프트 · 뷰티·스킨케어', img:'images/hf_20260616_010932_afa8f93d-9a6b-412d-adbf-9d1f3fea7b9b.png', price:98000, cat:'beauty'},
   g23:{n:'이니스프리 그린티 스킨케어 3종 세트', d:'대표 그린티 스킨케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:45000, cat:'beauty'},
   g24:{n:'닥터지 더마 모이스처 기프트 세트', d:'더마 모이스처 케어 · 뷰티·스킨케어', img:'images/placeholder.png', price:58000, cat:'beauty'},
   g25:{n:'MLB 캠퍼스 백팩', d:'캐주얼 브랜드 백팩 · 패션·잡화', img:'images/placeholder.png', price:89000, cat:'fashion'},
